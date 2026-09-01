@@ -13,6 +13,7 @@ interface ApprovalGateModalProps {
   policyEvaluation?: PolicyEvaluation;
   integrity?: DocumentIntegrity;
   isLoading?: boolean;
+  error?: string | null;
 }
 
 export function ApprovalGateModal({
@@ -24,6 +25,7 @@ export function ApprovalGateModal({
   policyEvaluation,
   integrity,
   isLoading,
+  error,
 }: ApprovalGateModalProps) {
   const [reviewerName, setReviewerName] = useState("Sarah Jenkins");
   const [reviewerEmail, setReviewerEmail] = useState("s.jenkins@enterprise.corp");
@@ -56,6 +58,13 @@ export function ApprovalGateModal({
             </div>
           </div>
         </div>
+
+        {error && (
+          <div className="p-3 rounded-lg bg-rose-950/60 border border-rose-800 text-rose-300 font-mono text-xs flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />
+            <span>{error}</span>
+          </div>
+        )}
 
         {/* Contract Verification Summary Card */}
         <div className="p-4 rounded-lg bg-[#141414] border border-[#262626] space-y-3 font-mono text-xs">

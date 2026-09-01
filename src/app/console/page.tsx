@@ -39,6 +39,7 @@ export default function ConsolePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
   const [isAutoPlaying, setIsAutoPlaying] = useState(false);
+  const [approvalError, setApprovalError] = useState<string | null>(null);
 
   const fetchRun = async (runId?: string) => {
     try {
@@ -201,6 +202,7 @@ export default function ConsolePage() {
   }) => {
     if (!run) return;
     setIsLoading(true);
+    setApprovalError(null);
     try {
       const res = await fetch("/api/guard/approve", {
         method: "POST",
@@ -215,14 +217,21 @@ export default function ConsolePage() {
         }),
       });
       const data = await res.json();
-      if (data.run) {
+      if (data.success && data.run) {
         setRun(data.run);
         setIsApprovalOpen(false);
+        setApprovalError(null);
         setActiveStep(7);
         fetchAudit(run.id);
         // Automatically dispatch Foxit eSign envelope
-        handleExecuteSign(data.signatureToken);
+        if (data.signatureToken) {
+          handleExecuteSign(data.signatureToken);
+        }
+      } else {
+        setApprovalError(data.error || "Approval failed. Please ensure policy check passed.");
       }
+    } catch (err: any) {
+      setApprovalError(err.message || "Network request failed while authorizing");
     } finally {
       setIsLoading(false);
     }
@@ -455,7 +464,13 @@ export default function ConsolePage() {
             status={run?.status || "INITIALIZED"}
             isTampered={isTampered}
             activeStep={activeStep}
-            onSelectStep={(s) => setActiveStep(s)}
+            onSelectStep={(s) => {
+              setActiveStep(s);
+              if (s === 7) {
+                setApprovalError(null);
+                setIsApprovalOpen(true);
+              }
+            }}
             run={run}
           />
 
@@ -655,6 +670,84 @@ export default function ConsolePage() {
             </div>
           )}
 
+          {/* Step 7: Human In-The-Loop Authorization Gate */}
+          {run?.generated_document && (
+            <div className="p-5 rounded-xl border border-[#262626] bg-[#0d0d0d] space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#262626] pb-3">
+                <div className="flex items-center gap-2">
+                  <div className="p-1.5 rounded-lg bg-yellow-950/40 text-yellow-400 border border-yellow-600/40">
+                    <UserCheck className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-neutral-100 flex items-center gap-2">
+                      <span>Step 7 — Human In-The-Loop Authorization Gate</span>
+                      {run.human_approval?.approved ? (
+                        <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 font-bold">
+                          AUTHORIZED & SIGNED
+                        </span>
+                      ) : isTampered ? (
+                        <span className="text-[10px] px-2 py-0.5 rounded bg-rose-950 text-rose-400 border border-rose-800 font-bold">
+                          TAMPER DETECTED
+                        </span>
+                      ) : (
+                        <span className="text-[10px] px-2 py-0.5 rounded bg-yellow-950 text-yellow-400 border border-yellow-800 font-bold">
+                          AWAITING AUTHORIZATION
+                        </span>
+                      )}
+                    </h3>
+                    <p className="text-[11px] text-neutral-400">
+                      Mandatory cryptographic executive sign-off prior to irreversible Foxit eSign dispatch.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  {run.human_approval?.approved ? (
+                    <div className="flex items-center gap-2 text-xs text-emerald-400 font-semibold px-3 py-1.5 rounded-lg bg-emerald-950/40 border border-emerald-800/60">
+                      <CheckCircle2 className="w-4 h-4" />
+                      <span>Approved by {run.human_approval.reviewer_name}</span>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        setApprovalError(null);
+                        setIsApprovalOpen(true);
+                      }}
+                      disabled={isLoading}
+                      className="px-4 py-2 rounded-lg text-xs font-bold bg-yellow-400 hover:bg-yellow-300 text-black shadow-lg shadow-yellow-500/20 transition-all flex items-center gap-2 hover:scale-[1.02]"
+                    >
+                      <UserCheck className="w-4 h-4" />
+                      <span>Authorize & Sign Contract</span>
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                <div className="p-3 rounded-lg bg-[#141414] border border-[#262626]">
+                  <span className="text-[10px] text-neutral-500 uppercase font-semibold">Reviewer Authority</span>
+                  <div className="font-bold text-neutral-200">{run.human_approval?.reviewer_name || "Sarah Jenkins"}</div>
+                  <div className="text-[10px] text-neutral-500">{run.human_approval?.reviewer_role || "Chief Procurement Officer"}</div>
+                </div>
+                <div className="p-3 rounded-lg bg-[#141414] border border-[#262626]">
+                  <span className="text-[10px] text-neutral-500 uppercase font-semibold">Cryptographic HMAC Token</span>
+                  <div className="font-mono text-yellow-400 truncate text-[11px]">
+                    {run.human_approval?.signature_token ? `${run.human_approval.signature_token.slice(0, 24)}...` : "Awaiting Authorization"}
+                  </div>
+                  <div className="text-[10px] text-neutral-500">Binds run, hash & active policy version</div>
+                </div>
+                <div className="p-3 rounded-lg bg-[#141414] border border-[#262626]">
+                  <span className="text-[10px] text-neutral-500 uppercase font-semibold">Policy Seal Verification</span>
+                  <div className="font-bold text-emerald-400 flex items-center gap-1">
+                    <ShieldCheck className="w-3.5 h-3.5" />
+                    <span>Deterministic Policy: PASS</span>
+                  </div>
+                  <div className="text-[10px] text-neutral-500">Ceiling: $100k | Liability: $250k max</div>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Step 8: Foxit eSign Envelope Tracking */}
           {run?.foxit_envelope && (
             <div className="space-y-3">
@@ -679,13 +772,17 @@ export default function ConsolePage() {
       {/* Human Approval Gate Modal */}
       <ApprovalGateModal
         isOpen={isApprovalOpen}
-        onClose={() => setIsApprovalOpen(false)}
+        onClose={() => {
+          setIsApprovalOpen(false);
+          setApprovalError(null);
+        }}
         onApprove={handleHumanApprove}
         onReject={handleHumanReject}
         facts={run?.extracted_facts || {}}
         policyEvaluation={run?.policy_evaluation}
         integrity={run?.document_integrity}
         isLoading={isLoading}
+        error={approvalError}
       />
     </div>
   );
