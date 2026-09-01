@@ -6,6 +6,7 @@
 
 *AI agents can propose, analyze, and negotiate. They must NEVER cross organizational policy boundaries autonomously.*
 
+[![Live Production](https://img.shields.io/badge/Production-Live%20on%20Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://sovereignguard-ten.vercel.app)
 [![Next.js](https://img.shields.io/badge/Next.js-14.2-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
@@ -21,7 +22,7 @@
 
 ---
 
-### [Interactive Defense Console](#quick-start) • [Live Execution Evidence](#live-execution-evidence) • [Architecture](#technical-architecture) • [Sponsor Matrix](#sponsor-technology-integrations) • [Security Model](#cryptographic-security--anti-tamper-defense) • [Quick Start](#quick-start)
+### [Live Production Demo (Vercel)](https://sovereignguard-ten.vercel.app/console) • [Live Execution Evidence](#live-execution-evidence) • [Architecture](#technical-architecture) • [Sponsor Matrix](#sponsor-technology-integrations) • [Security Model](#cryptographic-security--anti-tamper-defense) • [Quick Start](#quick-start)
 
 ---
 
