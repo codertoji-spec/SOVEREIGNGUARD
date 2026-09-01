@@ -68,24 +68,20 @@ SovereignGuard enforces a non-negotiable architectural invariant:
 
 ```mermaid
 flowchart TD
-    classDef sponsor fill:#18181b,stroke:#eab308,stroke-width:2px,color:#fafafa;
-    classDef core fill:#09090b,stroke:#22c55e,stroke-width:2px,color:#fafafa;
-    classDef gate fill:#09090b,stroke:#ef4444,stroke-width:2px,color:#fafafa;
-
-    A["Autonomous AI Agent (Procurement Intent)"] --> B["Document Fact Extraction<br/><b>Nutrient Cloud API</b>"]:::sponsor
-    B --> C["External Market Grounding<br/><b>SerpApi Google Search</b>"]:::sponsor
-    C --> D["Deterministic Policy Firewall<br/><b>6 Hard Invariant Checks</b>"]:::core
+    A["Autonomous AI Agent (Procurement Intent)"] --> B["Document Fact Extraction (Nutrient Cloud API)"]
+    B --> C["External Market Grounding (SerpApi Search API)"]
+    C --> D["Deterministic Policy Firewall (6 Invariant Checks)"]
     
-    D -->|FAIL| E["Instant Block & Policy Alert"]:::gate
-    D -->|PASS| F["Deterministic Document Creation<br/><b>Doctavian Cloud API</b>"]:::sponsor
+    D -->|FAIL| E["Instant Block and Security Alert"]
+    D -->|PASS| F["Deterministic Document Creation (Doctavian Cloud API)"]
     
-    F --> G["Cryptographic State Binding<br/><b>Canonical SHA-256 Seal</b>"]:::core
-    G --> H["Human Authorization Gate<br/><b>HMAC-SHA256 Executive Token</b>"]:::gate
+    F --> G["Cryptographic State Binding (Canonical SHA-256 Seal)"]
+    G --> H["Human Authorization Gate (HMAC-SHA256 Token)"]
     
-    H -->|TAMPER DETECTED| I["Boundary Lock: Hash Mismatch"]:::gate
-    H -->|VERIFIED SIGNATURE| J["Electronic Signature Envelope<br/><b>Foxit eSign Cloud API</b>"]:::sponsor
+    H -->|TAMPER DETECTED| I["Boundary Lock: Hash Mismatch"]
+    H -->|VERIFIED SIGNATURE| J["Electronic Signature Envelope (Foxit eSign API)"]
     
-    J --> K["SIGNED & SEALED<br/><b>Immutable Audit Ledger</b>"]:::core
+    J --> K["SIGNED AND SEALED (Immutable Audit Ledger)"]
 ```
 
 ---
