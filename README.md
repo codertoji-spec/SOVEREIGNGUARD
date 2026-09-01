@@ -15,13 +15,13 @@
 <br />
 
 ```
- PROPOSING & ANALYZING IS AUTONOMOUS.
- CONTRACTUAL & FINANCIAL EXECUTION IS DETERMINISTIC.
+   PROPOSING & ANALYZING IS AUTONOMOUS.
+   CONTRACTUAL & FINANCIAL EXECUTION IS DETERMINISTIC.
 ```
 
 ---
 
-### [Interactive Defense Console](http://localhost:3000/console) • [Architecture](#technical-architecture) • [Sponsor Integrations](#sponsor-technology-integrations) • [Security Model](#cryptographic-security--anti-tamper-defense) • [Quick Start](#quick-start)
+### [Interactive Defense Console](#quick-start) • [Live Execution Evidence](#live-execution-evidence) • [Architecture](#technical-architecture) • [Sponsor Matrix](#sponsor-technology-integrations) • [Security Model](#cryptographic-security--anti-tamper-defense) • [Quick Start](#quick-start)
 
 ---
 
@@ -29,42 +29,37 @@
 
 <br />
 
+## Why SovereignGuard?
+
+Autonomous procurement agents powered by large language models are increasingly capable of analyzing vendor proposals, conducting negotiations, and drafting legal agreements. However, granting an AI agent direct authority to execute contracts introduces unacceptable organizational risk.
+
+```
+TRADITIONAL DANGEROUS PATTERN:
+AI Agent ────────► Autonomous Execution (NO GOVERNANCE)
+
+SOVEREIGNGUARD GOVERNED PATTERN:
+AI Agent ────────► Evidence Grounding ────────► Policy Firewall ────────► Human Authorization ────────► eSign Execution
+(Proposal)         (Nutrient + SerpApi)        (Deterministic)          (Cryptographic HMAC)           (Foxit eSign)
+```
+
+SovereignGuard introduces a fundamental separation of concerns:
+- **Probabilistic AI Reasoning**: Proposing terms, summarizing documents, and preparing drafts.
+- **Deterministic Governance**: Code-level policy verification, cryptographic state binding, and human-in-the-loop authorization.
+
+---
+
 ## The Problem
 
-Autonomous AI procurement agents (powered by LLMs like Gemini, Claude, or GPT-4) are increasingly deployed to evaluate vendor proposals, negotiate terms, draft agreements, and commit company capital.
-
-However, **LLMs are fundamentally probabilistic reasoning engines**:
-- They hallucinate terms and misinterpret liability clauses.
-- They are vulnerable to prompt injection and adversarial manipulation.
-- They cannot be trusted to self-police their own organizational boundaries.
-
-```
- THE DANGEROUS PATTERN
- [ Autonomous AI Agent ] ──────────────────────► [ Irreversible Execution ]
- (NO GOVERNANCE) (eSign / Wire Transfer)
-```
-
-Allowing an autonomous agent to directly trigger document generation or electronic signing creates catastrophic legal, compliance, and financial liability.
+Large Language Models (LLMs) are statistical text prediction systems. In an autonomous enterprise procurement workflow:
+1. **LLMs Hallucinate & Misinterpret**: An agent may overlook uncapped liability clauses, miscalculate aggregate commitments, or accept unfavorable indemnity waivers.
+2. **LLMs Are Vulnerable to Adversarial Attacks**: Prompt injection inside vendor proposals or malicious context modification can persuade an agent to bypass guidelines.
+3. **LLMs Cannot Police Themselves**: Asking an LLM to "verify whether it followed the rules" is an architectural anti-pattern. Policy enforcement must exist outside the agent runtime.
 
 ---
 
 ## The Solution
 
-**SovereignGuard** is an authorization firewall and governance layer that sits strictly between autonomous AI procurement agents and real-world contractual execution.
-
-```
- THE SOVEREIGNGUARD PATTERN
- [ AI Agent ] ──► [ Evidence & Market ] ──► [ Deterministic Policy ] ──► [ Human HMAC Gate ] ──► [ Foxit eSign ]
- (Propose) (Grounding) (Fail-Closed) (Authorization) (Execution)
-```
-
-SovereignGuard enforces a non-negotiable architectural invariant:
-> **AI CAN PROPOSE. AI CAN ANALYZE. AI CAN PREPARE.**
-> **AI CANNOT BYPASS THE AUTHORIZATION BOUNDARY.**
-
----
-
-## Core Workflow & Architecture
+**SovereignGuard** is a dedicated authorization gateway and governance layer that sits strictly between autonomous procurement agents and real-world execution endpoints.
 
 ```mermaid
 flowchart TD
@@ -84,43 +79,71 @@ flowchart TD
     J --> K["SIGNED AND SEALED (Immutable Audit Ledger)"]
 ```
 
+SovereignGuard enforces a core security invariant:
+> **AI CAN PROPOSE. AI CAN ANALYZE. AI CAN PREPARE.**
+> **AI CANNOT BYPASS THE AUTHORIZATION BOUNDARY.**
+
+---
+
+## Live Execution Evidence
+
+The table below reflects verifiable output from an end-to-end live demonstration run against official sponsor APIs:
+
+| Governance Layer | Provider / Subsystem | Integration Mode | Demonstration Result / Live Artifact |
+| :--- | :--- | :---: | :--- |
+| **Document Extraction** | **Nutrient** | `LIVE` | Extracted 6 structured contract facts (`vendor_name`, `contract_value`, `term_months`, `liability_cap`, `sla_uptime`, `termination_notice`) with page coordinate citations. |
+| **Market Intelligence** | **SerpApi** | `LIVE` | Retrieved real-time Google search snippets for external pricing sanity check (reported range: $100–$9,100/yr for benchmark sources; classified as pricing anomaly signal vs. $87,000 quote). |
+| **Contract Compilation** | **Doctavian** | `LIVE` | Generated enterprise SaaS contract via official API; returned live Document ID: `d518c64e-b92b-437e-b77b-eb5f69f2865d`. |
+| **State Integrity** | **Cryptographic Engine** | `VERIFIED` | Sealed canonical contract content with SHA-256 digest: `DE335DF53D5900339B442F64841C0620BC05983C385022DF83536DE23E86B655`. |
+| **Human Authorization** | **HMAC Gate** | `APPROVED` | Executive sign-off verified via cryptographically signed HMAC-SHA256 authorization token binding document hash, policy version, and approver identity. |
+| **eSign Execution** | **Foxit eSign** | `LIVE` | Dispatched signing envelope `FXT-LIVE-80359709` (Status: `SENT`, Recipient: `SIGNED`, Digital Audit Certificate: `CERT-FXT-4336F9547FC767E7`). |
+| **Audit Ledger** | **SovereignGuard Store** | `VERIFIED` | Immutable chronological audit trail anchored to final state `SIGNED_AND_SEALED`. |
+
+*Note: Specific IDs, hashes, and envelope numbers above represent sample live demonstration artifacts generated during pipeline execution.*
+
 ---
 
 ## Sponsor Technology Integrations
 
-Every sponsor technology in SovereignGuard solves an authentic, architectural requirement in the procurement governance lifecycle:
+Each sponsor technology fulfills a distinct, necessary architectural function in the governance lifecycle:
 
-| Sponsor | Layer in Governance Stack | Integration Role | Live Mode Verified Endpoint | Truthful Fallback |
+| Sponsor | Architecture Layer | Role in Governance Pipeline | Verified Live Endpoint | Truthful Fallback Architecture |
 | :--- | :--- | :--- | :--- | :--- |
-| **Nutrient** | **Document Extraction** | Extracts structured contractual facts & page bounding coordinates from vendor PDF proposals. | `https://api.nutrient.io/extraction/parse` | High-fidelity Acme Cloud 12-page proposal fixture with coordinate citations. |
-| **SerpApi** | **Market Grounding** | Queries real-time Google search indices to verify pricing sanity against external benchmarks. | `https://serpapi.com/search.json` | Deterministic offline market cache ($82,000–$92,000 benchmark). |
-| **Doctavian** | **Contract Compilation** | Generates canonical, template-bound contracts from deterministic policy parameters. | `https://demo.api.doctavian.com/v1/documents/document/create` | Local deterministic template compiler with SHA-256 seal. |
-| **Foxit eSign** | **Legal Execution** | Dispatches legally binding eSign envelopes and binds certified audit certificates. | `https://na1.fusion.foxit.com/document-generation/api/GenerateDocumentBase64` | Certified Foxit envelope simulator with digital audit certificate. |
+| **Nutrient** | **Document Extraction** | Parses incoming vendor PDF proposals into verified, structured contract facts with exact page coordinate evidence. | `https://api.nutrient.io/extraction/parse` | High-fidelity Acme Cloud 12-page proposal fixture with coordinate citations. |
+| **SerpApi** | **Market Grounding** | Queries public search indices for independent pricing sanity checks and anomaly detection. | `https://serpapi.com/search.json` | Deterministic offline market cache ($82,000–$92,000 benchmark). |
+| **Doctavian** | **Contract Compilation** | Compiles template-bound legal contracts deterministically from approved facts, generating clean text for cryptographic hashing. | `https://demo.api.doctavian.com/v1/documents/document/create` | Local deterministic template compiler with SHA-256 seal. |
+| **Foxit eSign** | **Legal Execution** | Dispatches legally binding electronic signature envelopes with tamper-evident digital audit certificates. | `https://na1.fusion.foxit.com/document-generation/api/GenerateDocumentBase64` | Certified Foxit envelope simulator with digital audit certificate. |
 
-### Authentic Live Integration Proof
+### Technical Implementation Details
 
-- **Nutrient (`src/lib/adapters/nutrient.ts`)**: Parses live PDF streams into 6 normalized facts (`contract_value`, `liability_cap`, `sla_uptime`, `term_months`, `vendor_name`, `jurisdiction`) with exact page citations (e.g. Page 2, Page 7).
-- **SerpApi (`src/lib/adapters/serpapi.ts`)**: Normalizes organic search snippets, compares vendor quotes against market median ($95,000 / yr), and computes price variance (-8.4%) as an independent negotiation sanity signal.
-- **Doctavian (`src/lib/adapters/doctavian.ts`)**: Authenticates with OAuth Bearer token + `x-api-key`, invoking `POST /v1/documents/document/create` to return live `documentGuid` and `operationId`.
-- **Foxit eSign (`src/lib/adapters/foxit.ts`)**: Connects via OAuth client credentials to compile certified signing envelopes (`FXT-LIVE-...`) with complete audit trails.
+- **Nutrient Adapter (`src/lib/adapters/nutrient.ts`)**: Ingests vendor proposal documents, extracting 6 core facts:
+  1. `vendor_name`: "Acme Cloud Services LLC"
+  2. `contract_value`: $87,000.00
+  3. `term_months`: 12 months
+  4. `liability_cap`: $200,000.00
+  5. `sla_uptime`: 99.9%
+  6. `termination_notice`: 30 days
+- **SerpApi Adapter (`src/lib/adapters/serpapi.ts`)**: Queries Google search results to identify public pricing references. Evaluates pricing variance as an **independent negotiation sanity signal**. *Note: Public web search results often reflect heterogeneous consumer or seat-based tiers rather than custom enterprise infrastructure agreements; SerpApi acts as an advisory sanity check, not definitive proof of fair market value.*
+- **Doctavian Adapter (`src/lib/adapters/doctavian.ts`)**: Authenticates via OAuth Bearer token and API key, calling `POST /v1/documents/document/create` with canonical contract variables and delivery parameters. Returns live `documentGuid` and `operationId`.
+- **Foxit eSign Adapter (`src/lib/adapters/foxit.ts`)**: Integrates with Foxit's document generation and envelope API to assemble signing packages, bind recipient metadata, and produce certified audit certificates.
 
-> **Truthful State Guarantee:** SovereignGuard's UI displays emerald `LIVE` badges **only** when external API calls return `200 OK`. If credentials are absent or external networks fail, the engine falls back gracefully and marks the execution as `DEMO MODE` with the explicit failure reason.
+> **Truthful State Guarantee:** SovereignGuard's UI displays `LIVE` status badges **only** when external API requests succeed with HTTP 200. If credentials are unset or external networks fail, the engine records the explicit failure reason and falls back gracefully to `DEMO MODE`.
 
 ---
 
-## Deterministic Invariant Policy Firewall
+## Deterministic Policy Firewall
 
-The AI agent does **not** decide if a contract is permissible. A deterministic, code-level policy engine evaluates hard organizational invariants:
+SovereignGuard ensures that contractual boundaries are evaluated by deterministic code rather than LLM inference.
 
 ```
 [ AI Agent Proposal: Acme Cloud Services LLC | Value: $87,000 | Liability: $200,000 | SLA: 99.9% ]
 ```
 
-| Policy Invariant | Rule Definition | Vendor Proposal | Boundary Ceiling / Floor | Engine Verdict |
+| Policy Invariant | Rule Definition | Evaluated Proposal Value | Hard Boundary Ceiling / Floor | Engine Verdict |
 | :--- | :--- | :---: | :---: | :---: |
-| **`MAX_CONTRACT_VALUE`** | Annual spend ceiling | **$87,000** | $100,000 max | <span style="color:#22c55e; font-weight:bold;">PASS</span> |
-| **`MAX_LIABILITY_CAP`** | Maximum enterprise risk exposure | **$200,000** | $250,000 max | <span style="color:#22c55e; font-weight:bold;">PASS</span> |
-| **`MIN_SLA_UPTIME`** | Mission-critical uptime floor | **99.9%** | 99.9% min | <span style="color:#22c55e; font-weight:bold;">PASS</span> |
+| **`MAX_CONTRACT_VALUE`** | Annual spend commitment ceiling | **$87,000** | $100,000 max | <span style="color:#22c55e; font-weight:bold;">PASS</span> |
+| **`MAX_LIABILITY_CAP`** | Maximum risk exposure limit | **$200,000** | $250,000 max | <span style="color:#22c55e; font-weight:bold;">PASS</span> |
+| **`MIN_SLA_UPTIME`** | Service availability requirement | **99.9%** | 99.9% min | <span style="color:#22c55e; font-weight:bold;">PASS</span> |
 | **`MAX_TERM_MONTHS`** | Maximum commitment duration | **12 mos** | 12 mos max | <span style="color:#22c55e; font-weight:bold;">PASS</span> |
 | **`APPROVED_VENDOR_LIST`**| Verified vendor registry check | **Acme Cloud** | Approved Vendor Database | <span style="color:#22c55e; font-weight:bold;">PASS</span> |
 | **`BLOCKED_CLAUSES`** | Prohibited legal clause scan | **0 clauses** | 0 Blocked Clauses Allowed | <span style="color:#22c55e; font-weight:bold;">PASS</span> |
@@ -128,9 +151,9 @@ The AI agent does **not** decide if a contract is permissible. A deterministic, 
 ```typescript
 // Deterministic Fail-Closed Evaluation (src/lib/policy/engine.ts)
 export function evaluatePolicy(facts: Record<string, ContractFact>, rules: PolicyRule[]): PolicyEvaluationResult {
- const checks = rules.map(rule => evaluateRule(rule, facts));
- const isAllowed = checks.every(c => c.passed);
- return { is_allowed: isAllowed, checks, timestamp: new Date().toISOString() };
+  const checks = rules.map(rule => evaluateRule(rule, facts));
+  const isAllowed = checks.every(c => c.passed);
+  return { is_allowed: isAllowed, checks, timestamp: new Date().toISOString() };
 }
 ```
 
@@ -138,61 +161,62 @@ export function evaluatePolicy(facts: Record<string, ContractFact>, rules: Polic
 
 ## Cryptographic Security & Anti-Tamper Defense
 
-SovereignGuard protects the integrity of the procurement pipeline using three cryptographic layers:
+SovereignGuard enforces a 3-stage cryptographic chain to prevent unauthorized modifications between approval and signing:
 
 ```
-[ Canonical Document ] ──► [ SHA-256 Hash ] ──► [ HMAC-SHA256 Token ] ──► [ Live Pre-Sign Verify ]
+[ Canonical Contract Text ] ──► [ SHA-256 Digest ] ──► [ HMAC-SHA256 Token ] ──► [ Server Pre-Sign Verify ]
 ```
 
-1. **Deterministic Canonical Seal**: The contract document text is normalized and sealed with a SHA-256 digest (`AE39723BFCA41415...`).
-2. **HMAC-SHA256 Human Authorization Token**: When an executive approves the contract, SovereignGuard generates a cryptographic authorization token binding:
- - `run_id` + `document_hash` + `policy_version` + `approver_id` + `expires_at`
-3. **Live Pre-Signing Verification (`/api/guard/sign`)**: Before dispatching to Foxit eSign, the server recomputes the document hash and validates the HMAC signature.
+1. **Deterministic Document Hashing**: Contract text generated by Doctavian is converted to canonical form and hashed via SHA-256.
+2. **HMAC-SHA256 Human Authorization Token**: When an executive signs off, the server issues a cryptographically signed authorization token binding:
+   - `approval_id`: Unique identifier for the review action
+   - `run_id`: Associated procurement run ID
+   - `contract_id`: Target document identifier
+   - `contract_version`: Integer document version
+   - `document_hash`: Canonical SHA-256 hash of approved content
+   - `policy_version`: Version string of the active policy engine
+   - `approved_by`: Reviewer name, email, and role
+   - `expires_at`: Strict expiration timestamp (default: 15 minutes)
+3. **Server-Side Invariant Enforcement (`POST /api/guard/sign`)**: Before invoking Foxit eSign, the server executes 10 fail-closed verification checks:
+   - Run must be in `HUMAN_APPROVED` state.
+   - Policy evaluation must be in `PASS` state.
+   - HMAC authorization signature must be valid and unexpired.
+   - Recomputed live SHA-256 hash of current contract must match the token's `document_hash` bit-for-bit.
 
-### Adversarial Tamper Attack Defense (Live Simulation)
+---
 
-If a compromised or rogue AI agent attempts to alter terms after human approval (e.g., injecting a **$5,000,000 liability clause**):
+## Adversarial Tamper Demonstration
+
+To demonstrate fail-closed protection, SovereignGuard includes a simulated adversarial attack endpoint (`POST /api/guard/tamper`):
 
 ```
- TAMPER ATTACK BLOCKED
- [ Rogue Agent Modification ] ──► [ Pre-Signing Hash Verification ] ──► SECURITY INCIDENT
- Liability: $5,000,000 Expected: AE39723BFCA4... (Signing Blocked)
- Actual: 9F4D18C61E82... (Run Hard-Locked)
+                                  TAMPER ATTACK BLOCKED
+   [ Rogue Modification ] ──────► [ Pre-Signing Verification ] ──────► SECURITY INCIDENT
+   Liability: $200k -> $5,000,000   Expected Hash: DE335DF53D59...      - Signing Blocked
+                                    Actual Hash:   7A19F80B42E1...      - Run Hard-Locked
+                                                                        - Audit Event Logged
 ```
 
-SovereignGuard detects the SHA-256 hash mismatch, aborts execution instantly, and locks the run with a permanent tamper alert in the audit ledger.
+### Attack Scenario:
+1. An AI agent obtains valid human approval for an $87,000 contract with a **$200,000 liability cap**.
+2. Prior to signature dispatch, an unauthorized modification alters Section 8.2 to **$5,000,000 liability** (a 25x increase exceeding organizational policy).
+3. The server immediately catches the SHA-256 hash mismatch and policy limit violation upon signing invocation.
+4. **Result**: Execution is aborted, the run is hard-locked to `BLOCKED`, and a critical incident is logged in the audit ledger.
 
 ---
 
 ## End-to-End Demonstration Walkthrough
 
-Experience the full 8-step lifecycle in under 60 seconds on the **Interactive Defense Console** (`/console`):
+The complete procurement lifecycle can be stepped through on the **Interactive Defense Console** (`/console`):
 
-```
- [ STEP 1 ] AI PROCUREMENT REQUEST
- Agent proposes $87,000/yr Acme Cloud SaaS Agreement (Ceiling: $100k).
- ↓
- [ STEP 2 ] NUTRIENT FACT EXTRACTION
- Extracts 6 contract facts with coordinate citations from proposal PDF.
- ↓
- [ STEP 3 ] SERPAPI MARKET GROUNDING
- Validates price against live Google search benchmark ($95k market median).
- ↓
- [ STEP 4 ] DETERMINISTIC POLICY EVALUATION
- Evaluates 6 policy invariants in code. Result: ALL PASS.
- ↓
- [ STEP 5 ] DOCTAVIAN DOCUMENT COMPILATION & SEAL
- Creates official contract document via Doctavian API + SHA-256 integrity seal.
- ↓
- [ STEP 6 ] HUMAN-IN-THE-LOOP AUTHORIZATION
- Executive reviews grounded facts and issues HMAC-SHA256 approval token.
- ↓
- [ STEP 7 ] FOXIT eSIGN ENVELOPE DISPATCH
- Foxit creates live envelope FXT-LIVE-80290306 with certified digital audit trail.
- ↓
- [ STEP 8 ] ADVERSARIAL TAMPER ATTACK TEST
- Simulates $5M liability injection attack -> Instantly detected & blocked.
-```
+1. **Step 1 — Autonomous Intent**: Agent initiates procurement request for Acme Cloud enterprise SaaS ($87,000/yr).
+2. **Step 2 — Nutrient Fact Extraction**: Ingests proposal PDF and extracts 6 structured facts with page coordinate citations.
+3. **Step 3 — SerpApi Market Grounding**: Fetches external search pricing data as an independent sanity check.
+4. **Step 4 — Deterministic Policy Evaluation**: Evaluates 6 code-level rules against hard organizational boundaries (Result: PASS).
+5. **Step 5 — Doctavian Contract Compilation**: Compiles canonical agreement and computes the SHA-256 integrity seal.
+6. **Step 6 — Human Authorization Gate**: Executive inspects grounded evidence and generates an HMAC-SHA256 approval token.
+7. **Step 7 — Foxit eSign Dispatch**: Server verifies hash and HMAC signature, then dispatches live signing envelope with certified audit certificate.
+8. **Step 8 — Adversarial Tamper Defense**: Simulates $5,000,000 liability injection to demonstrate instant boundary trip and fail-closed lockdown.
 
 ---
 
@@ -201,50 +225,50 @@ Experience the full 8-step lifecycle in under 60 seconds on the **Interactive De
 ```
 SOVEREIGNGUARD REPOSITORY STRUCTURE
 ├── src/
-│ ├── app/ # Next.js 14 App Router
-│ │ ├── api/guard/ # Server-Side Governance API Endpoints
-│ │ │ ├── extract/route.ts # Nutrient Fact Extraction
-│ │ │ ├── verify-market/route.ts# SerpApi Market Intelligence
-│ │ │ ├── evaluate/route.ts # Invariant Policy Engine
-│ │ │ ├── generate-doc/route.ts # Doctavian Document Generator
-│ │ │ ├── approve/route.ts # HMAC-SHA256 Authorization Gate
-│ │ │ ├── sign/route.ts # Foxit eSign Execution Boundary
-│ │ │ ├── tamper/route.ts # Adversarial Attack Simulator
-│ │ │ └── integrations/route.ts # Live Sponsor Status Diagnostic
-│ │ ├── console/page.tsx # Real-time Defense Console UI
-│ │ ├── evidence/page.tsx # Document Fact & Coordinate Inspector
-│ │ ├── policies/page.tsx # Active Invariant Policy Matrix
-│ │ ├── integrations/page.tsx # 4-Sponsor Health & Connection Center
-│ │ └── audit/page.tsx # Cryptographic Audit Ledger
-│ ├── components/ # Black & Gold Security UI Components
-│ ├── lib/
-│ │ ├── adapters/ # Sponsor SDK & REST API Connectors
-│ │ │ ├── nutrient.ts # Nutrient Extraction Adapter
-│ │ │ ├── serpapi.ts # SerpApi Search Adapter
-│ │ │ ├── doctavian.ts # Doctavian Cloud Adapter
-│ │ │ └── foxit.ts # Foxit eSign Adapter
-│ │ ├── crypto/integrity.ts # HMAC-SHA256 & SHA-256 Integrity Engine
-│ │ ├── db/store.ts # In-Memory Run Store & Audit Ledger
-│ │ └── policy/engine.ts # Deterministic Policy Evaluator
-│ └── types/guard.ts # Strict TypeScript Type Definitions
-└── tests/ # Comprehensive Automated Test Suite
- ├── adapters.test.ts # Truthful LIVE/DEMO Adapter Tests
- ├── security-invariants.test.ts # Fail-Closed Security & Attack Tests
- └── e2e-demo-flow.test.ts # End-to-End Pipeline Verification
+│   ├── app/                          # Next.js 14 App Router
+│   │   ├── api/guard/                # Server-Side Governance API Endpoints
+│   │   │   ├── extract/route.ts      # Nutrient Fact Extraction Endpoint
+│   │   │   ├── verify-market/route.ts# SerpApi Market Search Endpoint
+│   │   │   ├── evaluate/route.ts     # Invariant Policy Evaluation Endpoint
+│   │   │   ├── generate-doc/route.ts # Doctavian Document Generator Endpoint
+│   │   │   ├── approve/route.ts      # HMAC-SHA256 Human Approval Endpoint
+│   │   │   ├── sign/route.ts         # Foxit eSign Execution Boundary
+│   │   │   ├── tamper/route.ts       # Adversarial Tamper Simulator Endpoint
+│   │   │   └── integrations/route.ts # Live Sponsor Diagnostics Endpoint
+│   │   ├── console/page.tsx          # Interactive Defense Console UI
+│   │   ├── evidence/page.tsx         # Document Fact & Coordinate Inspector
+│   │   ├── policies/page.tsx         # Active Invariant Policy Matrix UI
+│   │   ├── integrations/page.tsx     # 4-Sponsor Health & Connection Hub
+│   │   └── audit/page.tsx            # Cryptographic Audit Ledger UI
+│   ├── components/                   # Security Console UI Components
+│   ├── lib/
+│   │   ├── adapters/                 # Sponsor SDK & REST API Connectors
+│   │   │   ├── nutrient.ts           # Nutrient Document Extraction Adapter
+│   │   │   ├── serpapi.ts            # SerpApi Market Intelligence Adapter
+│   │   │   ├── doctavian.ts          # Doctavian Cloud Adapter
+│   │   │   └── foxit.ts              # Foxit eSign Envelope Adapter
+│   │   ├── crypto/integrity.ts       # HMAC-SHA256 & SHA-256 Integrity Engine
+│   │   ├── db/store.ts               # In-Memory Run Store & Tamper-Evident Ledger
+│   │   └── policy/engine.ts          # Deterministic Invariant Policy Evaluator
+│   └── types/guard.ts                # Strict TypeScript Type Definitions
+└── tests/                            # Automated Vitest Test Suite (34 Tests)
+    ├── adapters.test.ts              # Truthful LIVE vs. DEMO Adapter Tests
+    ├── security-invariants.test.ts   # Fail-Closed Security & Attack Tests
+    └── e2e-demo-flow.test.ts         # End-to-End Pipeline Verification Tests
 ```
 
 ---
 
 ## Tech Stack
 
-| Component | Technology | Rationale |
-| :--- | :--- | :--- |
-| **Framework** | **Next.js 14 (App Router)** | Full-stack React framework with zero-cold-start API route execution. |
-| **Language** | **TypeScript 5.7** | Strict type safety across all contract facts, policies, and sponsor responses. |
-| **Styling** | **Tailwind CSS 3.4** | High-contrast Black + Yellow security console theme for enterprise clarity. |
-| **Cryptography** | **Node.js Crypto** | Timing-safe HMAC-SHA256 token verification and SHA-256 state hashing. |
-| **Testing** | **Vitest 2.1** | Fast test runner verifying all 34 security invariants and fallback paths. |
-| **Validation** | **Zod 3.24** | Runtime schema enforcement on incoming API payloads and approval tokens. |
+| Layer | Technology | Version | Purpose in Architecture |
+| :--- | :--- | :---: | :--- |
+| **Application Framework** | **Next.js (App Router)** | `14.2.24` | Full-stack React architecture with server-side API route execution. |
+| **Language** | **TypeScript** | `5.7.3` | Strict end-to-end type safety across facts, policies, and sponsor responses. |
+| **Styling** | **Tailwind CSS** | `3.4.17` | High-contrast Black + Yellow security console theme. |
+| **Cryptography** | **Node.js Crypto** | Native | Server-side HMAC-SHA256 token signing and SHA-256 document hashing. |
+| **Schema Validation** | **Zod** | `3.24.2` | Runtime payload validation for API routes and approval tokens. |
+| **Testing Suite** | **Vitest** | `2.1.8` | Automated test suite verifying 34 security invariants and fallback paths. |
 
 ---
 
@@ -252,7 +276,7 @@ SOVEREIGNGUARD REPOSITORY STRUCTURE
 
 ### Prerequisites
 - Node.js 18.x or 20.x+
-- npm or pnpm
+- npm
 
 ### 1. Clone & Install
 ```bash
@@ -267,21 +291,21 @@ Copy `.env.example` to `.env`:
 cp .env.example .env
 ```
 
-Edit `.env` with your API credentials (or run out-of-the-box in deterministic demo mode):
+Populate credentials to enable live sponsor integrations (or leave blank to run out-of-the-box in deterministic demo mode):
 ```env
-# Sponsor 1: Nutrient
+# Sponsor 1: Nutrient (Document Fact Extraction)
 NUTRIENT_API_KEY=your_nutrient_api_key
 NUTRIENT_ENDPOINT=https://api.nutrient.io/extraction/parse
 
-# Sponsor 2: SerpApi
+# Sponsor 2: SerpApi (Market Pricing Grounding)
 SERPAPI_API_KEY=your_serpapi_api_key
 
-# Sponsor 3: Doctavian
+# Sponsor 3: Doctavian (Contract Compilation)
 DOCTAVIAN_API_KEY=your_doctavian_api_key
 DOCTAVIAN_BEARER_TOKEN=your_doctavian_oauth_bearer_token
 DOCTAVIAN_ENDPOINT=https://demo.api.doctavian.com
 
-# Sponsor 4: Foxit eSign
+# Sponsor 4: Foxit eSign (Electronic Signature Boundary)
 FOXIT_CLIENT_ID=your_foxit_client_id
 FOXIT_CLIENT_SECRET=your_foxit_client_secret
 FOXIT_ENDPOINT=https://na1.fusion.foxit.com/document-generation/api/GenerateDocumentBase64
@@ -291,46 +315,46 @@ FOXIT_ENDPOINT=https://na1.fusion.foxit.com/document-generation/api/GenerateDocu
 ```bash
 npm test
 ```
-*Output: All 34 security, adapter, and pipeline invariant tests pass.*
+*Runs all 34 test cases covering adapter fallback logic, policy invariants, and HMAC token verification.*
 
-### 4. Start Local Development Server
+### 4. Start Development Server
 ```bash
 npm run dev
 ```
-Open **[http://localhost:3000/console](http://localhost:3000/console)** in your browser.
+Open **http://localhost:3000/console** in your local browser.
 
 ---
 
-## Key Security Boundaries & Guarantees
+## Key Security Boundaries
 
-1. **Fail-Closed Default**: If an external API is unreachable, a token is expired, or a hash mismatches, execution is refused immediately.
-2. **Separation of Evidence vs. Authorization**: Market search data from SerpApi is treated strictly as an informational signal—never as automatic authority to execute.
-3. **No Secret Leakage**: All keys and tokens are stored server-side in `.env` and excluded via `.gitignore`.
-4. **Zero Client-Side Signing**: Signature envelopes are generated and dispatched exclusively by server-side endpoints after verifying HMAC tokens and live document hashes.
+1. **Fail-Closed Default**: Any missing credential, expired HMAC token, policy violation, or hash divergence halts execution immediately.
+2. **Separation of Evidence vs. Authorization**: Market search intelligence from SerpApi is strictly informational; it cannot authorize an out-of-policy transaction.
+3. **Protected Server Secrets**: Secret keys and OAuth bearer tokens remain exclusively on the server runtime and are excluded via `.gitignore`.
+4. **No Client-Side Signature Authority**: Foxit signing requests can only be initiated server-side after completing all cryptographic invariant checks.
 
 ---
 
 ## Limitations & Honest Scope
 
-- **Heterogeneous Market Intelligence**: External search data from SerpApi provides market sanity signals, but enterprise licensing agreements often include customized tier discounts not visible in public web search results.
-- **Single-Tenant Demo Memory Store**: The prototype currently uses an in-memory run store (`src/lib/db/store.ts`) for rapid demonstration; enterprise production deployments would back this with PostgreSQL / DynamoDB.
-- **Static Invariant Rules**: Policy rules are configured programmatically in `src/lib/policy/engine.ts`. A production version would feature dynamic policy authoring via enterprise RBAC.
+- **In-Memory Prototype Storage**: The current implementation utilizes an in-memory store (`src/lib/db/store.ts`) suitable for demonstration and local testing; production deployments would replace this with PostgreSQL or DynamoDB.
+- **Heterogeneous Public Search Data**: Web search results for enterprise SaaS products often capture entry-level or seat pricing rather than complex annual enterprise agreements; market search data serves as an advisory sanity check rather than definitive pricing truth.
+- **Static Invariant Configuration**: Policy thresholds are currently defined programmatically in `src/lib/policy/engine.ts`; enterprise production would introduce dynamic policy authoring via enterprise RBAC.
 
 ---
 
 ## Roadmap
 
-- [ ] **Multi-Party Approval Quorums**: Require $M$-of-$N$ human executive HMAC signatures for contracts exceeding $500,000.
-- [ ] **Dynamic Policy Engine UI**: Live visual rule builder with policy change audit versioning.
-- [ ] **Multi-Agent Negotiation Audit**: Real-time trajectory tracing for competing autonomous buyer/seller agents.
-- [ ] **Enterprise IdP & SAML/OIDC Integration**: Binding human approval tokens to Okta / Azure AD identity providers.
+- [ ] **Multi-Party Approval Quorums**: Require $M$-of-$N$ executive HMAC signatures for high-value contracts (e.g. > $500,000).
+- [ ] **Dynamic Policy Management UI**: Visual rule builder with version-controlled policy change audit trails.
+- [ ] **Multi-Agent Negotiation Telemetry**: Structured event tracing for interacting buyer and seller AI agents.
+- [ ] **Enterprise Identity Integration**: Binding human approval tokens directly to SAML/OIDC identity providers (Okta, Azure AD).
 
 ---
 
 <div align="center">
 
-**Built with precision for the Hackathon Challenge.**
+**Built for the Hackathon Challenge.**
 
-*SovereignGuard: Bringing deterministic governance to autonomous AI systems.*
+*SovereignGuard: Bringing deterministic governance to autonomous AI procurement.*
 
 </div>
