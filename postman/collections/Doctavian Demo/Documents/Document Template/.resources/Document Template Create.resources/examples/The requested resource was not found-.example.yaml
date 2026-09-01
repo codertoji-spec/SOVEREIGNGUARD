@@ -1,0 +1,27 @@
+$kind: http-example
+name: The requested resource was not found.
+request:
+  url: "{{baseUrl}}/v1/documents/template/create"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "name": "Standard Invoice",
+        "description": "Company standard invoice layout.",
+        "title": "Invoice",
+        "urn": "9f86d081-884c-4d30-8934-9c1e6cbcb9f5",
+        "url": "https://storage.example.com/templates/invoice-standard.docx",
+        "fileFormat": "docx",
+        "loadMethod": "Storage",
+        "path": "templates/invoice-standard.docx"
+      }
+response:
+  statusCode: 404
+  statusText: Not Found
+  body:
+    type: text
+    content: ""
+order: 4000

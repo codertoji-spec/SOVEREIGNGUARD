@@ -1,0 +1,15 @@
+$kind: http-request
+description: |-
+  Opens a sent envelope as a recipient to view or sign documents.<br />
+  * The envelope is identified using the <strong>transactionId</strong> (tid) query parameter, which can be obtained from the <strong>GET /signatures/envelope/list</strong> endpoint. tid is effectively required even for a logged-in caller, because the server always resolves a transaction token as part of authorization on this operation.
+url: "{{baseUrl}}/v1/signatures/envelope/open"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: tid
+    value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+    disabled: true
+    description: Transaction token identifying a specific recipient+envelope pair. Required for anonymous/recipient access (no Authorization header, or the header doesn't resolve to the envelope owner).
+examples: ./.resources/Envelope Open.resources/examples
+order: 17000

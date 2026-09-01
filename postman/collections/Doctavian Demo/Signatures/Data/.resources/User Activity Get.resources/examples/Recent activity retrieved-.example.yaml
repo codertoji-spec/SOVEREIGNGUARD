@@ -1,0 +1,55 @@
+$kind: http-example
+name: Recent activity retrieved.
+request:
+  url: "{{baseUrl}}/v1/signatures/user/activity/get"
+  method: GET
+  headers:
+    Accept: application/json
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "statusCode": 200,
+          "message": "OK",
+          "data": {
+            "activityItems": [
+              {
+                "auditTrailId": "string",
+                "action": "string",
+                "timestamp": "string",
+                "transactionTokenId": "string",
+                "actor": {
+                  "name": "string",
+                  "email": "string",
+                  "role": "string"
+                },
+                "envelope": {
+                  "id": "string",
+                  "subject": "string",
+                  "status": "string",
+                  "creatorName": "string",
+                  "sendDate": "string"
+                }
+              }
+            ],
+            "comments": [
+              {
+                "documentName": "string",
+                "envelopeSubject": "string",
+                "createdAt": "string",
+                "authorName": "string",
+                "envelopeId": "string"
+              }
+            ]
+          }
+        },
+        "origin": "string",
+        "dateTime": "string"
+      }
+order: 1000

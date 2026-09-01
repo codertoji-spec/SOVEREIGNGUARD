@@ -1,0 +1,33 @@
+$kind: http-example
+name: Document solution configuration deleted successfully.
+request:
+  url: "{{baseUrl}}/v1/documents/configuration/:documentSolutionConfigurationGuid/delete"
+  method: DELETE
+  headers:
+    Accept: application/json
+  pathVariables:
+    - key: documentSolutionConfigurationGuid
+      value: a3bb189e-8bf9-3888-9912-ace4e6543002
+      description: (Required) GUID of the document solution configuration to delete.
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "data": {
+            "documentSolutionConfigurationGuid": "a3bb189e-8bf9-3888-9912-ace4e6543002",
+            "message": "DocumentSolutionConfiguration deleted successfully."
+          },
+          "statusCode": 200,
+          "message": "OK"
+        },
+        "origin": "https://app.example.com",
+        "dateTime": "2026-07-14T09:30:00.0000000+00:00",
+        "operationId": "0HN7GK9M4T2R5"
+      }
+order: 1000

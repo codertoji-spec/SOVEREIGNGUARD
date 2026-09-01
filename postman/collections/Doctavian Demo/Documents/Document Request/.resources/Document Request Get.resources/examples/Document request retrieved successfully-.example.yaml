@@ -1,0 +1,67 @@
+$kind: http-example
+name: Document request retrieved successfully.
+request:
+  url: "{{baseUrl}}/v1/documents/request/:documentRequestGuid/get"
+  method: GET
+  headers:
+    Accept: application/json
+  pathVariables:
+    - key: documentRequestGuid
+      value: 6ba7b810-9dad-11d1-80b4-00c04fd430c8
+      description: (Required) GUID of the document request.
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "data": {
+            "documentRequest": {
+              "documentRequestGuid": "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+              "subscriptionGuid": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+              "documentTemplateGuid": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
+              "dataGuid": "3f2504e0-4f89-41d3-9a0c-0305e82c3301",
+              "documentGuid": "",
+              "documentSolutionConfigurationGuid": "a3bb189e-8bf9-3888-9912-ace4e6543002",
+              "ownerGuid": "1a2b3c4d-5e6f-4a1b-8c2d-3e4f5a6b7c8d",
+              "lastModifiedUserGuid": "1a2b3c4d-5e6f-4a1b-8c2d-3e4f5a6b7c8d",
+              "recordId": "INV-2026-000123",
+              "name": "Invoice run - Contoso July",
+              "status": "Pending",
+              "embeddedData": "{\"invoiceNumber\":\"INV-2026-000123\"}",
+              "title": "Invoice INV-2026-000123",
+              "fileFormat": "pdf",
+              "processingType": "STANDARD",
+              "deliveryMethod": "Email",
+              "path": "output/invoices/",
+              "pdfConformanceLevel": "PdfA2B",
+              "pdfVersion": "2026-01-07",
+              "language": "en",
+              "locale": "en-US",
+              "timeZone": "America/New_York",
+              "viewAnonymous": false,
+              "editAnonymous": false,
+              "viewOrganization": true,
+              "editOrganization": false,
+              "viewUser": true,
+              "editUser": false,
+              "viewUserEmailList": "alice@example.com,bob@example.com",
+              "editUserEmailList": "carol@example.com",
+              "createdDate": "2026-07-14T09:30:00.0000000+00:00",
+              "completedDate": "",
+              "lastModifiedDate": "2026-07-14T09:30:00.0000000+00:00",
+              "isDeleted": false
+            }
+          },
+          "statusCode": 200,
+          "message": "OK"
+        },
+        "origin": "https://app.example.com",
+        "dateTime": "2026-07-14T09:30:00.0000000+00:00",
+        "operationId": "0HN7GK9M4T2R5"
+      }
+order: 1000

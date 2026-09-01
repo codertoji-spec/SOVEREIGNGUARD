@@ -1,0 +1,60 @@
+$kind: http-example
+name: Document(s) uploaded. Returns a storage id per file, usable in downstream document/signature operations.
+request:
+  url: "{{baseUrl}}/v1/documents/document/upload"
+  method: POST
+  headers:
+    - key: X-Service-Authorization
+      value: ""
+      description: Service-to-service auth token, used as an alternative to `Authorization` for service-principal callers.
+    - key: X-Client-Authorization
+      value: ""
+      description: Client auth token, used as an alternative to `Authorization` for client-application callers.
+    - key: X-OAuth-Flow
+      value: string
+      disabled: true
+      description: Indicates which OAuth flow variant issued the Authorization token.
+    - key: X-Origin
+      value: https://app.mavenmule.com
+      disabled: true
+      description: Free-form caller-supplied origin identifier. Not validated; echoed back verbatim into the response envelope's origin field. Optional.
+    - key: X-Storage-Type
+      value: document-template
+      description: (Required) Selects which storage container handles the request. This operation expects the value `document-template`.
+    - key: Content-Type
+      value: multipart/form-data
+    - key: Accept
+      value: application/json
+  body:
+    type: formdata
+    content:
+      - type: text
+        key: file
+        value: ""
+        description: "(Required) One or more document files to upload. Accepted extensions: .docx, .xlsx, .doc, .xls (validated by filename extension, case-sensitively — an uppercase extension like .DOCX does not match). Order is preserved in the response."
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "data": {
+            "files": [
+              {
+                "id": "7c2f5a91-3e44-4b0d-a6f8-1b2c3d4e5f60",
+                "fileName": "quarterly-report.docx"
+              }
+            ]
+          },
+          "statusCode": 201,
+          "message": "Created"
+        },
+        "origin": "https://app.mavenmule.com",
+        "dateTime": "2026-07-14T09:32:15.0000000+00:00",
+        "operationId": "3a4b5c6d7e8f90112233445566778899"
+      }
+order: 1000

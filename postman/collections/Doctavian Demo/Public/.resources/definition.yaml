@@ -1,0 +1,11 @@
+$kind: collection
+scripts:
+  - type: http:beforeRequest
+    code: |-
+      const value = pm.variables.get('publicApiKey');
+      if (!value) {
+        console.error('Set the "publicApiKey" collection variable to your Public api key.');
+      }
+      pm.request.headers.upsert({ key: 'X-Api-Key', value: value || '' });
+    language: text/javascript
+order: 3000

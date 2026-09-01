@@ -1,0 +1,30 @@
+$kind: http-example
+name: Validation failed (e.g. missing required field or invalid enum value).
+request:
+  url: "{{baseUrl}}/v1/documents/datasource/create"
+  method: POST
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "name": "Q3 Sales Report Data",
+        "description": "Account records used for quarterly reports.",
+        "urn": "a4f8c9d2-6b3e-4f1a-9c7d-2e5b8a1f4d6c",
+        "loadMethod": "Storage"
+      }
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": "DATA_NAME_REQUIRED",
+        "message": "Name is required."
+      }
+order: 2000

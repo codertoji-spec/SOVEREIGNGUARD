@@ -1,0 +1,59 @@
+$kind: http-example
+name: "Form-data path: a file has an extension outside .docx/.doc/.pdf (INVALID_TEMPLATE_FORMAT — reuses the template error code, real backend behavior). Raw-body path: the Content-Type header isn't one of the 5 recognized document mime types, or the form was em"
+request:
+  url: "{{baseUrl}}/v1/signatures/document/upload"
+  method: POST
+  headers:
+    - key: X-Service-Authorization
+      value: ""
+      description: Service-to-service auth token, used as an alternative to `Authorization` for service-principal callers.
+    - key: X-Client-Authorization
+      value: ""
+      description: Client auth token, used as an alternative to `Authorization` for client-application callers.
+    - key: X-OAuth-Flow
+      value: string
+      disabled: true
+      description: Indicates which OAuth flow variant issued the Authorization token.
+    - key: X-Origin
+      value: https://app.mavenmule.com
+      disabled: true
+      description: Free-form caller-supplied origin identifier. Not validated; echoed back verbatim into the response envelope's origin field. Optional.
+    - key: X-Storage-Type
+      value: document-input
+      description: (Required) Selects which storage container/validation branch handles the request. This operation expects the value document-input. Not strictly enforced as a closed enum server-side.
+    - key: Content-Type
+      value: multipart/form-data
+    - key: Accept
+      value: application/json
+  body:
+    type: formdata
+    content:
+      - type: text
+        key: file
+        value: ""
+        description: "(Required) One or more signature documents to upload. Accepted extensions (form-data path only): .docx, .doc, .pdf. Order is preserved in the response."
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "error": {
+          "statusCode": 400,
+          "message": "Request must be multipart/form-data or a recognized document Content-Type.",
+          "innerErrors": [
+            {
+              "code": "FORM_DATA_EXPECTED",
+              "message": "Request must be multipart/form-data or a recognized document Content-Type.",
+              "userMessage": "Request must be multipart/form-data or a recognized document Content-Type."
+            }
+          ]
+        },
+        "origin": "https://app.mavenmule.com",
+        "dateTime": "2025-10-31T08:19:03.0000000+00:00",
+        "operationId": "a9733c420a9e6336ea36ed98f31"
+      }
+order: 2000

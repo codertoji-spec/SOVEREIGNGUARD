@@ -1,0 +1,7 @@
+$kind: http-request
+description: Check the current status of the envelope. The response includes the envelope status and the signing status of each recipient. Run this after both parties have signed to confirm the envelope has reached Completed status.
+url: "{{baseUrl}}/v1/signatures/envelope/{{mission2.envelopeId}}/get"
+method: GET
+headers:
+  X-Api-Key: "{{doctavianApiKey}}"
+order: 4000

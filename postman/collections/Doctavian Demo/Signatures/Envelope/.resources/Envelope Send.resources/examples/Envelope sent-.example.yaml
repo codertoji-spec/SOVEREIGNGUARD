@@ -1,0 +1,41 @@
+$kind: http-example
+name: Envelope sent.
+request:
+  url: "{{baseUrl}}/v1/signatures/envelope/:envelopeId/send"
+  method: GET
+  headers:
+    Accept: application/json
+  pathVariables:
+    - key: envelopeId
+      value: string
+      description: (Required) The unique identifier of the envelope that you want to send. This ID is returned when an envelope is initially created via the /signatures/envelope/create endpoint. It is used to reference the specific envelope containing documents, recipients, and fields that are ready to be dispatched for digital signing.
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "statusCode": 200,
+          "message": "OK",
+          "data": {
+            "envelope": {
+              "id": "string",
+              "message": "string"
+            }
+          }
+        },
+        "origin": "string",
+        "dateTime": "string",
+        "consumption": [
+          {
+            "dimension": "string",
+            "value": 0
+          }
+        ],
+        "userId": "string"
+      }
+order: 1000

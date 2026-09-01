@@ -1,0 +1,60 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/v1/common/summary?type=dashboard"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    - key: type
+      value: dashboard
+      description: (Required) Matched case-insensitively against `dashboard`/`self-service`. A missing or unrecognized value returns `INVALID_SUMMARY_TYPE` (400). (This can only be one of dashboard,self-service)
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "data": {
+            "todo": 3,
+            "pending": 1,
+            "inbox": 5,
+            "expiring": 0,
+            "completed": 42,
+            "recentEnvelopes": [
+              {
+                "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                "name": "NDA - Acme Corp",
+                "status": "Completed"
+              }
+            ],
+            "oldestTodoEnvelopes": [
+              {
+                "id": "5a2e7b10-8c3e-4a1a-9e3a-1f2b3c4d5e6f",
+                "name": "Vendor Agreement",
+                "sendDate": "2026-06-01T12:00:00.0000000+00:00",
+                "userName": "Jane Submitter",
+                "tid": "7c9e6679-7425-40de-944b-e07fc1f90ae7"
+              }
+            ],
+            "latestPendingEnvelopes": [
+              {
+                "id": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
+                "name": "Offer Letter",
+                "action": "Viewed",
+                "timestamp": "2026-07-01T12:00:00.0000000+00:00",
+                "person": "John Signer"
+              }
+            ]
+          },
+          "statusCode": 200,
+          "message": "OK"
+        },
+        "origin": "string",
+        "dateTime": "string",
+        "operationId": "string"
+      }
+order: 1000

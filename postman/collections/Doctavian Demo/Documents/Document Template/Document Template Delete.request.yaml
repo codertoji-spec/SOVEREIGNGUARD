@@ -1,0 +1,12 @@
+$kind: http-request
+description: Soft-deletes a document template by its GUID.
+url: "{{baseUrl}}/v1/documents/template/:documentTemplateGuid/delete"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: documentTemplateGuid
+    value: 7c9e6679-7425-40de-944b-e07fc1f90ae7
+    description: (Required) GUID of the document template to delete.
+examples: ./.resources/Document Template Delete.resources/examples
+order: 2000

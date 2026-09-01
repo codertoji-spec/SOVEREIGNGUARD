@@ -1,0 +1,88 @@
+$kind: http-request
+description: |-
+  Creates an envelope containing one or more documents, designated recipients, and signature fields.<br />
+  * Documents must first be uploaded via the Storage endpoint and linked to recipients using <strong>referenceDocumentId</strong> and <strong>referenceSignerId.</strong>
+  * Recipients are assigned roles (e.g., signer) and can be configured as mandatory or optional.
+  * Signature fields are positioned precisely within documents and can include optional styling.
+  * Envelope metadata includes:
+    * Email subject.
+    * Email message.
+    * Sender details.
+    * Signing order.
+    * Expiration settings.
+    * Reminders.
+    * Notification triggers for signature events.
+url: "{{baseUrl}}/v1/signatures/envelope/create"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: json
+  content: |-
+    {
+      "documents": [
+        {
+          "referenceDocumentId": 1,
+          "name": "Test Document Name",
+          "loadMethod": "Storage",
+          "urn": "{{uploadedDocument}}",
+          "externalContext": {
+            "id": "123"
+          }
+        }
+      ],
+      "recipients": [
+        {
+          "referenceSignerId": 1,
+          "name": "Test Example",
+          "email": "user@example.com",
+          "role": "signer",
+          "mandatory": true,
+          "externalContext": {
+            "id": "456"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "type": "text",
+          "isRequired": true,
+          "referenceSignerId": 1,
+          "referenceDocumentId": 1,
+          "positionX": 10,
+          "positionY": 10,
+          "height": 100,
+          "width": 100,
+          "page": 1,
+          "name": "mds_signature1",
+          "properties": {
+            "fontFamily": "Arial",
+            "fontSize": 13,
+            "color": "red",
+            "bold": true,
+            "italic": true,
+            "underline": true,
+            "textAlign": "center"
+          }
+        }
+      ],
+      "envelope": {
+        "subject": "Email Subject",
+        "message": "Email Message",
+        "senderName": "Sender Example",
+        "senderEmail": "sender@example.com",
+        "isSignOrder": false,
+        "expireInDays": 5,
+        "alertDaysBeforeExpiry": 5,
+        "firstReminderDays": 3,
+        "repeatingReminderDays": 2,
+        "notifyWhenOpened": true,
+        "notifyWhenSigned": true
+      },
+      "externalContext": {
+        "id": "789"
+      }
+    }
+examples: ./.resources/Envelope Create.resources/examples
+order: 9000

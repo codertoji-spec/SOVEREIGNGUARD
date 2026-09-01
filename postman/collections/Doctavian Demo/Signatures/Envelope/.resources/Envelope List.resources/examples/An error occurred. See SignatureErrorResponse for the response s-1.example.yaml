@@ -1,0 +1,60 @@
+$kind: http-example
+name: An error occurred. See SignatureErrorResponse for the response shape.
+request:
+  url: "{{baseUrl}}/v1/signatures/envelope/list"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    - key: sort
+      value: UploadDate
+      disabled: true
+      description: Column to sort by the results. (This can only be one of Subject,Recipients,Documents,Status,UploadDate,ExpireInDays)
+    - key: order
+      value: DESC
+      disabled: true
+      description: The direction of the sort. (This can only be one of ASC,DESC)
+    - key: folder
+      value: Waiting for Others
+      disabled: true
+      description: Specifies the envelope folder to query. (This can only be one of Inbox,Sent,Drafts,Deleted,Action Required,Expiring Soon,Waiting for Others,Completed)
+    - key: top
+      value: "100"
+      disabled: true
+      description: Max rows to return.
+    - key: skip
+      value: "0"
+      disabled: true
+      description: Rows to skip. Defaults to 0 if omitted or not a valid integer.
+    - key: orderby
+      value: string
+      disabled: true
+      description: Combined param, format "<column>|<ASC|DESC>" (literal pipe). Defaults to `UploadDate DESC` if omitted or not recognized.
+    - key: filter
+      value: string
+      disabled: true
+      description: 'URL-encoded JSON array of FilterInput objects. column/key values are interpolated into the underlying query with no allow-list. One entry with key="folder" selects a view: inbox, sent, drafts, trash, todo, expiring, pending, completed, or (default) everything owned by or recipient-of the caller.'
+response:
+  statusCode: 500
+  statusText: Internal Server Error
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "error": {
+          "message": "Envelope not found.",
+          "statusCode": 400,
+          "innerErrors": [
+            {
+              "code": "ENVELOPE_ID_INVALID",
+              "message": "Envelope not found.",
+              "userMessage": "Envelope not found."
+            }
+          ]
+        },
+        "origin": "POST https://apim-mavenheadless-dev-westeu-1.azure-api.net/v1/signatures/envelope/create",
+        "dateTime": "2026-07-20T12:00:00.0000000+00:00"
+      }
+order: 3000

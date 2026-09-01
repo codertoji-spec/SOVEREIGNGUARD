@@ -1,0 +1,10 @@
+$kind: http-request
+description: Token Proxy
+url: "{{baseUrl}}/public/v1/auth/:provider/token"
+method: POST
+pathVariables:
+  - key: provider
+    value: ""
+    description: "(Required) "
+examples: ./.resources/Token Proxy.resources/examples
+order: 2000

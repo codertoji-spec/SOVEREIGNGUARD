@@ -1,0 +1,59 @@
+$kind: http-example
+name: "A file has an extension outside .docx/.xlsx/.doc/.xls (INVALID_TEMPLATE_FORMAT), or the request was not multipart/form-data, or no file was supplied (FORM_DATA_EXPECTED — this container type has no JSON/raw-body alternative, so any non-form request lands "
+request:
+  url: "{{baseUrl}}/v1/documents/document/upload"
+  method: POST
+  headers:
+    - key: X-Service-Authorization
+      value: ""
+      description: Service-to-service auth token, used as an alternative to `Authorization` for service-principal callers.
+    - key: X-Client-Authorization
+      value: ""
+      description: Client auth token, used as an alternative to `Authorization` for client-application callers.
+    - key: X-OAuth-Flow
+      value: string
+      disabled: true
+      description: Indicates which OAuth flow variant issued the Authorization token.
+    - key: X-Origin
+      value: https://app.mavenmule.com
+      disabled: true
+      description: Free-form caller-supplied origin identifier. Not validated; echoed back verbatim into the response envelope's origin field. Optional.
+    - key: X-Storage-Type
+      value: document-template
+      description: (Required) Selects which storage container handles the request. This operation expects the value `document-template`.
+    - key: Content-Type
+      value: multipart/form-data
+    - key: Accept
+      value: application/json
+  body:
+    type: formdata
+    content:
+      - type: text
+        key: file
+        value: ""
+        description: "(Required) One or more document files to upload. Accepted extensions: .docx, .xlsx, .doc, .xls (validated by filename extension, case-sensitively — an uppercase extension like .DOCX does not match). Order is preserved in the response."
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "error": {
+          "statusCode": 400,
+          "message": "The file 'notes.pdf' has an unsupported format. Allowed: .docx,.xlsx,.doc,.xls",
+          "innerErrors": [
+            {
+              "code": "INVALID_TEMPLATE_FORMAT",
+              "message": "The file 'notes.pdf' has an unsupported format. Allowed: .docx,.xlsx,.doc,.xls",
+              "userMessage": "This document format isn't supported. Upload a .docx, .xlsx, .doc or .xls file."
+            }
+          ]
+        },
+        "origin": "https://app.mavenmule.com",
+        "dateTime": "2026-07-14T09:32:15.0000000+00:00",
+        "operationId": "3a4b5c6d7e8f90112233445566778899"
+      }
+order: 2000

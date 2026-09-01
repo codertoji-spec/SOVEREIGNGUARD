@@ -1,0 +1,131 @@
+$kind: http-example
+name: Envelope draft created.
+request:
+  url: "{{baseUrl}}/v1/signatures/envelope/create"
+  method: POST
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "documents": [
+          {
+            "referenceDocumentId": 1,
+            "name": "Test Document Name",
+            "loadMethod": "Storage",
+            "urn": "{{uploadedDocument}}",
+            "externalContext": {
+              "id": "123"
+            }
+          }
+        ],
+        "recipients": [
+          {
+            "referenceSignerId": 1,
+            "name": "Test Example",
+            "email": "user@example.com",
+            "role": "signer",
+            "mandatory": true,
+            "externalContext": {
+              "id": "456"
+            }
+          }
+        ],
+        "fields": [
+          {
+            "type": "text",
+            "isRequired": true,
+            "referenceSignerId": 1,
+            "referenceDocumentId": 1,
+            "positionX": 10,
+            "positionY": 10,
+            "height": 100,
+            "width": 100,
+            "page": 1,
+            "name": "mds_signature1",
+            "properties": {
+              "fontFamily": "Arial",
+              "fontSize": 13,
+              "color": "red",
+              "bold": true,
+              "italic": true,
+              "underline": true,
+              "textAlign": "center"
+            }
+          }
+        ],
+        "envelope": {
+          "subject": "Email Subject",
+          "message": "Email Message",
+          "senderName": "Sender Example",
+          "senderEmail": "sender@example.com",
+          "isSignOrder": false,
+          "expireInDays": 5,
+          "alertDaysBeforeExpiry": 5,
+          "firstReminderDays": 3,
+          "repeatingReminderDays": 2,
+          "notifyWhenOpened": true,
+          "notifyWhenSigned": true
+        },
+        "externalContext": {
+          "id": "789"
+        }
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "statusCode": 201,
+          "message": "Created",
+          "data": {
+            "envelope": {
+              "id": "string",
+              "uploadDate": "string",
+              "status": "string"
+            },
+            "documents": [
+              {
+                "id": "string",
+                "externalContext": {}
+              }
+            ],
+            "recipients": [
+              {
+                "id": "string",
+                "externalContext": {}
+              }
+            ],
+            "signGroups": [
+              {
+                "id": "string"
+              }
+            ],
+            "fields": [
+              {
+                "id": "string",
+                "recipientId": "string",
+                "signGroupId": "string",
+                "documentId": "string"
+              }
+            ]
+          }
+        },
+        "origin": "string",
+        "dateTime": "string",
+        "consumption": [
+          {
+            "dimension": "string",
+            "value": 0
+          }
+        ],
+        "externalContext": {}
+      }
+order: 1000

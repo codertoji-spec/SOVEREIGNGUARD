@@ -1,0 +1,8 @@
+$kind: http-request
+description: Returns the calling user's profile and membership details.
+url: "{{baseUrl}}/v1/common/user/get"
+method: GET
+headers:
+  Accept: application/json
+examples: ./.resources/Get the calling user's profile.resources/examples
+order: 6000

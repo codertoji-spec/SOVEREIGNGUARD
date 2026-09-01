@@ -1,0 +1,16 @@
+$kind: http-request
+description: |-
+  Resends a sent envelope to its recipients when the original email link has expired.<br />
+  * The envelope is identified using the <strong>transactionId</strong> (tid) query parameter, which can be obtained from the <strong>GET /signatures/envelope/list</strong> endpoint.
+  * This endpoint generates a new email notification containing a fresh, secure link for recipients to access the envelope. This operation only resends when the existing link has actually expired — if it hasn't, the server returns `LINK_NOT_EXPIRED` instead of resending.
+url: "{{baseUrl}}/v1/signatures/envelope/resend"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: tid
+    value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+    disabled: true
+    description: Transaction token identifying a specific recipient+envelope pair. Required for anonymous/recipient access (no Authorization header, or the header doesn't resolve to the envelope owner).
+examples: ./.resources/Envelope Resend.resources/examples
+order: 19000

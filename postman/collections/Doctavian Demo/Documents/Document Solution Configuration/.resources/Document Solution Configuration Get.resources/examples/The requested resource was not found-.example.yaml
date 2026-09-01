@@ -1,0 +1,16 @@
+$kind: http-example
+name: The requested resource was not found.
+request:
+  url: "{{baseUrl}}/v1/documents/configuration/:documentSolutionConfigurationGuid/get"
+  method: GET
+  pathVariables:
+    - key: documentSolutionConfigurationGuid
+      value: a3bb189e-8bf9-3888-9912-ace4e6543002
+      description: (Required) GUID of the document solution configuration.
+response:
+  statusCode: 404
+  statusText: Not Found
+  body:
+    type: text
+    content: ""
+order: 4000

@@ -1,0 +1,22 @@
+$kind: http-request
+description: |-
+  Retrieves metadata for a document included in an envelope in JSON format.<br />
+  * Use the <strong>documentId</strong> (a unique document URN) to reference the document that is included into an envelope.
+  * The request returns the document data in <strong>JSON</strong> format.
+  * The document can be identified by a unique <strong>transactionId</strong> (tid).
+  * Provide the <strong>tid</strong> as a query parameter. Covers both regular documents and pre-conversion "original" documents (union query) - externalContext is always null for the latter. A caller who can't see the document gets the same DOCUMENT_ID_INVALID as a nonexistent one; there is no separate access-denied response for this operation.
+url: "{{baseUrl}}/v1/signatures/document/:documentId/get"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: tid
+    value: string
+    disabled: true
+    description: This is a unique identifier associated with a specific recipient and envelope within a given transaction. It is used to securely validate that the user has the appropriate authorization to perform actions related to that transaction.
+pathVariables:
+  - key: documentId
+    value: string
+    description: (Required) The ID(URN) of the document that is included into an envelope.
+examples: ./.resources/Document Get.resources/examples
+order: 1000

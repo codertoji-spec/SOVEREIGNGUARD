@@ -1,0 +1,26 @@
+$kind: http-example
+name: Missing or invalid authentication token / subscription key.
+request:
+  url: "{{baseUrl}}/v1/documents/solution/:documentSolutionGuid/update"
+  method: PUT
+  headers:
+    Content-Type: application/json
+  pathVariables:
+    - key: documentSolutionGuid
+      value: d290f1ee-6c54-4b01-90e6-d701748f0851
+      description: (Required) GUID of the document solution to update.
+  body:
+    type: json
+    content: |-
+      {
+        "name": "Quarterly Invoice Package",
+        "description": "Bundles the invoice template with Q3 account data.",
+        "dataGuid": "3f2504e0-4f89-41d3-9a0c-0305e82c3301"
+      }
+response:
+  statusCode: 401
+  statusText: Unauthorized
+  body:
+    type: text
+    content: ""
+order: 3000

@@ -1,0 +1,16 @@
+$kind: http-request
+description: |-
+  Retrieves the audit trail for a specific envelope in JSON format.<br />
+  * The envelope is identified using the <strong>envelopeId</strong> path parameter.
+  * The JSON response contains a detailed log of all actions related to the envelope, including creation, sending, legal terms acceptance, receipt, and signing, performed by users or recipients.
+  * This endpoint tracks the envelope’s lifecycle, supporting transparency, compliance, and accountability in the document signing workflow. No tid/recipient access - authenticated envelope owner/participant only.
+url: "{{baseUrl}}/v1/signatures/envelope/:envelopeId/audit/get"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: envelopeId
+    value: string
+    description: (Required) The ID of the envelope where the attachment will be added.
+examples: ./.resources/Envelope Audit Log Get.resources/examples
+order: 2000

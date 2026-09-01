@@ -1,0 +1,33 @@
+$kind: http-example
+name: Data source deleted successfully.
+request:
+  url: "{{baseUrl}}/v1/documents/datasource/:dataSourceGuid/delete"
+  method: DELETE
+  headers:
+    Accept: application/json
+  pathVariables:
+    - key: dataSourceGuid
+      value: 3f2504e0-4f89-41d3-9a0c-0305e82c3301
+      description: (Required) GUID of the data source to delete.
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "data": {
+            "dataSourceGuid": "3f2504e0-4f89-41d3-9a0c-0305e82c3301",
+            "message": "Data source deleted successfully."
+          },
+          "statusCode": 200,
+          "message": "OK"
+        },
+        "origin": "https://app.example.com",
+        "dateTime": "2026-07-14T09:30:00.0000000+00:00",
+        "operationId": "0HN7GK9M4T2R5"
+      }
+order: 1000

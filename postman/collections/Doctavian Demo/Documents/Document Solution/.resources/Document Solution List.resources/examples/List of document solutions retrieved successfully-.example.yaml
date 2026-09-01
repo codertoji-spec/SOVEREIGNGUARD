@@ -1,0 +1,59 @@
+$kind: http-example
+name: List of document solutions retrieved successfully.
+request:
+  url: "{{baseUrl}}/v1/documents/solution/list"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    - key: top
+      value: "25"
+      disabled: true
+      description: Maximum number of records to return (page size).
+    - key: skip
+      value: "0"
+      disabled: true
+      description: Number of records to skip (page offset).
+    - key: orderby
+      value: Name|DESC
+      disabled: true
+      description: Sort clause in the form `Column|DIRECTION`, e.g. `Name|DESC`. The column and direction are separated by a pipe (`|`).
+    - key: filter
+      value: string
+      disabled: true
+      description: 'URL-encoded JSON array of filter clauses (see FilterDTO). Example (decoded): `[{"key":"Filter1","column":"Name","type":"string","condition":"CONTAINS","value":"Invoice"}]`.'
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "data": {
+            "documentSolutions": [
+              {
+                "documentSolutionGuid": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+                "subscriptionGuid": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+                "ownerGuid": "1a2b3c4d-5e6f-4a1b-8c2d-3e4f5a6b7c8d",
+                "lastModifiedUserGuid": "1a2b3c4d-5e6f-4a1b-8c2d-3e4f5a6b7c8d",
+                "dataGuid": "3f2504e0-4f89-41d3-9a0c-0305e82c3301",
+                "name": "Quarterly Invoice Package",
+                "description": "Bundles the invoice template with Q3 account data.",
+                "createdDate": "2026-07-14T09:30:00.0000000+00:00",
+                "lastModifiedDate": "2026-07-14T09:30:00.0000000+00:00",
+                "isDeleted": false
+              }
+            ],
+            "rowCount": 1
+          },
+          "statusCode": 200,
+          "message": "OK"
+        },
+        "origin": "https://app.example.com",
+        "dateTime": "2026-07-14T09:30:00.0000000+00:00",
+        "operationId": "0HN7GK9M4T2R5"
+      }
+order: 1000

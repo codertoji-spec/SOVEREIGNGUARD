@@ -1,0 +1,25 @@
+$kind: http-request
+description: |
+  Verifies the code sent as part of the multi-factor authentication (MFA) process.<br />
+  * Use this endpoint to confirm the authentication code received via phone or email.
+url: "{{baseUrl}}/v1/signatures/mfa/verify"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+queryParams:
+  - key: tid
+    value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+    disabled: true
+    description: Transaction token identifying a specific recipient+envelope pair. Required for anonymous/recipient access (no Authorization header, or the header doesn't resolve to the envelope owner).
+body:
+  type: json
+  content: |-
+    {
+      "recipient": {
+        "code": "string"
+      },
+      "externalContext": {}
+    }
+examples: ./.resources/MFA Verify.resources/examples
+order: 2000

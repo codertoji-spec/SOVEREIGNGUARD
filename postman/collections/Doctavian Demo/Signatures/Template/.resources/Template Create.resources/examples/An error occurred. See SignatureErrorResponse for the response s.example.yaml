@@ -1,0 +1,122 @@
+$kind: http-example
+name: An error occurred. See SignatureErrorResponse for the response shape.
+request:
+  url: "{{baseUrl}}/v1/signatures/template/create"
+  method: POST
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "documents": [
+          {
+            "referenceDocumentId": 0,
+            "name": "string",
+            "loadMethod": "string",
+            "urn": "string",
+            "externalContext": {}
+          }
+        ],
+        "fields": [
+          {
+            "referenceSignerId": 0,
+            "referenceSignGroupId": 0,
+            "referenceDocumentId": 0,
+            "name": "string",
+            "value": "string",
+            "type": "signature",
+            "anchorString": "string",
+            "page": 0,
+            "height": 0,
+            "width": 0,
+            "positionX": 0,
+            "positionY": 0,
+            "isRequired": true,
+            "tooltip": "string",
+            "properties": {
+              "fontFamily": "string",
+              "fontSize": 0,
+              "color": "string",
+              "bold": true,
+              "italic": true,
+              "underline": true,
+              "textAlign": "string",
+              "placeholder": "string",
+              "isSignedDate": true,
+              "selectionGroup": "string",
+              "selectionValue": "string"
+            }
+          }
+        ],
+        "recipients": [
+          {
+            "referenceSignerId": 0,
+            "referenceSignGroupId": 0,
+            "name": "string",
+            "email": "string",
+            "role": "signer",
+            "templateRole": "string",
+            "signOrder": 0,
+            "mandatory": true,
+            "hostEmail": "string",
+            "isMfaEnabled": true,
+            "phoneNumber": "string",
+            "externalContext": {}
+          }
+        ],
+        "signGroups": [
+          {
+            "referenceSignGroupId": 0,
+            "name": "string",
+            "role": "signer",
+            "signOrder": 0,
+            "mandatory": true,
+            "templateRole": "string"
+          }
+        ],
+        "template": {
+          "subject": "string",
+          "message": "string",
+          "senderName": "string",
+          "senderEmail": "string",
+          "isSignOrder": true,
+          "expireInDays": 0,
+          "alertDaysBeforeExpiry": 0,
+          "firstReminderDays": 0,
+          "repeatingReminderDays": 0,
+          "notifyWhenOpened": true,
+          "notifyWhenSigned": true,
+          "templateName": "string",
+          "templateDescription": "string",
+          "folderId": "string",
+          "locale": "string",
+          "timezone": "string"
+        },
+        "externalContext": {}
+      }
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "error": {
+          "message": "Envelope not found.",
+          "statusCode": 400,
+          "innerErrors": [
+            {
+              "code": "ENVELOPE_ID_INVALID",
+              "message": "Envelope not found.",
+              "userMessage": "Envelope not found."
+            }
+          ]
+        },
+        "origin": "POST https://apim-mavenheadless-dev-westeu-1.azure-api.net/v1/signatures/envelope/create",
+        "dateTime": "2026-07-20T12:00:00.0000000+00:00"
+      }
+order: 2000

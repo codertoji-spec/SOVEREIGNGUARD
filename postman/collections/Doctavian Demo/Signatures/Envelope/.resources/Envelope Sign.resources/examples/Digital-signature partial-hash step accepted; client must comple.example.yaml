@@ -1,0 +1,49 @@
+$kind: http-example
+name: Digital-signature partial-hash step accepted; client must complete the signing round trip.
+request:
+  url: "{{baseUrl}}/v1/signatures/envelope/sign"
+  method: POST
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  queryParams:
+    - key: tid
+      value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+      disabled: true
+      description: Transaction token identifying a specific recipient+envelope pair. Required for anonymous/recipient access (no Authorization header, or the header doesn't resolve to the envelope owner).
+  body:
+    type: json
+    content: |-
+      {
+        "externalContext": {
+          "id": "12345"
+        },
+        "fields": [
+          {
+            "id": "{{fieldId}}",
+            "value": "{{fieldValue}}"
+          }
+        ]
+      }
+response:
+  statusCode: 202
+  statusText: Accepted
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "statusCode": 202,
+          "message": "Accepted",
+          "data": {
+            "fields": [
+              {}
+            ]
+          }
+        },
+        "origin": "string",
+        "dateTime": "string"
+      }
+order: 2000

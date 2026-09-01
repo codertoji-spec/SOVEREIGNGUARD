@@ -1,0 +1,28 @@
+$kind: http-request
+description: |-
+  Edits an existing template's properties.<br />
+  * The template is identified using the <strong>templateId</strong> path parameter.
+  * Currently, this endpoint allows moving a template to a specific folder by providing the <strong>folderId</strong>.
+  * If <strong>folderId</strong> is provided as null, the template will be removed from its current folder and placed in the root directory. This operation ONLY changes the template's folder - it is not a general template edit (see template/{templateId}/update for that). No existence/ownership check runs before the update; a bad id, wrong owner, or non-existent folderId all collapse into the same TEMPLATE_EDIT_FAILED response.
+url: "{{baseUrl}}/v1/signatures/template/:templateId/edit"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: templateId
+    value: string
+    description: (Required) The unique identifier (GUID) of the template to be edited.
+body:
+  type: json
+  content: |-
+    {
+      "template": {
+        "folderId": "123e4567-e89b-12d3-a456-426614174000"
+      },
+      "externalContext": {
+        "id": "12345"
+      }
+    }
+examples: ./.resources/Template Edit.resources/examples
+order: 4000

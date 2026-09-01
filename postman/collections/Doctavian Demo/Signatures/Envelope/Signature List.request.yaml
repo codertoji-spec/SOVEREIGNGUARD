@@ -1,0 +1,13 @@
+$kind: http-request
+description: |-
+  Retrieves a list of all signatures associated with the authenticated user.<br />
+  * Each signature includes the following metadata:
+    * Unique ID
+    * Whether the signature is marked as default
+    * Base64-encoded image data Deliberately omits the signature value/data - use signature/{signatureId}/get to retrieve it.
+url: "{{baseUrl}}/v1/signatures/signature/list"
+method: GET
+headers:
+  Accept: application/json
+examples: ./.resources/Signature List.resources/examples
+order: 29000

@@ -1,0 +1,29 @@
+$kind: http-example
+name: Validation failed (e.g. missing required field or invalid enum value).
+request:
+  url: "{{baseUrl}}/v1/documents/solution/create"
+  method: POST
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "name": "Quarterly Invoice Package",
+        "description": "Bundles the invoice template with Q3 account data.",
+        "dataGuid": "3f2504e0-4f89-41d3-9a0c-0305e82c3301"
+      }
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": "DATA_NAME_REQUIRED",
+        "message": "Name is required."
+      }
+order: 2000

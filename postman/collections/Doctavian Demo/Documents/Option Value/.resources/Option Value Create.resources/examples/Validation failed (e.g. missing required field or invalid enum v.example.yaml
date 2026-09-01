@@ -1,0 +1,36 @@
+$kind: http-example
+name: Validation failed (e.g. missing required field or invalid enum value).
+request:
+  url: "{{baseUrl}}/v1/documents/option/:entityType/:entityId/create"
+  method: POST
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  pathVariables:
+    - key: entityType
+      value: DocumentSolutionConfiguration
+      description: (Required) Type of the owning entity, e.g. "DocumentSolutionConfiguration" or "DocumentTemplate".
+    - key: entityId
+      value: a3bb189e-8bf9-3888-9912-ace4e6543002
+      description: (Required) GUID of the owning entity.
+  body:
+    type: json
+    content: |-
+      {
+        "customKey": "watermark.text",
+        "customGroup": "rendering",
+        "value": "CONFIDENTIAL"
+      }
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": "OPTION_VALUE_MISSING_DEFINITION_OR_KEY",
+        "message": "Either optionDefinitionId or customKey must be supplied."
+      }
+order: 2000

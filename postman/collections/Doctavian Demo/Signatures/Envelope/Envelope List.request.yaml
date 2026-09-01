@@ -1,0 +1,60 @@
+$kind: http-request
+description: |-
+  Retrieves a list of all envelopes associated with the authenticated user, including those created/sent by the user and those where the user is a recipient.<br />
+  * Supports filtering, sorting, and pagination via query parameters to help developers query specific envelopes.
+  * <strong>Query Parameters:</strong>
+    * <strong>top </strong>(integer). Maximum number of envelopes to return (e.g., 25).
+    * <strong>skip </strong>(integer). Number of envelopes to skip in the sorted results (e.g., 0).
+    * <strong>sort </strong>(string). Column to sort by. Valid values: <i>Subject, Recipients, Documents, Status, UploadDate, ExpireInDays</i>.
+    * <strong>order </strong>(string). Sort direction. Valid values: <i>ASC, DESC.</i>
+    * <strong>folder </strong>(string). Folder to query. Valid values: <i>Inbox, Sent, Drafts, Deleted, Action Required, Expiring Soon, Waiting for Others, Completed</i>.
+    * <strong>filter </strong>(JSON array). List of filter objects to refine results. Each filter includes:
+      * <strong>column </strong>(string). Field to filter on (matches sort values).
+      * <strong>condition </strong>(string). Filter condition:
+        * For stringFilter: <i>EMPTY, NOT_EMPTY, CONTAINS, CONTAINS_CASE_SENSITIVE, DOES_NOT_CONTAIN, DOES_NOT_CONTAIN_CASE_SENSITIVE, STARTS_WITH, STARTS_WITH_CASE_SENSITIVE, ENDS_WITH, ENDS_WITH_CASE_SENSITIVE, EQUAL, EQUAL_CASE_SENSITIVE, NULL, NOT_NULL</i>.
+        * For dateFilter: <i>EQUAL, NOT_EQUAL, LESS_THAN, LESS_THAN_OR_EQUAL, GREATER_THAN, GREATER_THAN_OR_EQUAL, NULL, NOT_NULL</i>.
+      * <strong>value </strong>(string). Filter value:
+        * string for stringFilter.
+        * YYYY-MM-DD for dateFilter.
+      * <strong>type </strong>(string):
+        * Either stringFilter.
+        * dateFilter.
+      * <strong>key </strong>(string). Unique 12-character alphanumeric identifier for the filter.
+
+  Filter example:<br />
+  `envelope/list?$top=25&amp;$skip=0&amp;$sort=Subject&amp;$order=ASC&amp;$filter=[{"column":"status","condition":"CONTAINS","value":"Failed","type":"stringFilter","key":"6e2d9f910ad9"},{"column":"uploadDate","condition":"EQUAL","value":"2025-06-30","type":"dateFilter","key":"068d7e1baf7d"}]&amp;$folder=Inbox` Note: sort/order are documented here as two separate params for developer convenience, but the server actually reads a single combined orderby="<column>|<direction>" query parameter - see the orderby parameter description. The folder values below are read via a filter[] entry with key="folder", there is no separate folder= query parameter.
+url: "{{baseUrl}}/v1/signatures/envelope/list"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: sort
+    value: UploadDate
+    disabled: true
+    description: Column to sort by the results. (This can only be one of Subject,Recipients,Documents,Status,UploadDate,ExpireInDays)
+  - key: order
+    value: DESC
+    disabled: true
+    description: The direction of the sort. (This can only be one of ASC,DESC)
+  - key: folder
+    value: Waiting for Others
+    disabled: true
+    description: Specifies the envelope folder to query. (This can only be one of Inbox,Sent,Drafts,Deleted,Action Required,Expiring Soon,Waiting for Others,Completed)
+  - key: top
+    value: "100"
+    disabled: true
+    description: Max rows to return.
+  - key: skip
+    value: "0"
+    disabled: true
+    description: Rows to skip. Defaults to 0 if omitted or not a valid integer.
+  - key: orderby
+    value: string
+    disabled: true
+    description: Combined param, format "<column>|<ASC|DESC>" (literal pipe). Defaults to `UploadDate DESC` if omitted or not recognized.
+  - key: filter
+    value: string
+    disabled: true
+    description: 'URL-encoded JSON array of FilterInput objects. column/key values are interpolated into the underlying query with no allow-list. One entry with key="folder" selects a view: inbox, sent, drafts, trash, todo, expiring, pending, completed, or (default) everything owned by or recipient-of the caller.'
+examples: ./.resources/Envelope List.resources/examples
+order: 16000

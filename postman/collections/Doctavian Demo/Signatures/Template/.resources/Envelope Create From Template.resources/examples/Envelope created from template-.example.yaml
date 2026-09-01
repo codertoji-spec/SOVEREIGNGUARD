@@ -1,0 +1,80 @@
+$kind: http-example
+name: Envelope created from template.
+request:
+  url: "{{baseUrl}}/v1/signatures/template/:templateId/envelope/create"
+  method: POST
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  pathVariables:
+    - key: templateId
+      value: string
+      description: (Required) The ID of the template based on which the envelope is created.
+  body:
+    type: json
+    content: |-
+      {
+        "envelope": {
+          "subject": "TestPostman",
+          "message": ""
+        },
+        "message": {
+          "subject": "TestPostman",
+          "recipients": [
+            {
+              "templateRole": "Role1",
+              "name": "RomanK",
+              "email": "roman.khryshchanovich@mavenmule.com"
+            }
+          ]
+        },
+        "signGroups": []
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "statusCode": 201,
+          "message": "Created",
+          "data": {
+            "template": {
+              "id": "string",
+              "uploadDate": "string"
+            },
+            "documents": [
+              {
+                "id": "string",
+                "externalContext": {}
+              }
+            ],
+            "recipients": [
+              {
+                "id": "string",
+                "externalContext": {}
+              }
+            ],
+            "signGroups": [
+              {
+                "id": "string"
+              }
+            ],
+            "fields": [
+              {
+                "id": "string",
+                "recipientId": "string",
+                "signGroupId": "string",
+                "documentId": "string"
+              }
+            ]
+          }
+        },
+        "origin": "string",
+        "dateTime": "string"
+      }
+order: 1000

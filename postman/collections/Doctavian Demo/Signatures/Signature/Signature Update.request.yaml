@@ -1,0 +1,25 @@
+$kind: http-request
+description: |-
+  Updates an existing saved signature for a user.<br />
+  * The signature is identified using the <strong>signatureId</strong> path parameter.
+  * This endpoint allows updating the signature's properties, including the Base64-encoded image value and optionally setting it as the default signature for preselection during document signing.
+url: "{{baseUrl}}/v1/signatures/signature/:signatureId/update"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: signatureId
+    value: string
+    description: (Required) The ID of the signature that should be updated.
+body:
+  type: json
+  content: |-
+    {
+      "signature": {
+        "value": "data:image/png;base64,iVBORw0KGgo...",
+        "isDefault": false
+      }
+    }
+examples: ./.resources/Signature Update.resources/examples
+order: 5000

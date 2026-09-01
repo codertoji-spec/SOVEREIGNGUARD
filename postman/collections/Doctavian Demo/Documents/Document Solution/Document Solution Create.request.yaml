@@ -1,0 +1,17 @@
+$kind: http-request
+description: Creates a new document solution.
+url: "{{baseUrl}}/v1/documents/solution/create"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Quarterly Invoice Package",
+      "description": "Bundles the invoice template with Q3 account data.",
+      "dataGuid": "3f2504e0-4f89-41d3-9a0c-0305e82c3301"
+    }
+examples: ./.resources/Document Solution Create.resources/examples
+order: 1000

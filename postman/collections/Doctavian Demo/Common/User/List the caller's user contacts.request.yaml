@@ -1,0 +1,8 @@
+$kind: http-request
+description: Returns the caller's entire contact list in one response (no pagination, sorting, or filtering).
+url: "{{baseUrl}}/v1/common/user/contact/list"
+method: GET
+headers:
+  Accept: application/json
+examples: ./.resources/List the caller's user contacts.resources/examples
+order: 4000

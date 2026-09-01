@@ -1,0 +1,44 @@
+$kind: http-request
+description: "Uploads one or more attachments to a specific envelope (e.g. supporting files, contracts, or other materials providing context for digital signing). Form-data only — there is no JSON/raw-body alternative for this operation. No file-extension or content-type validation of any kind is performed by the backend — this is the widest-open upload operation in the group; any file type is accepted. Genuinely supports TWO alternate, mutually exclusive auth contracts (intentional dual-mode design, not a bug), identical in structure to the sibling download operation: (1) anonymous mode — a Guid-parseable tid query parameter is present, and no Authorization header is required; or (2) authenticated mode — no valid tid is supplied, so a real Authorization bearer token IS required, and the caller must be the envelope's creator or a signer on it. After upload, each file is assigned a unique id that can be referenced in processes like envelope creation. Max File Size: Production 20 MB, Staging 10 MB."
+url: "{{baseUrl}}/v1/signatures/envelope/:envelopeId/attachment/upload"
+method: POST
+headers:
+  - key: X-Service-Authorization
+    value: ""
+    description: Service-to-service auth token, used as an alternative to `Authorization` in authenticated mode.
+  - key: X-Client-Authorization
+    value: ""
+    description: Client auth token, used as an alternative to `Authorization` in authenticated mode.
+  - key: X-OAuth-Flow
+    value: string
+    disabled: true
+    description: Indicates which OAuth flow variant issued the Authorization token, in authenticated mode.
+  - key: X-Origin
+    value: https://app.mavenmule.com
+    disabled: true
+    description: Free-form caller-supplied origin identifier. Not validated; echoed back verbatim into the response envelope's origin field. Optional.
+  - key: X-Storage-Type
+    value: envelope-attachment
+    description: (Required) Container-type key for the uploaded attachment. Expected value is `envelope-attachment`.
+  - key: Content-Type
+    value: multipart/form-data
+  - key: Accept
+    value: application/json
+queryParams:
+  - key: tid
+    value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+    disabled: true
+    description: Transaction token identifying a specific recipient+envelope pair. When present and Guid-parseable, selects anonymous mode and no Authorization header is required. When absent or not Guid-parseable, authenticated mode applies and Authorization is required instead.
+pathVariables:
+  - key: envelopeId
+    value: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+    description: (Required) GUID of the envelope to attach the file(s) to.
+body:
+  type: formdata
+  content:
+    - type: text
+      key: file
+      value: ""
+      description: (Required) One or more attachment files to upload. No extension or content-type validation is performed — any file type is accepted. Order is preserved in the response.
+examples: ./.resources/Envelope Attachment Upload.resources/examples
+order: 3000

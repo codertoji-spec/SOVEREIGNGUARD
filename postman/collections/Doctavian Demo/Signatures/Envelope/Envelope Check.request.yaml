@@ -1,0 +1,16 @@
+$kind: http-request
+description: |-
+  Verifies whether all required actions to open an envelope have been completed.<br />
+  * The envelope is identified using the <strong>transactionId (tid)</strong> query parameter, typically obtained from the <strong>GET /signatures/envelope/list</strong> endpoint.
+  * The endpoint checks for completion of required actions, such as legal terms acceptance.
+url: "{{baseUrl}}/v1/signatures/envelope/check"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: tid
+    value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+    disabled: true
+    description: Transaction token identifying a specific recipient+envelope pair. Required for anonymous/recipient access (no Authorization header, or the header doesn't resolve to the envelope owner).
+examples: ./.resources/Envelope Check.resources/examples
+order: 7000

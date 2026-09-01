@@ -1,0 +1,12 @@
+$kind: http-request
+description: Deletes a user contact owned by the calling user. Returns success even if no matching contact existed.
+url: "{{baseUrl}}/v1/common/user/contact/:userContactId/delete"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: userContactId
+    value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+    description: (Required) GUID of the user contact. A non-GUID value returns a 400 with a different response shape than the standard error envelope.
+examples: ./.resources/Delete a user contact.resources/examples
+order: 2000

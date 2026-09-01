@@ -1,0 +1,3 @@
+$kind: collection
+description: "End-to-end walkthrough: create a Data Source, tie it to a Document Solution, upload a contract template and raw data file, then generate the final contract document."
+order: 5000

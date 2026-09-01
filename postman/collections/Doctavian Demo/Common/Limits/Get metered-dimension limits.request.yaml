@@ -1,0 +1,21 @@
+$kind: http-request
+description: Returns the caller's metered-dimension limit configuration (subscription- and user-level, monthly and yearly).
+url: "{{baseUrl}}/v1/common/limits/get"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: scope
+    value: Global
+    disabled: true
+    description: Case-insensitive match against the allowed values below. An unrecognized value returns `INVALID_SCOPE_VALUE` (400). (This can only be one of Global,User,Subscription,Account)
+  - key: application
+    value: MDS
+    disabled: true
+    description: Case-insensitive match against the allowed values below. An unrecognized value returns `INVALID_APPLICATION_VALUE` (400). (This can only be one of MDS,MD,MCLM,MHCW,MH)
+  - key: subscriptionId
+    value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+    disabled: true
+    description: If present, must be a GUID belonging to the caller; substitutes that subscription's context for the caller's own subscription. Otherwise the caller's own subscription context is used.
+examples: ./.resources/Get metered-dimension limits.resources/examples
+order: 1000

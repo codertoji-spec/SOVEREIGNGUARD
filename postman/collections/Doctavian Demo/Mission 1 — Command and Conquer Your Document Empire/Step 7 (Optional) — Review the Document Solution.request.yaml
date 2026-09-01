@@ -1,0 +1,7 @@
+$kind: http-request
+description: Retrieves the Document Solution created in Step 2, showing its full configuration including the linked Data Source. Useful for reviewing the pipeline you've assembled before moving on.
+url: "{{baseUrl}}/v1/documents/solution/{{mission1.documentSolutionId}}/get"
+method: GET
+headers:
+  X-Api-Key: "{{doctavianApiKey}}"
+order: 7000

@@ -1,0 +1,15 @@
+$kind: http-request
+description: |-
+  Deletes a specific envelope from the system.<br />
+  * The envelope is identified using the <strong>envelopeId</strong> path parameter.
+  * Only envelopes in the <strong>"Draft"</strong> state can be deleted, allowing the sender to discard envelopes that have not yet been sent to recipients. This is a soft delete (status set to "Deleted") and only works on envelopes currently in Draft status.
+url: "{{baseUrl}}/v1/signatures/envelope/:envelopeId/delete"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: envelopeId
+    value: string
+    description: (Required) The ID of the envelope that should be deleted.
+examples: ./.resources/Envelope Delete.resources/examples
+order: 12000

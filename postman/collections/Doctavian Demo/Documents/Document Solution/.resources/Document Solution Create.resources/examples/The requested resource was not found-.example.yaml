@@ -1,0 +1,22 @@
+$kind: http-example
+name: The requested resource was not found.
+request:
+  url: "{{baseUrl}}/v1/documents/solution/create"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "name": "Quarterly Invoice Package",
+        "description": "Bundles the invoice template with Q3 account data.",
+        "dataGuid": "3f2504e0-4f89-41d3-9a0c-0305e82c3301"
+      }
+response:
+  statusCode: 404
+  statusText: Not Found
+  body:
+    type: text
+    content: ""
+order: 4000

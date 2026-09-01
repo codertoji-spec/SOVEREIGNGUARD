@@ -1,0 +1,45 @@
+$kind: http-request
+description: |-
+  Adds a text comment to a document that's part of an envelope.<br />
+  * The document must be uploaded to the Storage system before you can comment on it.
+  * Use the <strong>documentId</strong> (a unique document URN) to reference the stored document.
+  * The document can be identified by a unique <strong>transactionId</strong> (tid).
+  * Provide the tid as a query parameter. `parentCommentId` is optional; if it doesn't reference an existing comment, the new comment is created as a top-level comment instead.
+url: "{{baseUrl}}/v1/signatures/document/:documentId/comment"
+method: POST
+headers:
+  - key: X-Origin-IpAddress
+    value: string
+    disabled: true
+    description: Caller IP address, recorded in the audit trail. Not validated.
+  - key: Content-Type
+    value: application/json
+  - key: Accept
+    value: application/json
+queryParams:
+  - key: tid
+    value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+    disabled: true
+    description: Transaction token identifying a specific recipient+envelope pair. Required for anonymous/recipient access (no Authorization header, or the header doesn't resolve to the envelope owner).
+pathVariables:
+  - key: documentId
+    value: string
+    description: (Required) The ID(URN) of the document from the envelope, where you’d like to place a comment.
+body:
+  type: json
+  content: |-
+    {
+      "comment": {
+        "content": "string",
+        "pageNumber": 0,
+        "positionX": 0,
+        "positionY": 0,
+        "parentCommentId": "string",
+        "visibleTo": [
+          "string"
+        ]
+      },
+      "externalContext": {}
+    }
+examples: ./.resources/Document Comment.resources/examples
+order: 1000

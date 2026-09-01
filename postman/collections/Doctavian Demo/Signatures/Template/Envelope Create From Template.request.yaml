@@ -1,0 +1,37 @@
+$kind: http-request
+description: |-
+  Creates an envelope based on a provided template.<br />
+  * Use the <strong>templateId</strong> parameter to specify the template.
+  * Documents must first be uploaded via the Storage endpoint and linked to recipients using <strong>referenceDocumentId</strong> and <strong>referenceSignerId.</strong>
+  * Template roles are converted into envelope recipients. Recipients/signGroups provided in the request override the matching stored template recipient by templateRole; anything omitted falls back to the template's stored value.
+url: "{{baseUrl}}/v1/signatures/template/:templateId/envelope/create"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: templateId
+    value: string
+    description: (Required) The ID of the template based on which the envelope is created.
+body:
+  type: json
+  content: |-
+    {
+      "envelope": {
+        "subject": "TestPostman",
+        "message": ""
+      },
+      "message": {
+        "subject": "TestPostman",
+        "recipients": [
+          {
+            "templateRole": "Role1",
+            "name": "RomanK",
+            "email": "roman.khryshchanovich@mavenmule.com"
+          }
+        ]
+      },
+      "signGroups": []
+    }
+examples: ./.resources/Envelope Create From Template.resources/examples
+order: 1000

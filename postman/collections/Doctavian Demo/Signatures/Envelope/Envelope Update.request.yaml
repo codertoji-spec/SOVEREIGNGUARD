@@ -1,0 +1,84 @@
+$kind: http-request
+description: |-
+  Updates an envelope that is created but not yet sent for signing.<br />
+  * The envelope must be in the <strong>"Draft"</strong> status.
+  * The envelope is identified using the <strong>envelopeId</strong> path parameter.
+  * This endpoint allows modification of:
+    * Envelope documents.
+    * Recipients.
+    * Fields.
+    * Envelope settings.
+    * Associated metadata.
+  * Use this endpoint to revise envelope details before initiating the signing process. Replaces the entire draft's documents/recipients/signGroups/fields.
+url: "{{baseUrl}}/v1/signatures/envelope/:envelopeId/update"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: envelopeId
+    value: string
+    description: (Required) The unique identifier of the envelope to be updated. This ID is generated when the envelope is first created and is used to reference and modify the envelope before it is sent to recipients. It must match an existing envelope that is still in a draft (unsent) status.
+body:
+  type: json
+  content: |-
+    {
+      "documents": [
+        {
+          "referenceDocumentId": 1,
+          "name": "Test Document Name",
+          "loadMethod": "Storage",
+          "urn": "{{uploadedDocument}}"
+        }
+      ],
+      "recipients": [
+        {
+          "referenceSignerId": 1,
+          "name": "Test Example",
+          "email": "user@example.com",
+          "role": "signer",
+          "mandatory": true
+        }
+      ],
+      "fields": [
+        {
+          "type": "signature",
+          "isRequired": true,
+          "referenceSignerId": 1,
+          "referenceDocumentId": 1,
+          "positionX": 10,
+          "positionY": 10,
+          "height": 100,
+          "width": 100,
+          "page": 1,
+          "name": "mds_signature1",
+          "properties": {
+            "fontFamily": "Arial",
+            "fontSize": 13,
+            "color": "red",
+            "bold": true,
+            "italic": true,
+            "underline": true,
+            "textAlign": "center"
+          }
+        }
+      ],
+      "envelope": {
+        "subject": "Email Subject",
+        "message": "Email Message",
+        "senderName": "Sender",
+        "senderEmail": "sender@example.com",
+        "isSignOrder": false,
+        "expireInDays": 5,
+        "alertDaysBeforeExpiry": 5,
+        "firstReminderDays": 3,
+        "repeatingReminderDays": 2,
+        "notifyWhenOpened": true,
+        "notifyWhenSigned": true
+      },
+      "externalContext": {
+        "id": "12345"
+      }
+    }
+examples: ./.resources/Envelope Update.resources/examples
+order: 23000

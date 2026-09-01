@@ -1,0 +1,31 @@
+$kind: http-example
+name: Unexpected server error. `eventId` correlates to server logs.
+request:
+  url: "{{baseUrl}}/v1/documents/datasource/create"
+  method: POST
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "name": "Q3 Sales Report Data",
+        "description": "Account records used for quarterly reports.",
+        "urn": "a4f8c9d2-6b3e-4f1a-9c7d-2e5b8a1f4d6c",
+        "loadMethod": "Storage"
+      }
+response:
+  statusCode: 500
+  statusText: Internal Server Error
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": "GET_DATA_SOURCE_ERROR",
+        "message": "An unexpected error occurred.",
+        "eventId": "a1b2c3d4"
+      }
+order: 5000

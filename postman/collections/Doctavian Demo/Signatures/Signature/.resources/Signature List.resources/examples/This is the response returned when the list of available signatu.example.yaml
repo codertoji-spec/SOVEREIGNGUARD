@@ -1,0 +1,24 @@
+$kind: http-example
+name: This is the response returned when the list of available signatures is successfully retrieved.
+request:
+  url: "{{baseUrl}}/v1/signatures/signature/list"
+  method: GET
+  headers:
+    Accept: application/json
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "signature": [
+          {
+            "id": "123e4567-e89b-12d3-a456-426614174000",
+            "isDefault": true
+          }
+        ]
+      }
+order: 1000

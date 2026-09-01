@@ -1,0 +1,12 @@
+$kind: http-request
+description: Retrieves a single document template by its GUID.
+url: "{{baseUrl}}/v1/documents/template/:documentTemplateGuid/get"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: documentTemplateGuid
+    value: 7c9e6679-7425-40de-944b-e07fc1f90ae7
+    description: (Required) GUID of the document template.
+examples: ./.resources/Document Template Get.resources/examples
+order: 3000

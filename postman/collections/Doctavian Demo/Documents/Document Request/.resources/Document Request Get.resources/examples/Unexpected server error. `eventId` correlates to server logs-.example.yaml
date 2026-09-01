@@ -1,0 +1,25 @@
+$kind: http-example
+name: Unexpected server error. `eventId` correlates to server logs.
+request:
+  url: "{{baseUrl}}/v1/documents/request/:documentRequestGuid/get"
+  method: GET
+  headers:
+    Accept: application/json
+  pathVariables:
+    - key: documentRequestGuid
+      value: 6ba7b810-9dad-11d1-80b4-00c04fd430c8
+      description: (Required) GUID of the document request.
+response:
+  statusCode: 500
+  statusText: Internal Server Error
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": "GET_DATA_SOURCE_ERROR",
+        "message": "An unexpected error occurred.",
+        "eventId": "a1b2c3d4"
+      }
+order: 5000

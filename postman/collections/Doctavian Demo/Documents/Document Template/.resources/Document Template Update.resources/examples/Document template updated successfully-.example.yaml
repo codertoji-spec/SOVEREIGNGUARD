@@ -1,0 +1,68 @@
+$kind: http-example
+name: Document template updated successfully.
+request:
+  url: "{{baseUrl}}/v1/documents/template/:documentTemplateGuid/update"
+  method: PUT
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  pathVariables:
+    - key: documentTemplateGuid
+      value: 7c9e6679-7425-40de-944b-e07fc1f90ae7
+      description: (Required) GUID of the document template to update.
+  body:
+    type: json
+    content: |-
+      {
+        "name": "Standard Invoice",
+        "description": "Company standard invoice layout.",
+        "title": "Invoice",
+        "urn": "9f86d081-884c-4d30-8934-9c1e6cbcb9f5",
+        "url": "https://storage.example.com/templates/invoice-standard.docx",
+        "fileFormat": "docx",
+        "loadMethod": "Storage",
+        "path": "templates/invoice-standard.docx"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "data": {
+            "documentTemplate": {
+              "documentTemplateGuid": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
+              "subscriptionGuid": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+              "ownerGuid": "1a2b3c4d-5e6f-4a1b-8c2d-3e4f5a6b7c8d",
+              "lastModifiedUserGuid": "1a2b3c4d-5e6f-4a1b-8c2d-3e4f5a6b7c8d",
+              "name": "Standard Invoice",
+              "description": "Company standard invoice layout.",
+              "title": "Invoice",
+              "urn": "9f86d081-884c-4d30-8934-9c1e6cbcb9f5",
+              "url": "https://storage.example.com/templates/invoice-standard.docx",
+              "viewAnonymousLink": "",
+              "editAnonymousLink": "",
+              "viewUserLink": "",
+              "editUserLink": "",
+              "viewOrganizationLink": "",
+              "editOrganizationLink": "",
+              "fileFormat": "docx",
+              "loadMethod": "Storage",
+              "path": "templates/invoice-standard.docx",
+              "createdDate": "2026-07-14T09:30:00.0000000+00:00",
+              "lastModifiedDate": "2026-07-14T09:30:00.0000000+00:00",
+              "isDeleted": false
+            }
+          },
+          "statusCode": 200,
+          "message": "OK"
+        },
+        "origin": "https://app.example.com",
+        "dateTime": "2026-07-14T09:30:00.0000000+00:00",
+        "operationId": "0HN7GK9M4T2R5"
+      }
+order: 1000

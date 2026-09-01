@@ -1,0 +1,50 @@
+$kind: http-example
+name: Missing or invalid authentication token.
+request:
+  url: "{{baseUrl}}/v1/documents/document/:documentId/download"
+  method: GET
+  headers:
+    - key: X-Service-Authorization
+      value: ""
+      description: Service-to-service auth token, used as an alternative to `Authorization` for service-principal callers.
+    - key: X-Client-Authorization
+      value: ""
+      description: Client auth token, used as an alternative to `Authorization` for client-application callers.
+    - key: X-OAuth-Flow
+      value: string
+      disabled: true
+      description: Indicates which OAuth flow variant issued the Authorization token.
+    - key: X-Storage-Type
+      value: document-data
+      description: "(Required) Container-type key used to look up the blob. Must match whichever container the file was originally uploaded to: document-data, document-template, or document-input. Not strictly enforced as a closed enum; an unrecognized value surfaces as a generic FILE_DOWNLOAD_FAILED."
+    - key: Accept
+      value: application/json
+  pathVariables:
+    - key: documentId
+      value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+      description: (Required) Storage id (GUID) of the document to download, as returned by an upload or generation response.
+response:
+  statusCode: 401
+  statusText: Unauthorized
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "error": {
+          "statusCode": 401,
+          "message": "The request could not be authenticated.",
+          "innerErrors": [
+            {
+              "code": "UNAUTHORIZED",
+              "message": "The request could not be authenticated.",
+              "userMessage": "Your session has expired or is invalid. Please sign in again."
+            }
+          ]
+        },
+        "origin": "https://app.mavenmule.com",
+        "dateTime": "2026-07-14T09:32:15.0000000+00:00",
+        "operationId": "3a4b5c6d7e8f90112233445566778899"
+      }
+order: 2000

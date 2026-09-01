@@ -1,0 +1,69 @@
+$kind: http-example
+name: This is the response returned when an attachment is successfully added to the envelope. The added attachment gets an id that can be referenced in other endpoints.
+request:
+  url: "{{baseUrl}}/v1/signatures/envelope/:envelopeId/attachment/upload"
+  method: POST
+  headers:
+    - key: X-Service-Authorization
+      value: ""
+      description: Service-to-service auth token, used as an alternative to `Authorization` in authenticated mode.
+    - key: X-Client-Authorization
+      value: ""
+      description: Client auth token, used as an alternative to `Authorization` in authenticated mode.
+    - key: X-OAuth-Flow
+      value: string
+      disabled: true
+      description: Indicates which OAuth flow variant issued the Authorization token, in authenticated mode.
+    - key: X-Origin
+      value: https://app.mavenmule.com
+      disabled: true
+      description: Free-form caller-supplied origin identifier. Not validated; echoed back verbatim into the response envelope's origin field. Optional.
+    - key: X-Storage-Type
+      value: envelope-attachment
+      description: (Required) Container-type key for the uploaded attachment. Expected value is `envelope-attachment`.
+    - key: Content-Type
+      value: multipart/form-data
+    - key: Accept
+      value: application/json
+  queryParams:
+    - key: tid
+      value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+      disabled: true
+      description: Transaction token identifying a specific recipient+envelope pair. When present and Guid-parseable, selects anonymous mode and no Authorization header is required. When absent or not Guid-parseable, authenticated mode applies and Authorization is required instead.
+  pathVariables:
+    - key: envelopeId
+      value: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+      description: (Required) GUID of the envelope to attach the file(s) to.
+  body:
+    type: formdata
+    content:
+      - type: text
+        key: file
+        value: ""
+        description: (Required) One or more attachment files to upload. No extension or content-type validation is performed — any file type is accepted. Order is preserved in the response.
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "data": {
+            "files": [
+              {
+                "id": "76bb2621-b1b1-4d47-9132-c4d1e5f60abc",
+                "fileName": "SampleAttachment.jpg"
+              }
+            ]
+          },
+          "statusCode": 201,
+          "message": "Created"
+        },
+        "origin": "https://dev.headless.mavenmule.com/signatures/envelope/7a5d60-a222-4c3e490ef1/attachment/upload",
+        "dateTime": "2025-11-03T06:48:58.0000000+00:00",
+        "operationId": "ea5716c820f26295b44c2fb2"
+      }
+order: 1000

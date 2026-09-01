@@ -1,0 +1,32 @@
+$kind: http-example
+name: Any failure during token generation — including an auth failure from the underlying token validation step — is caught uniformly and surfaced under this single generic code. Deliberately not documented as a range of specific auth error codes, since the mas
+request:
+  url: "{{baseUrl}}/v1/common/service/token"
+  method: POST
+  headers:
+    Accept: application/json
+response:
+  statusCode: 500
+  statusText: Internal Server Error
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "error": {
+          "innerErrors": [
+            {
+              "code": "TOKEN_GENERATION_FAILED",
+              "message": "Failed to generate a service token.",
+              "userMessage": "Something went wrong. Please contact support."
+            }
+          ],
+          "message": "Failed to generate a service token.",
+          "statusCode": 500
+        },
+        "dateTime": "2026-01-01T12:00:00.0000000+00:00",
+        "operationId": "common-service-token-post",
+        "origin": ""
+      }
+order: 2000

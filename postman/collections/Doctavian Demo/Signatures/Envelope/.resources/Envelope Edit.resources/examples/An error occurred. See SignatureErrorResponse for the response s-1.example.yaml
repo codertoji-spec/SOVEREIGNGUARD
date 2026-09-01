@@ -1,0 +1,54 @@
+$kind: http-example
+name: An error occurred. See SignatureErrorResponse for the response shape.
+request:
+  url: "{{baseUrl}}/v1/signatures/envelope/:envelopeId/edit"
+  method: PUT
+  headers:
+    - key: X-Origin-IpAddress
+      value: string
+      disabled: true
+      description: Caller IP address, recorded in the audit trail. Not validated.
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+  pathVariables:
+    - key: envelopeId
+      value: string
+      description: (Required) The envelopeId parameter in the URL is a unique identifier for the envelope whose notification settings are being edited. It specifies which already-sent envelope should be updated with the new expiration and alert configurations.
+  body:
+    type: json
+    content: |-
+      {
+        "envelope": {
+          "expireInDays": 7,
+          "alertDaysBeforeExpiry": 3
+        },
+        "externalContext": {
+          "id": "12345"
+        }
+      }
+response:
+  statusCode: 500
+  statusText: Internal Server Error
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "error": {
+          "message": "Envelope not found.",
+          "statusCode": 400,
+          "innerErrors": [
+            {
+              "code": "ENVELOPE_ID_INVALID",
+              "message": "Envelope not found.",
+              "userMessage": "Envelope not found."
+            }
+          ]
+        },
+        "origin": "POST https://apim-mavenheadless-dev-westeu-1.azure-api.net/v1/signatures/envelope/create",
+        "dateTime": "2026-07-20T12:00:00.0000000+00:00"
+      }
+order: 3000

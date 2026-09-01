@@ -1,0 +1,15 @@
+$kind: http-request
+description: |-
+  Deletes a specific template from the system.<br />
+  * The template is identified using the <strong>templateId</strong> path parameter.
+  * Only templates accessible to the authenticated user can be deleted. Looks up the id with no IsTemplate filter, so a non-template envelope id owned by the caller will have its documents/recipients/signGroups/fields deleted, but the parent record is left in place (the final delete statement is scoped to Status='Template').
+url: "{{baseUrl}}/v1/signatures/template/:templateId/delete"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: templateId
+    value: string
+    description: (Required) The ID of the template that should be deleted.
+examples: ./.resources/Template Delete.resources/examples
+order: 3000

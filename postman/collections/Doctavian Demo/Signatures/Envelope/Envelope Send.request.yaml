@@ -1,0 +1,15 @@
+$kind: http-request
+description: |-
+  Sends a created envelope to its designated recipients.<br />
+  * The envelope is identified using the <strong>envelopeId</strong> path parameter.
+  * Once sent, recipients receive email notifications to review and sign the documents contained within the envelope. No request body - validates and sends the already-persisted draft. Sender-only (must be the envelope's creator); no tid/recipient access. Only works on envelopes currently in Draft status.
+url: "{{baseUrl}}/v1/signatures/envelope/:envelopeId/send"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: envelopeId
+    value: string
+    description: (Required) The unique identifier of the envelope that you want to send. This ID is returned when an envelope is initially created via the /signatures/envelope/create endpoint. It is used to reference the specific envelope containing documents, recipients, and fields that are ready to be dispatched for digital signing.
+examples: ./.resources/Envelope Send.resources/examples
+order: 21000

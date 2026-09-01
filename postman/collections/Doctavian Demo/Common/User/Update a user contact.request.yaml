@@ -1,0 +1,21 @@
+$kind: http-request
+description: Updates a user contact owned by the calling user. `subscriptionUserId` and `id` are always taken from the caller's identity and the path, respectively; any values sent for them in the request body are ignored.
+url: "{{baseUrl}}/v1/common/user/contact/:userContactId/update"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: userContactId
+    value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+    description: (Required) GUID of the user contact. A non-GUID value returns a 400 with a different response shape than the standard error envelope.
+body:
+  type: json
+  content: |-
+    {
+      "name": "Jane Doe",
+      "email": "jane.doe@example.com",
+      "sharedWithAccount": false
+    }
+examples: ./.resources/Update a user contact.resources/examples
+order: 5000

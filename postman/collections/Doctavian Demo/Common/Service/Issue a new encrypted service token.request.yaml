@@ -1,0 +1,8 @@
+$kind: http-request
+description: Issues a short-lived, encrypted bearer token for the already-authenticated caller.
+url: "{{baseUrl}}/v1/common/service/token"
+method: POST
+headers:
+  Accept: application/json
+examples: ./.resources/Issue a new encrypted service token.resources/examples
+order: 1000

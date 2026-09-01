@@ -1,0 +1,36 @@
+$kind: http-request
+description: Creates a new document solution configuration.
+url: "{{baseUrl}}/v1/documents/configuration/create"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: json
+  content: |-
+    {
+      "documentSolutionGuid": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+      "name": "Invoice - PDF via Email",
+      "description": "Renders invoices as PDF and e-mails them to the customer.",
+      "title": "Invoice",
+      "fileFormat": "pdf",
+      "processingType": "STANDARD",
+      "deliveryMethod": "Email",
+      "path": "output/invoices/",
+      "pdfConformanceLevel": "PdfA2B",
+      "pdfVersion": "2026-01-07",
+      "language": "en",
+      "locale": "en-US",
+      "timeZone": "America/New_York",
+      "embeddedData": "{\"companyName\":\"Contoso Ltd\"}",
+      "viewAnonymous": false,
+      "editAnonymous": false,
+      "viewOrganization": true,
+      "editOrganization": false,
+      "viewUser": true,
+      "editUser": false,
+      "viewUserEmailList": "alice@example.com,bob@example.com",
+      "editUserEmailList": "carol@example.com"
+    }
+examples: ./.resources/Document Solution Configuration Create.resources/examples
+order: 1000

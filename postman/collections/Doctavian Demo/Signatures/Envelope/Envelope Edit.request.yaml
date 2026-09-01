@@ -1,0 +1,39 @@
+$kind: http-request
+description: |-
+  Edits notification-related settings for an already sent envelope.<br />
+  * The envelope is identified using the <strong>envelopeId</strong> path parameter.
+  * This endpoint allows updating:
+    * Envelope expiration settings
+    * Envelope notification settings, including:
+      * Expiration period
+      * Alerts for recipients
+  * <strong>Note:</strong> Documents, recipients, or fields within the envelope are not modified — only expiration/notification settings. `expireInDays` must be at least 2 and at least `alertDaysBeforeExpiry`, and the resulting expiry date must not already be in the past.
+url: "{{baseUrl}}/v1/signatures/envelope/:envelopeId/edit"
+method: PUT
+headers:
+  - key: X-Origin-IpAddress
+    value: string
+    disabled: true
+    description: Caller IP address, recorded in the audit trail. Not validated.
+  - key: Content-Type
+    value: application/json
+  - key: Accept
+    value: application/json
+pathVariables:
+  - key: envelopeId
+    value: string
+    description: (Required) The envelopeId parameter in the URL is a unique identifier for the envelope whose notification settings are being edited. It specifies which already-sent envelope should be updated with the new expiration and alert configurations.
+body:
+  type: json
+  content: |-
+    {
+      "envelope": {
+        "expireInDays": 7,
+        "alertDaysBeforeExpiry": 3
+      },
+      "externalContext": {
+        "id": "12345"
+      }
+    }
+examples: ./.resources/Envelope Edit.resources/examples
+order: 14000

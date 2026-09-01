@@ -1,0 +1,16 @@
+$kind: http-example
+name: The requested resource was not found.
+request:
+  url: "{{baseUrl}}/v1/documents/option/:optionValueGuid/delete"
+  method: DELETE
+  pathVariables:
+    - key: optionValueGuid
+      value: c9bf9e57-1685-4c89-bafb-ff5af830be8a
+      description: (Required) GUID of the option value to delete.
+response:
+  statusCode: 404
+  statusText: Not Found
+  body:
+    type: text
+    content: ""
+order: 4000

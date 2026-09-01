@@ -1,0 +1,22 @@
+$kind: http-request
+description: Updates an existing data source.
+url: "{{baseUrl}}/v1/documents/datasource/:dataSourceGuid/update"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: dataSourceGuid
+    value: 3f2504e0-4f89-41d3-9a0c-0305e82c3301
+    description: (Required) GUID of the data source to update.
+body:
+  type: json
+  content: |-
+    {
+      "name": "Q3 Sales Report Data",
+      "description": "Account records used for quarterly reports.",
+      "urn": "a4f8c9d2-6b3e-4f1a-9c7d-2e5b8a1f4d6c",
+      "loadMethod": "Storage"
+    }
+examples: ./.resources/Data Source Update.resources/examples
+order: 5000

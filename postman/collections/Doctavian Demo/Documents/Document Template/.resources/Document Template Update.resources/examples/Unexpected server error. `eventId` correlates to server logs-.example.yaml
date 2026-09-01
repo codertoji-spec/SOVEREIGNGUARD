@@ -1,0 +1,39 @@
+$kind: http-example
+name: Unexpected server error. `eventId` correlates to server logs.
+request:
+  url: "{{baseUrl}}/v1/documents/template/:documentTemplateGuid/update"
+  method: PUT
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  pathVariables:
+    - key: documentTemplateGuid
+      value: 7c9e6679-7425-40de-944b-e07fc1f90ae7
+      description: (Required) GUID of the document template to update.
+  body:
+    type: json
+    content: |-
+      {
+        "name": "Standard Invoice",
+        "description": "Company standard invoice layout.",
+        "title": "Invoice",
+        "urn": "9f86d081-884c-4d30-8934-9c1e6cbcb9f5",
+        "url": "https://storage.example.com/templates/invoice-standard.docx",
+        "fileFormat": "docx",
+        "loadMethod": "Storage",
+        "path": "templates/invoice-standard.docx"
+      }
+response:
+  statusCode: 500
+  statusText: Internal Server Error
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": "GET_DATA_SOURCE_ERROR",
+        "message": "An unexpected error occurred.",
+        "eventId": "a1b2c3d4"
+      }
+order: 5000

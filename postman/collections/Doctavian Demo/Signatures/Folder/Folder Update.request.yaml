@@ -1,0 +1,21 @@
+$kind: http-request
+description: Updates the properties (such as the Name) of an existing folder.
+url: "{{baseUrl}}/v1/signatures/folder/:folderId/update"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: folderId
+    value: string
+    description: (Required) The unique identifier (GUID) of the folder to update.
+body:
+  type: json
+  content: |-
+    {
+      "folder": {
+        "name": "Q3 Financial Contracts (renamed)"
+      }
+    }
+examples: ./.resources/Folder Update.resources/examples
+order: 5000

@@ -1,0 +1,15 @@
+$kind: http-request
+description: |-
+  Retrieves details of a specific template.<br />
+  * The template is identified using the <strong>templateId</strong> path parameter.
+  * Only templates accessible to the authenticated user are returned.
+url: "{{baseUrl}}/v1/signatures/template/:templateId/get"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: templateId
+    value: string
+    description: (Required) The ID of the needed template.
+examples: ./.resources/Template Get.resources/examples
+order: 3000

@@ -1,0 +1,12 @@
+$kind: http-request
+description: "Returns one of two response shapes, selected by the required `type` query parameter: `dashboard` returns per-caller envelope/task counts; `self-service` returns subscription/user/limit-breach aggregates the caller can administer."
+url: "{{baseUrl}}/v1/common/summary?type=dashboard"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: type
+    value: dashboard
+    description: (Required) Matched case-insensitively against `dashboard`/`self-service`. A missing or unrecognized value returns `INVALID_SUMMARY_TYPE` (400). (This can only be one of dashboard,self-service)
+examples: ./.resources/Get a dashboard or self-service summary.resources/examples
+order: 1000

@@ -1,0 +1,33 @@
+$kind: http-example
+name: Document template deleted successfully.
+request:
+  url: "{{baseUrl}}/v1/documents/template/:documentTemplateGuid/delete"
+  method: DELETE
+  headers:
+    Accept: application/json
+  pathVariables:
+    - key: documentTemplateGuid
+      value: 7c9e6679-7425-40de-944b-e07fc1f90ae7
+      description: (Required) GUID of the document template to delete.
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "data": {
+            "documentTemplateGuid": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
+            "message": "DocumentTemplate deleted successfully."
+          },
+          "statusCode": 200,
+          "message": "OK"
+        },
+        "origin": "https://app.example.com",
+        "dateTime": "2026-07-14T09:30:00.0000000+00:00",
+        "operationId": "0HN7GK9M4T2R5"
+      }
+order: 1000

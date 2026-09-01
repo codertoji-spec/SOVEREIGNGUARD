@@ -1,0 +1,36 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/v1/signatures/envelope/count"
+  method: GET
+  headers:
+    Accept: application/json
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "statusCode": 200,
+          "message": "OK",
+          "data": {
+            "envelopes": {
+              "inbox": 0,
+              "sent": 0,
+              "drafts": 0,
+              "trash": 0,
+              "todo": 0,
+              "expiring": 0,
+              "pending": 0,
+              "completed": 0
+            }
+          }
+        },
+        "origin": "string",
+        "dateTime": "string",
+        "userId": "string"
+      }
+order: 1000

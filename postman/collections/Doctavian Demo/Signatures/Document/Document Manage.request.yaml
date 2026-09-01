@@ -1,0 +1,92 @@
+$kind: http-request
+description: |-
+  Manages documents across supported platforms (Storage, Salesforce, OneDrive) without modifying their internal content.<br />
+  * Supported operations include:
+    * <strong>Copy</strong>. Duplicate a document from source to target. Requires the same <strong>fileFormat</strong> for source and target, and <strong>source.remove</strong> = "none".
+    * <strong>Move</strong>. Transfer a document from source to target and delete it from the source. Requires the same <strong>fileFormat</strong> for source and target, and <strong>source.remove</strong> = "delete" or "permanentDelete".
+    * <strong>Delete</strong>. Remove a document when only the source is provided, with <strong>source.remove</strong> = "delete" or "permanentDelete" and no target.
+    * <strong>Convert</strong>. Change document format while transferring; both source and target are required and <strong>fileFormat</strong> must differ.
+url: "{{baseUrl}}/v1/signatures/document/manage"
+method: POST
+headers:
+  - key: X-Client-Authorization
+    value: ""
+    description: |-
+      Encrypted (AES) JWT token to identify and authorize the calling client system responsible for requesting the document generation. This header is required when retrieving the template and/or data used to populate the template from the client’s side, and for delivering the final generated document on the client’s side. The JWT must contain the following claims:
+
+      - **_sub_**: Current user session.
+      - **_Destination_**: Path to which should be used to make a callback.
+      - **_full_name_**: Name of the user that made the request.
+      - **_email_**: The email address of the user that made the request.
+      - **_iss_**: The issuer claim identifies the principal that issued the JWT. URL of the issuer.
+      - **_oid_**: Object Id claim represents a unique Id of the user that made the request, for example in Salesforce case this will be User record Id.
+      - **_clientId_**: Id representing the client. Eg OrgId.
+      - **_zoneInfo_**: Zone information.
+      - **_locale_**: Localization information.
+  - key: X-Service-Authorization
+    value: ""
+    description: |-
+      Encrypted (AES) JWT token to represent a user that doesn’t have a Microsoft Account and that is allowed to use the subscription. The JWT must contain the following claims:
+
+      - **_amp_subscription_**: The offering subscription key which is used to validate that the client has a valid license.
+      - **_full_name_**: Name of the user that made the request.
+      - **_email_**: The email address of the user that made the request.
+      - **_iss_**: The issuer claim identifies the principal that issued the JWT. URL of the issuer.
+      - **_oid_**: Object Id claim represents a unique Id of the user that made the request, for example in Salesforce case this will be User record Id.
+      - **_zoneInfo_**: Zone information.
+      - **_locale_**: Localization information.
+  - key: Content-Type
+    value: application/json
+  - key: Accept
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+        "externalContext": {
+            "id": "12345"
+        },
+        "sourceDocument": {
+            "urn": "{{uploadedDocument}}",
+            "fileFormat": "pdf",
+            "loadMethod": "Storage",
+            "remove": "none",
+            "options": {
+                "docxLoadOptions": "{}"
+            }
+        },
+        "targetDocument": {
+            "name": "CopiedTest",
+            "fileFormat": "pdf",
+            "deliveryMethod": "Storage",
+            "path": "root",
+            "options": {
+                "pdfSaveOptions": "{ \"ConformanceLevel\": \"PdfA3a\", \"Version\": \"PDF_1_7\", \"ImageDpi\": 750 }",
+                "docxSaveOptions": "{}",
+                "salesforce": {
+                    "networkId": "",
+                    "fileId": "",
+                    "fileType": "", //Attachment, File
+                    "fileParentId": "",
+                    "ownerId": ""
+                },
+                "onedrive": {
+                    "viewAnonymous": true,
+                    "editAnonymous": true,
+                    "editUsers": [
+                        "user@example.com",
+                        "user@example.com"               
+                    ],
+                    "viewUsers": [
+                        "user@example.com",
+                        "user@example.com"                
+                    ]
+                }
+            }
+        },
+        "data": {
+            "embedded": ""
+        }
+    }
+examples: ./.resources/Document Manage.resources/examples
+order: 4000

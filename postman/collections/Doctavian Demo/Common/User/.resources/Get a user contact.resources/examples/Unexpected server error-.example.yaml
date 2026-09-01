@@ -1,0 +1,36 @@
+$kind: http-example
+name: Unexpected server error.
+request:
+  url: "{{baseUrl}}/v1/common/user/contact/:userContactId/get"
+  method: GET
+  headers:
+    Accept: application/json
+  pathVariables:
+    - key: userContactId
+      value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+      description: (Required) GUID of the user contact. A non-GUID value returns a 400 with a different response shape than the standard error envelope.
+response:
+  statusCode: 500
+  statusText: Internal Server Error
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "error": {
+          "innerErrors": [
+            {
+              "code": "FUNCTION_EXECUTION_ERROR",
+              "message": "An unexpected error occurred while processing the request.",
+              "userMessage": "Something went wrong. Please contact support."
+            }
+          ],
+          "message": "An unexpected error occurred while processing the request.",
+          "statusCode": 500
+        },
+        "dateTime": "2026-01-01T12:00:00.0000000+00:00",
+        "operationId": "common-user-contact-get",
+        "origin": ""
+      }
+order: 5000

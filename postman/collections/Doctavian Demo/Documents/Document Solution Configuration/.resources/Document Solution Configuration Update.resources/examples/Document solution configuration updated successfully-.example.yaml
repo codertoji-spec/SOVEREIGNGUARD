@@ -1,0 +1,90 @@
+$kind: http-example
+name: Document solution configuration updated successfully.
+request:
+  url: "{{baseUrl}}/v1/documents/configuration/:documentSolutionConfigurationGuid/update"
+  method: PUT
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  pathVariables:
+    - key: documentSolutionConfigurationGuid
+      value: a3bb189e-8bf9-3888-9912-ace4e6543002
+      description: (Required) GUID of the document solution configuration to update.
+  body:
+    type: json
+    content: |-
+      {
+        "documentSolutionGuid": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+        "name": "Invoice - PDF via Email",
+        "description": "Renders invoices as PDF and e-mails them to the customer.",
+        "title": "Invoice",
+        "fileFormat": "pdf",
+        "processingType": "STANDARD",
+        "deliveryMethod": "Email",
+        "path": "output/invoices/",
+        "pdfConformanceLevel": "PdfA2B",
+        "pdfVersion": "2026-01-07",
+        "language": "en",
+        "locale": "en-US",
+        "timeZone": "America/New_York",
+        "embeddedData": "{\"companyName\":\"Contoso Ltd\"}",
+        "viewAnonymous": false,
+        "editAnonymous": false,
+        "viewOrganization": true,
+        "editOrganization": false,
+        "viewUser": true,
+        "editUser": false,
+        "viewUserEmailList": "alice@example.com,bob@example.com",
+        "editUserEmailList": "carol@example.com"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "data": {
+            "documentSolutionConfiguration": {
+              "documentSolutionConfigurationGuid": "a3bb189e-8bf9-3888-9912-ace4e6543002",
+              "documentSolutionGuid": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+              "subscriptionGuid": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+              "ownerGuid": "1a2b3c4d-5e6f-4a1b-8c2d-3e4f5a6b7c8d",
+              "lastModifiedUserGuid": "1a2b3c4d-5e6f-4a1b-8c2d-3e4f5a6b7c8d",
+              "name": "Invoice - PDF via Email",
+              "description": "Renders invoices as PDF and e-mails them to the customer.",
+              "title": "Invoice",
+              "fileFormat": "pdf",
+              "processingType": "STANDARD",
+              "deliveryMethod": "Email",
+              "path": "output/invoices/",
+              "pdfConformanceLevel": "PdfA2B",
+              "pdfVersion": "2026-01-07",
+              "language": "en",
+              "locale": "en-US",
+              "timeZone": "America/New_York",
+              "embeddedData": "{\"companyName\":\"Contoso Ltd\"}",
+              "viewAnonymous": false,
+              "editAnonymous": false,
+              "viewOrganization": true,
+              "editOrganization": false,
+              "viewUser": true,
+              "editUser": false,
+              "viewUserEmailList": "alice@example.com,bob@example.com",
+              "editUserEmailList": "carol@example.com",
+              "createdDate": "2026-07-14T09:30:00.0000000+00:00",
+              "lastModifiedDate": "2026-07-14T09:30:00.0000000+00:00",
+              "isDeleted": false
+            }
+          },
+          "statusCode": 200,
+          "message": "OK"
+        },
+        "origin": "https://app.example.com",
+        "dateTime": "2026-07-14T09:30:00.0000000+00:00",
+        "operationId": "0HN7GK9M4T2R5"
+      }
+order: 1000

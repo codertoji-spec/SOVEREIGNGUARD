@@ -1,0 +1,35 @@
+$kind: http-request
+description: "Uploads one or more signature-flow documents to Storage (X-Storage-Type: document-input) so they can be referenced later, e.g. in envelope creation. Two independent, real, working request shapes are accepted — and they accept DIFFERENT extension sets, which this description states explicitly rather than smoothing over: (1) multipart/form-data — multiple files per request, order preserved, each validated by filename extension against the NARROWER set .docx/.doc/.pdf (INVALID_TEMPLATE_FORMAT on mismatch — note: this reuses the template validator's error code even though it's validating signature-document types, a real backend naming quirk, not a documentation error); (2) a single-file raw binary body whose Content-Type is one of 5 recognized document mime types, accepting the WIDER set docx/xlsx/doc/xls/pdf — an .xlsx or .xls file succeeds via this raw-body path even though the identical file would be rejected via form-data for the same X-Storage-Type. The generated filename for the raw-body path is document${guid}.{extension}. Max File Size: Production 20 MB, Staging 10 MB."
+url: "{{baseUrl}}/v1/signatures/document/upload"
+method: POST
+headers:
+  - key: X-Service-Authorization
+    value: ""
+    description: Service-to-service auth token, used as an alternative to `Authorization` for service-principal callers.
+  - key: X-Client-Authorization
+    value: ""
+    description: Client auth token, used as an alternative to `Authorization` for client-application callers.
+  - key: X-OAuth-Flow
+    value: string
+    disabled: true
+    description: Indicates which OAuth flow variant issued the Authorization token.
+  - key: X-Origin
+    value: https://app.mavenmule.com
+    disabled: true
+    description: Free-form caller-supplied origin identifier. Not validated; echoed back verbatim into the response envelope's origin field. Optional.
+  - key: X-Storage-Type
+    value: document-input
+    description: (Required) Selects which storage container/validation branch handles the request. This operation expects the value document-input. Not strictly enforced as a closed enum server-side.
+  - key: Content-Type
+    value: multipart/form-data
+  - key: Accept
+    value: application/json
+body:
+  type: formdata
+  content:
+    - type: text
+      key: file
+      value: ""
+      description: "(Required) One or more signature documents to upload. Accepted extensions (form-data path only): .docx, .doc, .pdf. Order is preserved in the response."
+examples: ./.resources/Document Upload.resources/examples
+order: 5000

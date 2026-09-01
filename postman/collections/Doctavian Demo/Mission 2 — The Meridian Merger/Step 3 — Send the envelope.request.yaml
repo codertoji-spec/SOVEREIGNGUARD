@@ -1,0 +1,7 @@
+$kind: http-request
+description: Send the envelope. Party A will receive an email notification with a personalised signing link. Party B will not be notified until Party A completes their signature.
+url: "{{baseUrl}}/v1/signatures/envelope/{{mission2.envelopeId}}/send"
+method: GET
+headers:
+  X-Api-Key: "{{doctavianApiKey}}"
+order: 3000

@@ -1,0 +1,16 @@
+$kind: http-request
+description: Creates a contact owned by the calling user. `sharedWithAccount` is always derived from the caller's account settings; any value sent in the request body is ignored.
+url: "{{baseUrl}}/v1/common/user/contact/create"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Jane Doe",
+      "email": "jane.doe@example.com"
+    }
+examples: ./.resources/Create a user contact.resources/examples
+order: 1000

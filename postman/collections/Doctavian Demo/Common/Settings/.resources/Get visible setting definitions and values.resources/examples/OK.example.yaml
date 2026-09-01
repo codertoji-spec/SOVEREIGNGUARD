@@ -1,0 +1,68 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/v1/common/settings/get"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    - key: scope
+      value: Global
+      disabled: true
+      description: Case-insensitive match against the allowed values below. An unrecognized value returns `INVALID_SCOPE_VALUE` (400). (This can only be one of Global,User,Subscription,Account)
+    - key: application
+      value: MDS
+      disabled: true
+      description: Case-insensitive match against the allowed values below. An unrecognized value returns `INVALID_APPLICATION_VALUE` (400). (This can only be one of MDS,MD,MCLM,MHCW,MH)
+    - key: subscriptionId
+      value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+      disabled: true
+      description: If present, must be a GUID belonging to the caller; substitutes that subscription's context for the caller's own subscription. Otherwise the caller's own subscription context is used.
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "data": {
+            "settings": [
+              {
+                "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                "key": "ALLOWED_SIGNATURE_INPUT_METHOD",
+                "label": "Allowed Signature Input Method",
+                "description": "Controls which signature input methods are permitted.",
+                "value": "Draw,Type",
+                "defaultValue": "Draw,Type,Upload",
+                "type": "string",
+                "icon": "signature",
+                "allowedValues": "",
+                "meta": {
+                  "application": "MH",
+                  "scope": {
+                    "name": "Account"
+                  },
+                  "category": {
+                    "name": "Signing"
+                  },
+                  "subCategory": {
+                    "name": "Input"
+                  },
+                  "group": {
+                    "key": "signing",
+                    "name": "Signing"
+                  }
+                }
+              }
+            ]
+          },
+          "statusCode": 200,
+          "message": "OK"
+        },
+        "origin": "string",
+        "dateTime": "string",
+        "operationId": "string"
+      }
+order: 1000

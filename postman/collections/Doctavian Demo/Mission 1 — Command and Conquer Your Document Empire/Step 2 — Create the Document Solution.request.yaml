@@ -1,0 +1,25 @@
+$kind: http-request
+description: Creates a Document Solution referencing the Data Source created in Step 1 via dataGuid. The Document Solution is the pipeline container that ties the Data Source to one or more templates. The response's documentSolutionGuid is automatically saved as the documentSolutionId collection variable.
+url: "{{baseUrl}}/v1/documents/solution/create"
+method: POST
+headers:
+  X-Api-Key: "{{doctavianApiKey}}"
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Mission 1 - World Industries Contract Solution",
+      "description": "Ties the Data Source to the World Industries contract template.",
+      "dataGuid": "{{mission1.dataSourceId}}"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const json = pm.response.json();
+      const documentSolutionGuid = json && json.result && json.result.data && json.result.data.documentSolution && json.result.data.documentSolution.documentSolutionGuid;
+      if (documentSolutionGuid) {
+          pm.collectionVariables.set('mission1.documentSolutionId', documentSolutionGuid);
+      }
+    language: text/javascript
+order: 2000

@@ -1,0 +1,6 @@
+$kind: http-request
+description: Document Reference
+url: "{{baseUrl}}/v1/documents/document/reference"
+method: POST
+examples: ./.resources/Document Reference.resources/examples
+order: 11000

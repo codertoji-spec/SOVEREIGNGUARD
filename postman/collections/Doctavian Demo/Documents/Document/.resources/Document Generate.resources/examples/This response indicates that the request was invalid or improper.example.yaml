@@ -1,0 +1,155 @@
+$kind: http-example
+name: This response indicates that the request was invalid or improperly formed. It provides details about the error that occurred, including specific error codes, messages, and guidance for the user on how to resolve the issue.
+request:
+  url: "{{baseUrl}}/v1/documents/document/generate"
+  method: POST
+  headers:
+    - key: X-Client-Authorization
+      value: ""
+      description: |-
+        Encrypted (AES) JWT token to identify and authorize the calling client system responsible for requesting the document generation. This header is required when retrieving the template and/or data used to populate the template from the client’s side, and for delivering the final generated document on the client’s side. The JWT must contain the following claims:<br /><br />
+        **<i>sub</i>**: Current user session.<br />
+        **<i>Destination</i>**: Path to which should be used to make a callback.<br />
+        **<i>full_name</i>**: Name of the user that made the request.<br />
+        **<i>email</i>**: The email address of the user that made the request.<br />
+        **<i>iss</i>**: The issuer claim identifies the principal that issued the JWT. URL of the issuer.<br />
+        **<i>oid</i>**: Object Id claim represents a unique Id of the user that made the request, for example in Salesforce case this will be User record Id.<br />
+        **<i>clientId</i>**: Id representing the client. Eg OrgId.<br />
+        **<i>zoneInfo</i>**: Zone information.<br />
+        **<i>locale</i>**: Localization information.
+    - key: X-Service-Authorization
+      value: ""
+      description: |-
+        Encrypted (AES) JWT token to represent a user that doesn’t have a Microsoft Account and that is allowed to use the subscription. The JWT must contain the following claims:<br /><br />
+        **<i>amp_subscription</i>**: The offering subscription key which is used to validate that the client has a valid license.<br />
+        **<i>full_name</i>**: Name of the user that made the request.<br />
+        **<i>email</i>**: The email address of the user that made the request.<br />
+        **<i>iss</i>**: The issuer claim identifies the principal that issued the JWT. URL of the issuer.<br />
+        **<i>oid</i>**: Object Id claim represents a unique Id of the user that made the request, for example in Salesforce case this will be User record Id.<br />
+        **<i>zoneInfo</i>**: Zone information.<br />
+        **<i>locale</i>**: Localization information.
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "externalContext": {
+          "id": "req-2026-0007421"
+        },
+        "template": {
+          "name": "Standard Invoice",
+          "urn": "9f86d081-884c-4d30-8934-9c1e6cbcb9f5",
+          "fileFormat": "docx",
+          "loadMethod": "Storage",
+          "options": {
+            "docxLoadOptions": "{ \"PreserveUnsupportedFeatures\": true }"
+          },
+          "relatedItems": [
+            {
+              "name": "Invoice Terms Addendum",
+              "urn": "4b1e2f3a-5c6d-47e8-9a0b-1c2d3e4f5a6b",
+              "fileFormat": "docx",
+              "loadMethod": "Storage"
+            }
+          ]
+        },
+        "data": {
+          "loadMethod": "Storage",
+          "urn": "a4f8c9d2-6b3e-4f1a-9c7d-2e5b8a1f4d6c",
+          "variables": [
+            {
+              "name": "createdDate",
+              "value": "{!$now()}",
+              "type": "fieldExpression"
+            },
+            {
+              "name": "requestId",
+              "value": "{!requestId}",
+              "type": "graphql"
+            },
+            {
+              "name": "customerName",
+              "value": "Jane Doe",
+              "type": "global"
+            }
+          ],
+          "query": "{\"query\":\"{Account {Name Description Owner.Username Id Opportunities {StageName OpportunityLineItems {Name}} Contacts {Id}}}\"}",
+          "embedded": "key:value"
+        },
+        "document": {
+          "timezone": "(GMT+00:00) Greenwich Mean Time (Europe/Dublin)",
+          "locale": "en_IE_EURO",
+          "name": "Q3 Sales Report",
+          "fileFormat": "docx",
+          "deliveryMethod": "Storage",
+          "path": "root",
+          "options": {
+            "pdfSaveOptions": "{ \"ConformanceLevel\": \"PdfA3a\", \"Version\": \"PDF_1_7\", \"ImageDpi\": 750 }",
+            "docxSaveOptions": "{}",
+            "salesforce": {
+              "fileId": "069AZ0000004CvXYAW",
+              "fileType": "File",
+              "fileParentId": "0013P00000MvR7oQAF",
+              "ownerId": "0053P00000MvR7oQAF"
+            },
+            "onedrive": {
+              "viewAnonymous": true,
+              "editAnonymous": true,
+              "editUsers": [
+                "user@example.com"
+              ],
+              "viewUsers": [
+                "user@example.com"
+              ]
+            },
+            "googleDrive": {
+              "viewAnonymous": true,
+              "editAnonymous": true,
+              "editUsers": [
+                "user@example.com"
+              ],
+              "viewUsers": [
+                "user@example.com"
+              ]
+            },
+            "googleGenerate": {
+              "nativeMergeEnabled": true,
+              "nativeImageMergeEnabled": true
+            }
+          }
+        }
+      }
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "error": {
+          "statusCode": "400",
+          "message": "Bad Request",
+          "innerErrors": [
+            {
+              "code": "TEMPLATE_NOT_FOUND",
+              "message": "The specified template could not be located.",
+              "userMessage": "We couldn't generate your document. Please check the template reference and try again.",
+              "eventId": "a1b2c3d4"
+            }
+          ],
+          "externalErrors": []
+        },
+        "externalContext": {
+          "actionRequestId": "req-2026-0007421"
+        },
+        "origin": "https://app.example.com",
+        "dateTime": "2026-07-14T09:30:00.0000000+00:00",
+        "userId": "1a2b3c4d-5e6f-4a1b-8c2d-3e4f5a6b7c8d",
+        "operationId": "0HN7GK9M4T2R5"
+      }
+order: 2000

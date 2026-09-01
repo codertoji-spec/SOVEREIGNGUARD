@@ -1,0 +1,22 @@
+$kind: http-request
+description: |-
+  Creates and stores a user’s signature in the Storage system.<br />
+  * The signature is represented as a Base64-encoded image (e.g., PNG or JPG).
+  * Each signature is assigned a unique ID, which can be used in other operations to reference the signature.
+  * Users can save multiple signatures and optionally designate one as the default for the signing process.
+url: "{{baseUrl}}/v1/signatures/signature/create"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: json
+  content: |-
+    {
+      "signature": {
+        "value": "data:image/png;base64,iVBORw0KGgo...",
+        "isDefault": true
+      }
+    }
+examples: ./.resources/Signature Create.resources/examples
+order: 26000

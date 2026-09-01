@@ -1,0 +1,35 @@
+$kind: http-example
+name: The requested resource was not found.
+request:
+  url: "{{baseUrl}}/v1/documents/option/:entityType/:entityId/replace"
+  method: PUT
+  headers:
+    Content-Type: application/json
+  pathVariables:
+    - key: entityType
+      value: DocumentSolutionConfiguration
+      description: (Required) Type of the owning entity, e.g. "DocumentSolutionConfiguration" or "DocumentTemplate".
+    - key: entityId
+      value: a3bb189e-8bf9-3888-9912-ace4e6543002
+      description: (Required) GUID of the owning entity.
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "customKey": "watermark.text",
+          "customGroup": "rendering",
+          "value": "CONFIDENTIAL"
+        },
+        {
+          "optionDefinitionId": 42,
+          "value": "true"
+        }
+      ]
+response:
+  statusCode: 404
+  statusText: Not Found
+  body:
+    type: text
+    content: ""
+order: 4000

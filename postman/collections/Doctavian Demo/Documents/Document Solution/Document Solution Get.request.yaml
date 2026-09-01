@@ -1,0 +1,12 @@
+$kind: http-request
+description: Retrieves a single document solution by its GUID.
+url: "{{baseUrl}}/v1/documents/solution/:documentSolutionGuid/get"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: documentSolutionGuid
+    value: d290f1ee-6c54-4b01-90e6-d701748f0851
+    description: (Required) GUID of the document solution.
+examples: ./.resources/Document Solution Get.resources/examples
+order: 3000

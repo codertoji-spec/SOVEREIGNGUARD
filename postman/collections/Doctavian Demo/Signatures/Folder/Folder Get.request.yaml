@@ -1,0 +1,12 @@
+$kind: http-request
+description: Retrieves the details and metadata of a specific folder using its unique ID.
+url: "{{baseUrl}}/v1/signatures/folder/:folderId/get"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: folderId
+    value: string
+    description: (Required) The unique identifier (GUID) of the folder to retrieve.
+examples: ./.resources/Folder Get.resources/examples
+order: 3000

@@ -1,0 +1,50 @@
+$kind: http-example
+name: "No file exists for the supplied id. Real code: NOT_FOUND_BY_ID."
+request:
+  url: "{{baseUrl}}/v1/signatures/document/:documentId/download"
+  method: GET
+  headers:
+    - key: X-Service-Authorization
+      value: ""
+      description: Service-to-service auth token, used as an alternative to `Authorization` for service-principal callers.
+    - key: X-Client-Authorization
+      value: ""
+      description: Client auth token, used as an alternative to `Authorization` for client-application callers.
+    - key: X-OAuth-Flow
+      value: string
+      disabled: true
+      description: Indicates which OAuth flow variant issued the Authorization token.
+    - key: X-Storage-Type
+      value: document-input
+      description: (Required) Container-type key used to look up the blob. Must match whichever container the file was originally uploaded to (commonly document-input for signature-flow documents). Not strictly enforced as a closed enum; an unrecognized value surfaces as a generic FILE_DOWNLOAD_FAILED.
+    - key: Accept
+      value: application/json
+  pathVariables:
+    - key: documentId
+      value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+      description: (Required) Storage id (GUID) of the document to download, as returned by an upload or generation response.
+response:
+  statusCode: 404
+  statusText: Not Found
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "error": {
+          "statusCode": 404,
+          "message": "No file was found for the supplied id.",
+          "innerErrors": [
+            {
+              "code": "NOT_FOUND_BY_ID",
+              "message": "No file was found for the supplied id.",
+              "userMessage": "We couldn't find that file. Check the id and try again."
+            }
+          ]
+        },
+        "origin": "https://app.mavenmule.com",
+        "dateTime": "2026-07-14T09:32:15.0000000+00:00",
+        "operationId": "3a4b5c6d7e8f90112233445566778899"
+      }
+order: 4000

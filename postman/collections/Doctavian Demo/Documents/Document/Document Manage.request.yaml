@@ -1,0 +1,69 @@
+$kind: http-request
+description: |-
+  This endpoint performs external file operations on existing documents, such as copying, moving, deleting (currently only supports OneDrive), or converting documents, without modifying their internal content. It allows you to manage how and where documents are stored across supported platforms like Storage, Salesforce, and OneDrive.<br /><br />
+  **Copy**: If both source and target are provided in the payload, the document is duplicated from the source location to the target location. Requires the same fileFormat in both source and target document and <i>source.remove</i> must be "none".<br />
+  **Move**: Transfers the document from the source to the target location with deletion from the source. Requires the same fileFormat in both source and target document and <i>source.remove</i>  must be "delete" or "permanentDelete".<br />
+  **Delete**: Deletes the specified document if only the source document is provided and <i>source.remove</i> is "delete" or "permanentDelete". Target document is not in the payload in this case.<br />
+  **Convert**: Transforms the document format (e.g., docx → pdf, xlsx → pdf) while transferring it between same or different locations. Requires both source and target document with differing fileFormat values.
+url: "{{baseUrl}}/v1/documents/document/manage"
+method: POST
+headers:
+  - key: X-Client-Authorization
+    value: ""
+    description: Encrypted (AES) JWT token to identify and authorize the calling client system responsible for requesting the document generation. This header is required when retrieving the template and/or data used to populate the template from the client’s side, and for delivering the final generated document on the client’s side.
+  - key: X-Service-Authorization
+    value: ""
+    description: Encrypted (AES) JWT token to represent a user that doesn’t have a Microsoft Account and that is allowed to use the subscription.
+  - key: Content-Type
+    value: application/json
+  - key: Accept
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "externalContext": {
+        "id": "req-2026-0007421"
+      },
+      "sourceDocument": {
+        "urn": "e3b0c442-98fc-4e1a-8a3d-2c1b5f6e9a70",
+        "fileFormat": "docx",
+        "loadMethod": "Storage",
+        "remove": "none",
+        "options": {
+          "docxLoadOptions": "{ \"PreserveUnsupportedFeatures\": true }"
+        }
+      },
+      "targetDocument": {
+        "name": "Q3 Sales Report - Archived",
+        "fileFormat": "docx",
+        "deliveryMethod": "Storage",
+        "path": "root",
+        "options": {
+          "pdfSaveOptions": "{ \"ConformanceLevel\": \"PdfA3a\", \"Version\": \"PDF_1_7\", \"ImageDpi\": 750 }",
+          "docxSaveOptions": "{}",
+          "salesforce": {
+            "networkId": "0DMXYZ0000000AAAA",
+            "fileId": "069AZ0000004CvXYAW",
+            "fileType": "File",
+            "fileParentId": "0013P00000MvR7oQAF",
+            "ownerId": "0053P00000MvR7oQAF"
+          },
+          "onedrive": {
+            "viewAnonymous": true,
+            "editAnonymous": true,
+            "editUsers": [
+              "user@example.com"
+            ],
+            "viewUsers": [
+              "user@example.com"
+            ]
+          }
+        }
+      },
+      "data": {
+        "embedded": "key:value"
+      }
+    }
+examples: ./.resources/Document Manage.resources/examples
+order: 7000

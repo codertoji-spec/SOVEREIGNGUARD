@@ -1,0 +1,18 @@
+$kind: http-request
+description: |-
+  Records a recipient's explicit agreement to the legal terms or conditions associated with an envelope.<br />
+  * The envelope is identified by a unique <strong>transactionId</strong> (tid).
+  * The tid is typically obtained from the email link sent to the recipient or via the <strong>GET /signatures/envelope/list endpoint.</strong>
+  * Provide the <strong>tid</strong> as a query parameter.
+  * This procedure occurs <strong>before</strong> the recipient views or signs any documents.
+url: "{{baseUrl}}/v1/signatures/envelope/accept"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: tid
+    value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+    disabled: true
+    description: Transaction token identifying a specific recipient+envelope pair. Required for anonymous/recipient access (no Authorization header, or the header doesn't resolve to the envelope owner).
+examples: ./.resources/Envelope Accept.resources/examples
+order: 1000

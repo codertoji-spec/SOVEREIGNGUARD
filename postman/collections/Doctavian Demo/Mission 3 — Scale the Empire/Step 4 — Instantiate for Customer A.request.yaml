@@ -1,0 +1,32 @@
+$kind: http-request
+description: Instantiates a live envelope from the Envelope Template created in Step 3, matching the recipient to the template's Customer role and supplying a real name and email. Run this request again with different customerAName/customerAEmail values to see the same template produce a brand new, independent envelope every time — no envelope structure rebuilt, no fields repositioned, no documents re-uploaded. The response's envelope.id is saved automatically.
+url: "{{baseUrl}}/v1/signatures/template/{{mission3.envelopeTemplateId}}/envelope/create"
+method: POST
+headers:
+  X-Api-Key: "{{doctavianApiKey}}"
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "envelope": {
+        "subject": "Please sign: World Industries Contract — Customer A"
+      },
+      "recipients": [
+        {
+          "templateRole": "Customer",
+          "name": "{{mission3.customerAName}}",
+          "email": "{{mission3.customerAEmail}}"
+        }
+      ]
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const json = pm.response.json();
+      const envelopeId = json && json.result && json.result.data && json.result.data.envelope && json.result.data.envelope.id;
+      if (envelopeId) {
+          pm.collectionVariables.set('mission3.envelopeIdCustomerA', envelopeId);
+      }
+    language: text/javascript
+order: 7000

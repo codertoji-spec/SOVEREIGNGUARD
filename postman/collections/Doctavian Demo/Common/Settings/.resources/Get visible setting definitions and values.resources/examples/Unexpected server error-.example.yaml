@@ -1,0 +1,45 @@
+$kind: http-example
+name: Unexpected server error.
+request:
+  url: "{{baseUrl}}/v1/common/settings/get"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    - key: scope
+      value: Global
+      disabled: true
+      description: Case-insensitive match against the allowed values below. An unrecognized value returns `INVALID_SCOPE_VALUE` (400). (This can only be one of Global,User,Subscription,Account)
+    - key: application
+      value: MDS
+      disabled: true
+      description: Case-insensitive match against the allowed values below. An unrecognized value returns `INVALID_APPLICATION_VALUE` (400). (This can only be one of MDS,MD,MCLM,MHCW,MH)
+    - key: subscriptionId
+      value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+      disabled: true
+      description: If present, must be a GUID belonging to the caller; substitutes that subscription's context for the caller's own subscription. Otherwise the caller's own subscription context is used.
+response:
+  statusCode: 500
+  statusText: Internal Server Error
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "error": {
+          "innerErrors": [
+            {
+              "code": "FUNCTION_EXECUTION_ERROR",
+              "message": "An unexpected error occurred while processing the request.",
+              "userMessage": "Something went wrong. Please contact support."
+            }
+          ],
+          "message": "An unexpected error occurred while processing the request.",
+          "statusCode": 500
+        },
+        "dateTime": "2026-01-01T12:00:00.0000000+00:00",
+        "operationId": "common-settings-get",
+        "origin": ""
+      }
+order: 5000

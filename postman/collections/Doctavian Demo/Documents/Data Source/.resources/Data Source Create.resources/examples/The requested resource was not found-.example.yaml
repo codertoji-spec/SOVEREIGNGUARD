@@ -1,0 +1,23 @@
+$kind: http-example
+name: The requested resource was not found.
+request:
+  url: "{{baseUrl}}/v1/documents/datasource/create"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "name": "Q3 Sales Report Data",
+        "description": "Account records used for quarterly reports.",
+        "urn": "a4f8c9d2-6b3e-4f1a-9c7d-2e5b8a1f4d6c",
+        "loadMethod": "Storage"
+      }
+response:
+  statusCode: 404
+  statusText: Not Found
+  body:
+    type: text
+    content: ""
+order: 4000

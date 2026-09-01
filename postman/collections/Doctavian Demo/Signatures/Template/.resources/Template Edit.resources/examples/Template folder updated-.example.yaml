@@ -1,0 +1,46 @@
+$kind: http-example
+name: Template folder updated.
+request:
+  url: "{{baseUrl}}/v1/signatures/template/:templateId/edit"
+  method: PUT
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  pathVariables:
+    - key: templateId
+      value: string
+      description: (Required) The unique identifier (GUID) of the template to be edited.
+  body:
+    type: json
+    content: |-
+      {
+        "template": {
+          "folderId": "123e4567-e89b-12d3-a456-426614174000"
+        },
+        "externalContext": {
+          "id": "12345"
+        }
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "statusCode": 200,
+          "message": "OK",
+          "data": {
+            "template": {
+              "id": "string",
+              "message": "string"
+            }
+          }
+        },
+        "origin": "string",
+        "dateTime": "string"
+      }
+order: 1000

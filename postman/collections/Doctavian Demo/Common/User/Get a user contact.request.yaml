@@ -1,0 +1,12 @@
+$kind: http-request
+description: Retrieves a single user contact by id.
+url: "{{baseUrl}}/v1/common/user/contact/:userContactId/get"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: userContactId
+    value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+    description: (Required) GUID of the user contact. A non-GUID value returns a 400 with a different response shape than the standard error envelope.
+examples: ./.resources/Get a user contact.resources/examples
+order: 3000

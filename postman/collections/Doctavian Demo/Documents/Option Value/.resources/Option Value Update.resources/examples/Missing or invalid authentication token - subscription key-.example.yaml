@@ -1,0 +1,26 @@
+$kind: http-example
+name: Missing or invalid authentication token / subscription key.
+request:
+  url: "{{baseUrl}}/v1/documents/option/:optionValueGuid/update"
+  method: PUT
+  headers:
+    Content-Type: application/json
+  pathVariables:
+    - key: optionValueGuid
+      value: c9bf9e57-1685-4c89-bafb-ff5af830be8a
+      description: (Required) GUID of the option value to update.
+  body:
+    type: json
+    content: |-
+      {
+        "customKey": "watermark.text",
+        "customGroup": "rendering",
+        "value": "CONFIDENTIAL"
+      }
+response:
+  statusCode: 401
+  statusText: Unauthorized
+  body:
+    type: text
+    content: ""
+order: 3000

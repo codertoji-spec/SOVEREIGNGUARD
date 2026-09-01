@@ -1,0 +1,25 @@
+$kind: http-request
+description: Returns a paginated, optionally filtered and sorted list of document requests.
+url: "{{baseUrl}}/v1/documents/request/list"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: top
+    value: "25"
+    disabled: true
+    description: Maximum number of records to return (page size).
+  - key: skip
+    value: "0"
+    disabled: true
+    description: Number of records to skip (page offset).
+  - key: orderby
+    value: Name|DESC
+    disabled: true
+    description: Sort clause in the form `Column|DIRECTION`, e.g. `Name|DESC`. The column and direction are separated by a pipe (`|`).
+  - key: filter
+    value: string
+    disabled: true
+    description: 'URL-encoded JSON array of filter clauses (see FilterDTO). Example (decoded): `[{"key":"Filter1","column":"Name","type":"string","condition":"CONTAINS","value":"Invoice"}]`.'
+examples: ./.resources/Document Request List.resources/examples
+order: 4000

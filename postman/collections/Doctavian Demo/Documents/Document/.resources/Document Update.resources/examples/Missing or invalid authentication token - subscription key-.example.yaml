@@ -1,0 +1,33 @@
+$kind: http-example
+name: Missing or invalid authentication token / subscription key.
+request:
+  url: "{{baseUrl}}/v1/documents/document/:documentGuid/update"
+  method: PUT
+  headers:
+    Content-Type: application/json
+  pathVariables:
+    - key: documentGuid
+      value: 16fd2706-8baf-433b-82eb-8c7fada847da
+      description: (Required) GUID of the document to update.
+  body:
+    type: json
+    content: |-
+      {
+        "title": "Invoice INV-2026-000123",
+        "urn": "e3b0c442-98fc-4e1a-8a3d-2c1b5f6e9a70",
+        "url": "https://storage.example.com/documents/inv-2026-000123.pdf",
+        "path": "documents/inv-2026-000123.pdf",
+        "fileFormat": "pdf",
+        "deliveryMethod": "Email",
+        "succeededViewUserEmailList": "alice@example.com",
+        "succeededEditUserEmailList": "bob@example.com",
+        "failedViewUserEmailList": "ops@example.com",
+        "failedEditUserEmailList": "ops@example.com"
+      }
+response:
+  statusCode: 401
+  statusText: Unauthorized
+  body:
+    type: text
+    content: ""
+order: 3000

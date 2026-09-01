@@ -1,0 +1,31 @@
+$kind: http-example
+name: Folder created successfully.
+request:
+  url: "{{baseUrl}}/v1/signatures/folder/create"
+  method: POST
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "folder": {
+          "name": "Q3 Financial Contracts"
+        }
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "folder": {
+          "id": "123e4567-e89b-12d3-a456-426614174000",
+          "message": "Folder saved."
+        }
+      }
+order: 1000

@@ -1,0 +1,40 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/v1/common/settings/update"
+  method: PUT
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "settings": [
+          {
+            "settingDefinitionId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "settingScopeId": "5a2e7b10-8c3e-4a1a-9e3a-1f2b3c4d5e6f",
+            "scope": "account",
+            "value": "5",
+            "entityId": "7c9e6679-7425-40de-944b-e07fc1f90ae7"
+          }
+        ]
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "data": "Success",
+          "statusCode": 200,
+          "message": "OK"
+        },
+        "origin": "string",
+        "dateTime": "string",
+        "operationId": "string"
+      }
+order: 1000

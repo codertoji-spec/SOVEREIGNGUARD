@@ -1,0 +1,30 @@
+$kind: http-request
+description: Bulk-replaces the full set of option values for the entity named in the path. Every item in the array is validated with the same rules as create.
+url: "{{baseUrl}}/v1/documents/option/:entityType/:entityId/replace"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: entityType
+    value: DocumentSolutionConfiguration
+    description: (Required) Type of the owning entity, e.g. "DocumentSolutionConfiguration" or "DocumentTemplate".
+  - key: entityId
+    value: a3bb189e-8bf9-3888-9912-ace4e6543002
+    description: (Required) GUID of the owning entity.
+body:
+  type: json
+  content: |-
+    [
+      {
+        "customKey": "watermark.text",
+        "customGroup": "rendering",
+        "value": "CONFIDENTIAL"
+      },
+      {
+        "optionDefinitionId": 42,
+        "value": "true"
+      }
+    ]
+examples: ./.resources/Option Value Replace.resources/examples
+order: 5000

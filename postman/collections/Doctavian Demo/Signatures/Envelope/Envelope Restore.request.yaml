@@ -1,0 +1,16 @@
+$kind: http-request
+description: |-
+  Restores a previously deleted draft envelope.<br />
+  * The envelope is identified using the <strong>envelopeId</strong> path parameter.
+  * This endpoint allows the sender to recover an envelope deleted while in the <strong>"Draft"</strong> state.
+  * Upon restoration, the envelope returns to the <strong>"Draft"</strong> state, enabling the sender to continue editing or sending it. Note: state-mutating operation exposed as GET. Always restores to Draft status; only works on envelopes currently in Deleted status.
+url: "{{baseUrl}}/v1/signatures/envelope/:envelopeId/restore"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: envelopeId
+    value: string
+    description: (Required) The ID of the envelope that should be restored.
+examples: ./.resources/Envelope Restore.resources/examples
+order: 20000

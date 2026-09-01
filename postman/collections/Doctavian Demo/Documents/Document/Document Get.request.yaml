@@ -1,0 +1,12 @@
+$kind: http-request
+description: Retrieves a single document by its GUID.
+url: "{{baseUrl}}/v1/documents/document/:documentGuid/get"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: documentGuid
+    value: 16fd2706-8baf-433b-82eb-8c7fada847da
+    description: (Required) GUID of the document.
+examples: ./.resources/Document Get.resources/examples
+order: 5000

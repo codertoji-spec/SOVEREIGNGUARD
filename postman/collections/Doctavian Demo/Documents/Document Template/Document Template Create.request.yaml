@@ -1,0 +1,22 @@
+$kind: http-request
+description: Creates a new document template.
+url: "{{baseUrl}}/v1/documents/template/create"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Standard Invoice",
+      "description": "Company standard invoice layout.",
+      "title": "Invoice",
+      "urn": "9f86d081-884c-4d30-8934-9c1e6cbcb9f5",
+      "url": "https://storage.example.com/templates/invoice-standard.docx",
+      "fileFormat": "docx",
+      "loadMethod": "Storage",
+      "path": "templates/invoice-standard.docx"
+    }
+examples: ./.resources/Document Template Create.resources/examples
+order: 1000

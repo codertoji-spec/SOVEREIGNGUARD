@@ -1,0 +1,45 @@
+$kind: http-example
+name: Option value retrieved successfully.
+request:
+  url: "{{baseUrl}}/v1/documents/option/:optionValueGuid/get"
+  method: GET
+  headers:
+    Accept: application/json
+  pathVariables:
+    - key: optionValueGuid
+      value: c9bf9e57-1685-4c89-bafb-ff5af830be8a
+      description: (Required) GUID of the option value.
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "data": {
+            "optionValue": {
+              "optionValueGuid": "c9bf9e57-1685-4c89-bafb-ff5af830be8a",
+              "entityType": "DocumentSolutionConfiguration",
+              "entityId": "a3bb189e-8bf9-3888-9912-ace4e6543002",
+              "optionDefinitionId": "",
+              "customKey": "watermark.text",
+              "customGroup": "rendering",
+              "value": "CONFIDENTIAL",
+              "effectiveKey": "watermark.text",
+              "effectiveGroup": "rendering",
+              "systemType": "string",
+              "createdDate": "2026-07-14T09:30:00.0000000+00:00",
+              "lastModifiedDate": "2026-07-14T09:30:00.0000000+00:00"
+            }
+          },
+          "statusCode": 200,
+          "message": "OK"
+        },
+        "origin": "https://app.example.com",
+        "dateTime": "2026-07-14T09:30:00.0000000+00:00",
+        "operationId": "0HN7GK9M4T2R5"
+      }
+order: 1000

@@ -1,0 +1,113 @@
+$kind: http-request
+description: |-
+  Updates an existing template that has been created but not yet used to send an envelope.<br />
+  * The template is identified using the <strong>templateId</strong> parameter.
+  * This endpoint allows modification of:
+    * Template information.
+    * Included documents.
+    * Assigned recipients.
+    * Added fields.
+    * Expiration settings.
+    * Reminder settings.
+    * Associated metadata.
+url: "{{baseUrl}}/v1/signatures/template/:templateId/update"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: templateId
+    value: string
+    description: (Required) The ID of the template that should be edited.
+body:
+  type: json
+  content: |-
+    {
+      "documents": [
+        {
+          "referenceDocumentId": 0,
+          "name": "string",
+          "loadMethod": "string",
+          "urn": "string",
+          "externalContext": {}
+        }
+      ],
+      "fields": [
+        {
+          "referenceSignerId": 0,
+          "referenceSignGroupId": 0,
+          "referenceDocumentId": 0,
+          "name": "string",
+          "value": "string",
+          "type": "signature",
+          "anchorString": "string",
+          "page": 0,
+          "height": 0,
+          "width": 0,
+          "positionX": 0,
+          "positionY": 0,
+          "isRequired": true,
+          "tooltip": "string",
+          "properties": {
+            "fontFamily": "string",
+            "fontSize": 0,
+            "color": "string",
+            "bold": true,
+            "italic": true,
+            "underline": true,
+            "textAlign": "string",
+            "placeholder": "string",
+            "isSignedDate": true,
+            "selectionGroup": "string",
+            "selectionValue": "string"
+          }
+        }
+      ],
+      "recipients": [
+        {
+          "referenceSignerId": 0,
+          "referenceSignGroupId": 0,
+          "name": "string",
+          "email": "string",
+          "role": "signer",
+          "templateRole": "string",
+          "signOrder": 0,
+          "mandatory": true,
+          "hostEmail": "string",
+          "isMfaEnabled": true,
+          "phoneNumber": "string",
+          "externalContext": {}
+        }
+      ],
+      "signGroups": [
+        {
+          "referenceSignGroupId": 0,
+          "name": "string",
+          "role": "signer",
+          "signOrder": 0,
+          "mandatory": true,
+          "templateRole": "string"
+        }
+      ],
+      "template": {
+        "subject": "string",
+        "message": "string",
+        "senderName": "string",
+        "senderEmail": "string",
+        "isSignOrder": true,
+        "expireInDays": 0,
+        "alertDaysBeforeExpiry": 0,
+        "firstReminderDays": 0,
+        "repeatingReminderDays": 0,
+        "notifyWhenOpened": true,
+        "notifyWhenSigned": true,
+        "templateName": "string",
+        "templateDescription": "string",
+        "folderId": "string",
+        "locale": "string",
+        "timezone": "string"
+      },
+      "externalContext": {}
+    }
+examples: ./.resources/Template Update.resources/examples
+order: 7000

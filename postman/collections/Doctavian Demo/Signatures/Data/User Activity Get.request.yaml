@@ -1,0 +1,16 @@
+$kind: http-request
+description: |-
+  Retrieves a log of recent activities performed by or associated with the authenticated user.<br />
+  * <strong>Possible actions include</strong>:
+    * Create envelope.
+    * Send envelope.
+    * Receive envelope.
+    * View envelope.
+    * Cancel envelope.
+  * The response provides a detailed audit trail in JSON format, including metadata such as envelope IDs, action types, timestamps, and additional information (e.g., recipient emails or token status). Both lists are capped at the 10 most recent entries.
+url: "{{baseUrl}}/v1/signatures/user/activity/get"
+method: GET
+headers:
+  Accept: application/json
+examples: ./.resources/User Activity Get.resources/examples
+order: 4000

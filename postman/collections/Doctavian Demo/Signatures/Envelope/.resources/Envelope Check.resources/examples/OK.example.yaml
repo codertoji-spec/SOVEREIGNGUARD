@@ -1,0 +1,57 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/v1/signatures/envelope/check"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    - key: tid
+      value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+      disabled: true
+      description: Transaction token identifying a specific recipient+envelope pair. Required for anonymous/recipient access (no Authorization header, or the header doesn't resolve to the envelope owner).
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "statusCode": 200,
+          "message": "OK",
+          "data": {
+            "envelope": {
+              "id": "string",
+              "uploadDate": "string",
+              "status": "string",
+              "subject": "string",
+              "createdBy": {
+                "id": "string",
+                "name": "string",
+                "email": "string"
+              }
+            },
+            "recipient": {
+              "id": "string",
+              "role": "signer",
+              "name": "string",
+              "email": "string",
+              "status": "string",
+              "isTokenExpired": true,
+              "legalAccepted": true,
+              "isMfaEnabled": true,
+              "isMfaValid": true,
+              "hostEmail": "string",
+              "hasUser": true
+            },
+            "settings": [
+              {}
+            ]
+          }
+        },
+        "origin": "string",
+        "dateTime": "string"
+      }
+order: 1000

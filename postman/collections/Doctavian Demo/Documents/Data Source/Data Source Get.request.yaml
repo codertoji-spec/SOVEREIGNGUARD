@@ -1,0 +1,12 @@
+$kind: http-request
+description: Retrieves a single data source by its GUID.
+url: "{{baseUrl}}/v1/documents/datasource/:dataSourceGuid/get"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: dataSourceGuid
+    value: 3f2504e0-4f89-41d3-9a0c-0305e82c3301
+    description: (Required) GUID of the data source.
+examples: ./.resources/Data Source Get.resources/examples
+order: 3000

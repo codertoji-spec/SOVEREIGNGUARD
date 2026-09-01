@@ -1,0 +1,23 @@
+$kind: http-request
+description: Uploads the German-locale data file (JSON) — same contract data as Mission 1, with the date reformatted for German parsing. Download it from the Before you begin section of the Mission 3 page. The response's file id is saved automatically.
+url: "{{baseUrl}}/v1/documents/data/upload"
+method: POST
+headers:
+  X-Api-Key: "{{doctavianApiKey}}"
+body:
+  type: formdata
+  content:
+    - type: file
+      key: file
+      src: []
+      description: Attach mission-3-data-de.json here. Download it from the Before you begin section of the Mission 3 page.
+scripts:
+  - type: afterResponse
+    code: |-
+      const json = pm.response.json();
+      const files = json && json.result && json.result.data && json.result.data.files;
+      if (files && files.length > 0) {
+          pm.collectionVariables.set('mission3.dataId', files[0].id);
+      }
+    language: text/javascript
+order: 4000

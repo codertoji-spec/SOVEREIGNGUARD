@@ -1,0 +1,17 @@
+$kind: http-request
+description: Creates a new folder in the specified namespace to organize documents and envelopes.
+url: "{{baseUrl}}/v1/signatures/folder/create"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: json
+  content: |-
+    {
+      "folder": {
+        "name": "Q3 Financial Contracts"
+      }
+    }
+examples: ./.resources/Folder Create.resources/examples
+order: 1000

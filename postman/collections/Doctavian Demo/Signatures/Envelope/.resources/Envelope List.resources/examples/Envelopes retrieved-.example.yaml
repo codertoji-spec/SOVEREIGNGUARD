@@ -1,0 +1,79 @@
+$kind: http-example
+name: Envelopes retrieved.
+request:
+  url: "{{baseUrl}}/v1/signatures/envelope/list"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    - key: sort
+      value: UploadDate
+      disabled: true
+      description: Column to sort by the results. (This can only be one of Subject,Recipients,Documents,Status,UploadDate,ExpireInDays)
+    - key: order
+      value: DESC
+      disabled: true
+      description: The direction of the sort. (This can only be one of ASC,DESC)
+    - key: folder
+      value: Waiting for Others
+      disabled: true
+      description: Specifies the envelope folder to query. (This can only be one of Inbox,Sent,Drafts,Deleted,Action Required,Expiring Soon,Waiting for Others,Completed)
+    - key: top
+      value: "100"
+      disabled: true
+      description: Max rows to return.
+    - key: skip
+      value: "0"
+      disabled: true
+      description: Rows to skip. Defaults to 0 if omitted or not a valid integer.
+    - key: orderby
+      value: string
+      disabled: true
+      description: Combined param, format "<column>|<ASC|DESC>" (literal pipe). Defaults to `UploadDate DESC` if omitted or not recognized.
+    - key: filter
+      value: string
+      disabled: true
+      description: 'URL-encoded JSON array of FilterInput objects. column/key values are interpolated into the underlying query with no allow-list. One entry with key="folder" selects a view: inbox, sent, drafts, trash, todo, expiring, pending, completed, or (default) everything owned by or recipient-of the caller.'
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "statusCode": 200,
+          "message": "OK",
+          "data": {
+            "envelopes": [
+              {
+                "id": "string",
+                "createdBy": {
+                  "id": "string",
+                  "name": "string",
+                  "email": "string"
+                },
+                "creatorGuid": "string",
+                "status": "string",
+                "uploadDate": "string",
+                "sendDate": "string",
+                "subject": "string",
+                "transactionTokenId": "string",
+                "documents": "string",
+                "recipients": "string",
+                "signGroups": "string",
+                "isSignOrder": true,
+                "recipientStatus": "string",
+                "expireInDays": 0,
+                "alertDaysBeforeExpiry": 0
+              }
+            ],
+            "rowCount": 0
+          }
+        },
+        "origin": "string",
+        "dateTime": "string"
+      }
+order: 1000

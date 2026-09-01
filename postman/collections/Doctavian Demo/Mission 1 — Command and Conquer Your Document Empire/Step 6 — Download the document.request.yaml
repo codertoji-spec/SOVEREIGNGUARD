@@ -1,0 +1,7 @@
+$kind: http-request
+description: Downloads the generated document produced in Step 5, identified by its urn (saved as the generatedDocumentId collection variable).
+url: "{{baseUrl}}/v1/documents/document/{{mission1.generatedDocumentId}}/download"
+method: GET
+headers:
+  X-Api-Key: "{{doctavianApiKey}}"
+order: 6000

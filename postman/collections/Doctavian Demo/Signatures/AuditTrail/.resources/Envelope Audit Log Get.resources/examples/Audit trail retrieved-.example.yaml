@@ -1,0 +1,53 @@
+$kind: http-example
+name: Audit trail retrieved.
+request:
+  url: "{{baseUrl}}/v1/signatures/envelope/:envelopeId/audit/get"
+  method: GET
+  headers:
+    Accept: application/json
+  pathVariables:
+    - key: envelopeId
+      value: string
+      description: (Required) The ID of the envelope where the attachment will be added.
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "statusCode": 200,
+          "message": "OK",
+          "data": {
+            "auditTrails": [
+              {
+                "id": "string",
+                "user": {
+                  "id": "string",
+                  "name": "string",
+                  "email": "string"
+                },
+                "recipient": {
+                  "id": "string",
+                  "name": "string",
+                  "email": "string"
+                },
+                "signGroup": {
+                  "id": "string",
+                  "name": "string"
+                },
+                "action": "string",
+                "timestamp": "string",
+                "ipAddress": "string",
+                "additionalInfo": "string"
+              }
+            ]
+          }
+        },
+        "origin": "string",
+        "dateTime": "string"
+      }
+order: 1000

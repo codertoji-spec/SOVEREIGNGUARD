@@ -1,0 +1,8 @@
+$kind: http-request
+description: The endpoint retrieves the number of envelopes and divides them by folders. No tid/recipient access - authenticated user only.
+url: "{{baseUrl}}/v1/signatures/envelope/count"
+method: GET
+headers:
+  Accept: application/json
+examples: ./.resources/Envelope Count.resources/examples
+order: 8000

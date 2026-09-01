@@ -1,0 +1,40 @@
+$kind: http-example
+name: The caller's account is missing the ALLOW_CONTACT_SHARE setting required to derive sharedWithAccount on Create.
+request:
+  url: "{{baseUrl}}/v1/common/user/contact/create"
+  method: POST
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "name": "Jane Doe",
+        "email": "jane.doe@example.com"
+      }
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "error": {
+          "innerErrors": [
+            {
+              "code": "VALIDATION_ERROR",
+              "message": "Missing contact share setting.",
+              "userMessage": "Please contact your administrator to complete account setup."
+            }
+          ],
+          "message": "Missing contact share setting.",
+          "statusCode": 400
+        },
+        "dateTime": "2026-01-01T12:00:00.0000000+00:00",
+        "operationId": "common-user-contact-create",
+        "origin": ""
+      }
+order: 2000

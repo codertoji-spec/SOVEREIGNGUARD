@@ -1,0 +1,12 @@
+$kind: http-request
+description: Deletes a specific folder from the system.
+url: "{{baseUrl}}/v1/signatures/folder/:folderId/delete"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: folderId
+    value: string
+    description: (Required) The unique identifier (GUID) of the folder to delete.
+examples: ./.resources/Folder Delete.resources/examples
+order: 2000

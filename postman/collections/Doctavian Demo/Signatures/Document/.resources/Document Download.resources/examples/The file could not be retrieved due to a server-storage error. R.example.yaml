@@ -1,0 +1,50 @@
+$kind: http-example
+name: "The file could not be retrieved due to a server/storage error. Real code: FILE_DOWNLOAD_FAILED."
+request:
+  url: "{{baseUrl}}/v1/signatures/document/:documentId/download"
+  method: GET
+  headers:
+    - key: X-Service-Authorization
+      value: ""
+      description: Service-to-service auth token, used as an alternative to `Authorization` for service-principal callers.
+    - key: X-Client-Authorization
+      value: ""
+      description: Client auth token, used as an alternative to `Authorization` for client-application callers.
+    - key: X-OAuth-Flow
+      value: string
+      disabled: true
+      description: Indicates which OAuth flow variant issued the Authorization token.
+    - key: X-Storage-Type
+      value: document-input
+      description: (Required) Container-type key used to look up the blob. Must match whichever container the file was originally uploaded to (commonly document-input for signature-flow documents). Not strictly enforced as a closed enum; an unrecognized value surfaces as a generic FILE_DOWNLOAD_FAILED.
+    - key: Accept
+      value: application/json
+  pathVariables:
+    - key: documentId
+      value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+      description: (Required) Storage id (GUID) of the document to download, as returned by an upload or generation response.
+response:
+  statusCode: 500
+  statusText: Internal Server Error
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "error": {
+          "statusCode": 500,
+          "message": "Failed to read the requested file from storage.",
+          "innerErrors": [
+            {
+              "code": "FILE_DOWNLOAD_FAILED",
+              "message": "Failed to read the requested file from storage.",
+              "userMessage": "Something went wrong while downloading. Please try again or contact support."
+            }
+          ]
+        },
+        "origin": "https://app.mavenmule.com",
+        "dateTime": "2026-07-14T09:32:15.0000000+00:00",
+        "operationId": "3a4b5c6d7e8f90112233445566778899"
+      }
+order: 5000

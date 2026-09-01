@@ -1,0 +1,3 @@
+$kind: collection
+description: "End-to-end walkthrough: upload a joint venture agreement, create a sequential-signing envelope for two parties, send it, then poll the envelope status until both parties have signed."
+order: 6000

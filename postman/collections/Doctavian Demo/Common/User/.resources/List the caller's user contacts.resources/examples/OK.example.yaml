@@ -1,0 +1,35 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/v1/common/user/contact/list"
+  method: GET
+  headers:
+    Accept: application/json
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "data": {
+            "userContacts": [
+              {
+                "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                "name": "Jane Doe",
+                "email": "jane.doe@example.com",
+                "sharedWithAccount": true,
+                "subscriptionUserGuid": "7c9e6679-7425-40de-944b-e07fc1f90ae7"
+              }
+            ]
+          },
+          "statusCode": 200,
+          "message": "OK"
+        },
+        "origin": "string",
+        "dateTime": "string",
+        "operationId": "string"
+      }
+order: 1000

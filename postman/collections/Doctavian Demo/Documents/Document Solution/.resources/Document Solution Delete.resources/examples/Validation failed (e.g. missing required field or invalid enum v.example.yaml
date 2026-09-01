@@ -1,0 +1,24 @@
+$kind: http-example
+name: Validation failed (e.g. missing required field or invalid enum value).
+request:
+  url: "{{baseUrl}}/v1/documents/solution/:documentSolutionGuid/delete"
+  method: DELETE
+  headers:
+    Accept: application/json
+  pathVariables:
+    - key: documentSolutionGuid
+      value: d290f1ee-6c54-4b01-90e6-d701748f0851
+      description: (Required) GUID of the document solution to delete.
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": "DATA_NAME_REQUIRED",
+        "message": "Name is required."
+      }
+order: 2000

@@ -1,0 +1,45 @@
+$kind: http-request
+description: "Generates the contract document in a single synchronous call. Doctavian pulls the raw data referenced by dataId, applies the Data Source query from Step 1 to reshape it, then runs the result through the template's Repeater and conditional Paragraph elements. A 201 response includes the generated document's URN. Open the output and verify: customer name, account ID, formatted effective date, the line item table, the total contract value, and that the volume discount clause (Article 4) appears since the total exceeds $10,000. Copy the document.urn from the response and save it as the generatedDocumentId collection variable."
+url: "{{baseUrl}}/v1/documents/document/generate"
+method: POST
+headers:
+  X-Api-Key: "{{doctavianApiKey}}"
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "externalContext": {
+        "id": "mission-1-generate"
+      },
+      "template": {
+        "name": "mission-1-agreement.docx",
+        "urn": "{{mission1.templateId}}",
+        "fileFormat": "docx",
+        "loadMethod": "Storage",
+        "options": {}
+      },
+      "data": {
+        "loadMethod": "Storage",
+        "urn": "{{mission1.dataId}}"
+      },
+      "document": {
+        "name": "World-Industries-Contract",
+        "fileFormat": "pdf",
+        "deliveryMethod": "Storage",
+        "path": "root",
+        "locale": "en",
+        "timezone": "Europe/Dublin",
+        "options": {}
+      }
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const json = pm.response.json();
+      const documentUrn = json && json.result && json.result.data && json.result.data.document && json.result.data.document.urn;
+      if (documentUrn) {
+          pm.collectionVariables.set('mission1.generatedDocumentId', documentUrn);
+      }
+    language: text/javascript
+order: 5000

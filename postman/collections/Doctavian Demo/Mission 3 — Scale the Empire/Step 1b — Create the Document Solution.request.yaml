@@ -1,0 +1,24 @@
+$kind: http-request
+description: Same as Mission 1, Step 2 — see the full explanation there. The response's documentSolutionGuid is saved automatically.
+url: "{{baseUrl}}/v1/documents/solution/create"
+method: POST
+headers:
+  X-Api-Key: "{{doctavianApiKey}}"
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Mission 3 - World Industries Contract Solution",
+      "dataGuid": "{{mission3.dataSourceId}}"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const json = pm.response.json();
+      const documentSolutionGuid = json && json.result && json.result.data && json.result.data.documentSolution && json.result.data.documentSolution.documentSolutionGuid;
+      if (documentSolutionGuid) {
+          pm.collectionVariables.set('mission3.documentSolutionId', documentSolutionGuid);
+      }
+    language: text/javascript
+order: 2000

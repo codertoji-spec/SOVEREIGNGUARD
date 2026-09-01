@@ -1,0 +1,23 @@
+$kind: http-request
+description: Upload the Joint Venture Agreement to Doctavian storage. Download the file from https://developers.doctavian.com/openapi/latest/resources/mission-2-jv-agreement.pdf, attach it to this request, and send. The response's URN is automatically saved as the uploadedDocument collection variable.
+url: "{{baseUrl}}/v1/signatures/document/upload"
+method: POST
+headers:
+  X-Api-Key: "{{doctavianApiKey}}"
+body:
+  type: formdata
+  content:
+    - type: file
+      key: file
+      src: []
+      description: Upload the mission-2-jv-agreement.pdf file here
+scripts:
+  - type: afterResponse
+    code: |-
+      const json = pm.response.json();
+      const files = json && json.result && json.result.data && json.result.data.files;
+      if (files && files.length > 0) {
+          pm.collectionVariables.set('mission2.uploadedDocument', files[0].id);
+      }
+    language: text/javascript
+order: 1000

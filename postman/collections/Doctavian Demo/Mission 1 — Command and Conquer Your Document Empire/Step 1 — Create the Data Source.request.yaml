@@ -1,0 +1,26 @@
+$kind: http-request
+description: "Creates a Data Source using loadMethod: Storage, which points to a file you upload directly. The response's dataSourceGuid is automatically saved as the dataSourceId collection variable."
+url: "{{baseUrl}}/v1/documents/datasource/create"
+method: POST
+headers:
+  X-Api-Key: "{{doctavianApiKey}}"
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Mission 1 - Contract Data Source",
+      "description": "Reshapes raw sales order fields into template-ready Customer fields.",
+      "variables": "[]",
+      "loadMethod": "Storage"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const json = pm.response.json();
+      const dataSourceGuid = json && json.result && json.result.data && json.result.data.dataSourceGuid;
+      if (dataSourceGuid) {
+          pm.collectionVariables.set('mission1.dataSourceId', dataSourceGuid);
+      }
+    language: text/javascript
+order: 1000

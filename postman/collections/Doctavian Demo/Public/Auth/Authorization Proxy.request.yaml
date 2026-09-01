@@ -1,0 +1,10 @@
+$kind: http-request
+description: Authorization Proxy
+url: "{{baseUrl}}/public/v1/auth/:provider/authorize"
+method: GET
+pathVariables:
+  - key: provider
+    value: ""
+    description: "(Required) "
+examples: ./.resources/Authorization Proxy.resources/examples
+order: 1000

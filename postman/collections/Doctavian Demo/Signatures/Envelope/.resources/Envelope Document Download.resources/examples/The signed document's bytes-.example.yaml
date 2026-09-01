@@ -1,0 +1,31 @@
+$kind: http-example
+name: The signed document's bytes.
+request:
+  url: "{{baseUrl}}/v1/signatures/envelope/:envelopeId/document/:documentId/download"
+  method: GET
+  headers:
+    Accept: application/octet-stream
+  queryParams:
+    - key: tid
+      value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+      disabled: true
+      description: Transaction token identifying a specific recipient+envelope pair. Required for anonymous/recipient access (no Authorization header, or the header doesn't resolve to the envelope owner).
+  pathVariables:
+    - key: envelopeId
+      value: string
+      description: (Required) The ID of the envelope where the attachment is added.
+    - key: documentId
+      value: string
+      description: |+
+        (Required) The needed string value.
+        The ID(URN) of the document you would like to download from the defined envelope.
+
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/octet-stream
+  body:
+    type: text
+    content: ""
+order: 1000

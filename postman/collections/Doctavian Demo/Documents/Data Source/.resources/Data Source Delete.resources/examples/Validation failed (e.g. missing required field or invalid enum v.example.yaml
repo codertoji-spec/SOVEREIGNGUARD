@@ -1,0 +1,24 @@
+$kind: http-example
+name: Validation failed (e.g. missing required field or invalid enum value).
+request:
+  url: "{{baseUrl}}/v1/documents/datasource/:dataSourceGuid/delete"
+  method: DELETE
+  headers:
+    Accept: application/json
+  pathVariables:
+    - key: dataSourceGuid
+      value: 3f2504e0-4f89-41d3-9a0c-0305e82c3301
+      description: (Required) GUID of the data source to delete.
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": "DATA_NAME_REQUIRED",
+        "message": "Name is required."
+      }
+order: 2000

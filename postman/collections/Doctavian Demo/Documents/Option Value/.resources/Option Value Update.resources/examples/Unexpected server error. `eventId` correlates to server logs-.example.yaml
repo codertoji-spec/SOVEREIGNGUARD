@@ -1,0 +1,34 @@
+$kind: http-example
+name: Unexpected server error. `eventId` correlates to server logs.
+request:
+  url: "{{baseUrl}}/v1/documents/option/:optionValueGuid/update"
+  method: PUT
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  pathVariables:
+    - key: optionValueGuid
+      value: c9bf9e57-1685-4c89-bafb-ff5af830be8a
+      description: (Required) GUID of the option value to update.
+  body:
+    type: json
+    content: |-
+      {
+        "customKey": "watermark.text",
+        "customGroup": "rendering",
+        "value": "CONFIDENTIAL"
+      }
+response:
+  statusCode: 500
+  statusText: Internal Server Error
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": "GET_DATA_SOURCE_ERROR",
+        "message": "An unexpected error occurred.",
+        "eventId": "a1b2c3d4"
+      }
+order: 5000

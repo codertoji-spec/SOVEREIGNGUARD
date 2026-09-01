@@ -1,0 +1,24 @@
+$kind: http-example
+name: Validation failed (e.g. missing required field or invalid enum value).
+request:
+  url: "{{baseUrl}}/v1/documents/template/:documentTemplateGuid/get"
+  method: GET
+  headers:
+    Accept: application/json
+  pathVariables:
+    - key: documentTemplateGuid
+      value: 7c9e6679-7425-40de-944b-e07fc1f90ae7
+      description: (Required) GUID of the document template.
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": "DATA_NAME_REQUIRED",
+        "message": "Name is required."
+      }
+order: 2000

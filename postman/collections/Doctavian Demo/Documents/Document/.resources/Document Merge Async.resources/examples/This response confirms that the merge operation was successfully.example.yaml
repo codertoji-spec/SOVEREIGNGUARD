@@ -1,0 +1,107 @@
+$kind: http-example
+name: This response confirms that the merge operation was successfully completed. It returns metadata about the newly created PDF document, including its name, delivery method, file format, and a unique URN that can be used to reference or download the file. Ad
+request:
+  url: "{{baseUrl}}/v1/documents/document/merge/async"
+  method: POST
+  headers:
+    - key: X-Client-Authorization
+      value: ""
+      description: Encrypted (AES) JWT token to identify and authorize the calling client system responsible for requesting the document generation. This header is required when retrieving the template and/or data used to populate the template from the client’s side, and for delivering the final generated document on the client’s side.
+    - key: X-Service-Authorization
+      value: ""
+      description: Encrypted (AES) JWT token to represent a user that doesn’t have a Microsoft Account and that is allowed to use the subscription.
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "externalContext": {
+          "id": "req-2026-0007421"
+        },
+        "sourceDocuments": [
+          {
+            "urn": "e3b0c442-98fc-4e1a-8a3d-2c1b5f6e9a70",
+            "loadMethod": "Storage",
+            "order": 1,
+            "remove": "none"
+          },
+          {
+            "urn": "5d8e9f0a-1b2c-43d4-95e6-7f8a9b0c1d2e",
+            "loadMethod": "Storage",
+            "order": 2,
+            "remove": "none"
+          }
+        ],
+        "targetDocument": {
+          "name": "Q3 Sales Report - Merged",
+          "fileFormat": "pdf",
+          "deliveryMethod": "Storage",
+          "path": "root",
+          "options": {
+            "pdfSaveOptions": "{ \"ConformanceLevel\": \"PdfA3a\", \"Version\": \"PDF_1_7\", \"ImageDpi\": 750 }",
+            "salesforce": {
+              "networkId": "0DMXYZ0000000AAAA",
+              "fileId": "069AZ0000004CvXYAW",
+              "fileType": "File",
+              "fileParentId": "0013P00000MvR7oQAF",
+              "ownerId": "0053P00000MvR7oQAF"
+            },
+            "onedrive": {
+              "viewAnonymous": true,
+              "editAnonymous": true,
+              "editUsers": [
+                "user@example.com"
+              ],
+              "viewUsers": [
+                "user@example.com"
+              ]
+            }
+          }
+        },
+        "data": {
+          "embedded": "key:value"
+        }
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "statusCode": "201",
+          "message": "Created",
+          "data": {
+            "document": {
+              "deliveryMethod": "Storage",
+              "name": "Q3 Sales Report - Merged",
+              "fileFormat": "pdf",
+              "urn": "c72f4a1e-9d3b-4c5f-8a6e-1b2c3d4e5f6a:Q3 Sales Report - Merged.pdf"
+            }
+          }
+        },
+        "consumption": [
+          {
+            "dimension": "pages-merged",
+            "value": 4
+          },
+          {
+            "dimension": "documents-merged",
+            "value": 1
+          }
+        ],
+        "externalContext": {
+          "actionRequestId": "req-2026-0007421"
+        },
+        "origin": "https://app.example.com",
+        "dateTime": "2026-07-14T09:30:00.0000000+00:00",
+        "userId": "1a2b3c4d-5e6f-4a1b-8c2d-3e4f5a6b7c8d",
+        "operationId": "0HN7GK9M4T2R5"
+      }
+order: 1000

@@ -1,0 +1,21 @@
+$kind: http-request
+description: |-
+  Retrieves details of a specific envelope in JSON format.<br />
+  * The envelope is identified using the <strong>envelopeId</strong> path parameter.
+  * Secure access is ensured via the <strong>transactionId</strong> (tid) query parameter, restricting visibility to authorized recipients. The tid can be obtained from the <strong>GET /signatures/envelope/list</strong> endpoint.
+  * This endpoint is available to the envelope's owner (via standard authentication) or to a recipient presenting a valid tid.
+url: "{{baseUrl}}/v1/signatures/envelope/:envelopeId/get"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: tid
+    value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+    disabled: true
+    description: Transaction token identifying a specific recipient+envelope pair. Required for anonymous/recipient access (no Authorization header, or the header doesn't resolve to the envelope owner).
+pathVariables:
+  - key: envelopeId
+    value: string
+    description: (Required) The ID of the needed envelope.
+examples: ./.resources/Envelope Get.resources/examples
+order: 15000

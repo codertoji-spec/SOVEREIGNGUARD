@@ -1,0 +1,7 @@
+$kind: http-request
+description: Send the envelope instantiated in Step 4. Customer A will receive an email notification with a personalised signing link.
+url: "{{baseUrl}}/v1/signatures/envelope/{{mission3.envelopeIdCustomerA}}/send"
+method: GET
+headers:
+  X-Api-Key: "{{doctavianApiKey}}"
+order: 8000

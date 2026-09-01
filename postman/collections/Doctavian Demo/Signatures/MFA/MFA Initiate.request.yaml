@@ -1,0 +1,15 @@
+$kind: http-request
+description: |-
+  Initiates the multi-factor authentication (MFA) process.<br />
+  * The request generates an authentication code and sends it to the specified phone number or email address. No request body - the server reads nothing from the body for this operation.
+url: "{{baseUrl}}/v1/signatures/mfa/initiate"
+method: POST
+headers:
+  Accept: application/json
+queryParams:
+  - key: tid
+    value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+    disabled: true
+    description: Transaction token identifying a specific recipient+envelope pair. Required for anonymous/recipient access (no Authorization header, or the header doesn't resolve to the envelope owner).
+examples: ./.resources/MFA Initiate.resources/examples
+order: 1000

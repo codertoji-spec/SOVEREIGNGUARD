@@ -1,0 +1,36 @@
+$kind: http-example
+name: Missing or invalid authentication token.
+request:
+  url: "{{baseUrl}}/v1/common/summary?type=dashboard"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    - key: type
+      value: dashboard
+      description: (Required) Matched case-insensitively against `dashboard`/`self-service`. A missing or unrecognized value returns `INVALID_SUMMARY_TYPE` (400). (This can only be one of dashboard,self-service)
+response:
+  statusCode: 401
+  statusText: Unauthorized
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "error": {
+          "innerErrors": [
+            {
+              "code": "VALIDATION_ERROR",
+              "message": "Name is required.",
+              "userMessage": "Name is required."
+            }
+          ],
+          "message": "One or more validation errors occurred.",
+          "statusCode": 400
+        },
+        "dateTime": "2026-01-01T12:00:00.0000000+00:00",
+        "operationId": "00-abc123-00",
+        "origin": "self-service-portal"
+      }
+order: 3000

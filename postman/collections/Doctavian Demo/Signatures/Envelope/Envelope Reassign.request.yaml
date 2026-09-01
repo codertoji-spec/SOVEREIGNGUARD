@@ -1,0 +1,29 @@
+$kind: http-request
+description: |-
+  Redirects a received envelope to another user.<br />
+  * The envelope is identified using the <strong>transactionId</strong> (tid) query parameter, which can be obtained from the <strong>GET /signatures/envelope/list</strong> endpoint.
+  * This endpoint allows the recipient to forward the envelope to another user instead of completing it. <strong>email</strong> is required and matched case-insensitively against existing recipients. <strong>phoneNumber</strong> is required only if the current recipient being reassigned has MFA enabled. Only allowed when the current recipient's role is signer and its status is In Progress.
+url: "{{baseUrl}}/v1/signatures/envelope/reassign"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+queryParams:
+  - key: tid
+    value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+    disabled: true
+    description: Transaction token identifying a specific recipient+envelope pair. Required for anonymous/recipient access (no Authorization header, or the header doesn't resolve to the envelope owner).
+body:
+  type: json
+  content: |-
+    {
+      "recipient": {
+        "name": "string",
+        "email": "string",
+        "reason": "string",
+        "phoneNumber": "string"
+      },
+      "externalContext": {}
+    }
+examples: ./.resources/Envelope Reassign.resources/examples
+order: 18000

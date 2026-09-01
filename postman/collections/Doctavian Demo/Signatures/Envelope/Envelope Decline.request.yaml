@@ -1,0 +1,27 @@
+$kind: http-request
+description: |-
+  Declines a sent envelope.<br />
+  * The envelope is identified using the <strong>transactionId</strong> (tid) query parameter, typically obtained from the <strong>GET /signatures/envelope/list</strong> endpoint.
+  * This endpoint is <strong>for recipients only</strong> to refuse signing or completing the envelope, for example, due to disagreements with the document content.
+  * Senders cannot decline an envelope.
+  * Declining an envelope updates its status to <strong>"Declined".</strong> <strong>declineReason</strong> is required when the envelope's own decline-reason setting requires it.
+url: "{{baseUrl}}/v1/signatures/envelope/decline"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+queryParams:
+  - key: tid
+    value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+    disabled: true
+    description: Transaction token identifying a specific recipient+envelope pair. Required for anonymous/recipient access (no Authorization header, or the header doesn't resolve to the envelope owner).
+body:
+  type: json
+  content: |-
+    {
+      "envelope": {
+        "declineReason": "test"
+      }
+    }
+examples: ./.resources/Envelope Decline.resources/examples
+order: 11000

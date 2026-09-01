@@ -1,0 +1,44 @@
+$kind: http-example
+name: Data source retrieved successfully.
+request:
+  url: "{{baseUrl}}/v1/documents/datasource/:dataSourceGuid/get"
+  method: GET
+  headers:
+    Accept: application/json
+  pathVariables:
+    - key: dataSourceGuid
+      value: 3f2504e0-4f89-41d3-9a0c-0305e82c3301
+      description: (Required) GUID of the data source.
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "data": {
+            "dataSourceGuid": "3f2504e0-4f89-41d3-9a0c-0305e82c3301",
+            "subscriptionGuid": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+            "ownerGuid": "1a2b3c4d-5e6f-4a1b-8c2d-3e4f5a6b7c8d",
+            "lastModifiedUserGuid": "1a2b3c4d-5e6f-4a1b-8c2d-3e4f5a6b7c8d",
+            "name": "Q3 Sales Report Data",
+            "description": "Account records used for quarterly reports.",
+            "urn": "a4f8c9d2-6b3e-4f1a-9c7d-2e5b8a1f4d6c",
+            "query": "",
+            "variables": "",
+            "loadMethod": "Storage",
+            "createdDate": "2026-07-14T09:30:00.0000000+00:00",
+            "lastModifiedDate": "2026-07-14T09:30:00.0000000+00:00",
+            "isDeleted": false
+          },
+          "statusCode": 200,
+          "message": "OK"
+        },
+        "origin": "https://app.example.com",
+        "dateTime": "2026-07-14T09:30:00.0000000+00:00",
+        "operationId": "0HN7GK9M4T2R5"
+      }
+order: 1000

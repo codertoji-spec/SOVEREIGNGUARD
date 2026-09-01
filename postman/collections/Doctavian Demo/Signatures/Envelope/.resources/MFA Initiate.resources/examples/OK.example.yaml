@@ -1,0 +1,38 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/v1/signatures/mfa/initiate"
+  method: POST
+  headers:
+    Accept: application/json
+  queryParams:
+    - key: tid
+      value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+      disabled: true
+      description: Transaction token identifying a specific recipient+envelope pair. Required for anonymous/recipient access (no Authorization header, or the header doesn't resolve to the envelope owner).
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "statusCode": 200,
+          "message": "OK",
+          "data": {
+            "recipient": {
+              "method": "email",
+              "destination": {
+                "email": "string"
+              },
+              "expiresAt": "string",
+              "message": "string"
+            }
+          }
+        },
+        "origin": "string",
+        "dateTime": "string"
+      }
+order: 1000

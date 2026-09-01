@@ -1,0 +1,23 @@
+$kind: http-request
+description: Uploads the World Industries contract template (DOCX). The template contains a Repeater element over Customer.LineItems (Article 3) and a conditional Paragraph element driven by a sum() expression (Article 4). The response's file id is automatically saved as the templateId collection variable.
+url: "{{baseUrl}}/v1/documents/template/upload"
+method: POST
+headers:
+  X-Api-Key: "{{doctavianApiKey}}"
+body:
+  type: formdata
+  content:
+    - type: file
+      key: file
+      src: []
+      description: Attach mission-1-agreement.docx here. Download it from the Before you begin section of the Mission 1 page.
+scripts:
+  - type: afterResponse
+    code: |-
+      const json = pm.response.json();
+      const files = json && json.result && json.result.data && json.result.data.files;
+      if (files && files.length > 0) {
+          pm.collectionVariables.set('mission1.templateId', files[0].id);
+      }
+    language: text/javascript
+order: 3000

@@ -1,0 +1,23 @@
+$kind: http-request
+description: Uploads the customer data file (JSON) — already structured to match the template's fields. The response's file id is automatically saved as the dataId collection variable.
+url: "{{baseUrl}}/v1/documents/data/upload"
+method: POST
+headers:
+  X-Api-Key: "{{doctavianApiKey}}"
+body:
+  type: formdata
+  content:
+    - type: file
+      key: file
+      src: []
+      description: Attach mission-1-data.json here. Download it from the Before you begin section of the Mission 1 page.
+scripts:
+  - type: afterResponse
+    code: |-
+      const json = pm.response.json();
+      const files = json && json.result && json.result.data && json.result.data.files;
+      if (files && files.length > 0) {
+          pm.collectionVariables.set('mission1.dataId', files[0].id);
+      }
+    language: text/javascript
+order: 4000

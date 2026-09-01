@@ -1,0 +1,63 @@
+$kind: http-example
+name: An error occurred. See SignatureErrorResponse for the response shape.
+request:
+  url: "{{baseUrl}}/v1/signatures/document/:documentId/comment"
+  method: POST
+  headers:
+    - key: X-Origin-IpAddress
+      value: string
+      disabled: true
+      description: Caller IP address, recorded in the audit trail. Not validated.
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+  queryParams:
+    - key: tid
+      value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+      disabled: true
+      description: Transaction token identifying a specific recipient+envelope pair. Required for anonymous/recipient access (no Authorization header, or the header doesn't resolve to the envelope owner).
+  pathVariables:
+    - key: documentId
+      value: string
+      description: (Required) The ID(URN) of the document from the envelope, where you’d like to place a comment.
+  body:
+    type: json
+    content: |-
+      {
+        "comment": {
+          "content": "string",
+          "pageNumber": 0,
+          "positionX": 0,
+          "positionY": 0,
+          "parentCommentId": "string",
+          "visibleTo": [
+            "string"
+          ]
+        },
+        "externalContext": {}
+      }
+response:
+  statusCode: 500
+  statusText: Internal Server Error
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "error": {
+          "message": "Envelope not found.",
+          "statusCode": 400,
+          "innerErrors": [
+            {
+              "code": "ENVELOPE_ID_INVALID",
+              "message": "Envelope not found.",
+              "userMessage": "Envelope not found."
+            }
+          ]
+        },
+        "origin": "POST https://apim-mavenheadless-dev-westeu-1.azure-api.net/v1/signatures/envelope/create",
+        "dateTime": "2026-07-20T12:00:00.0000000+00:00"
+      }
+order: 3000

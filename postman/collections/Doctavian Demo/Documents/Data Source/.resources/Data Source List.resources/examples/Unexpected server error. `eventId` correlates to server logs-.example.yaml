@@ -1,0 +1,38 @@
+$kind: http-example
+name: Unexpected server error. `eventId` correlates to server logs.
+request:
+  url: "{{baseUrl}}/v1/documents/datasource/list"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    - key: top
+      value: "25"
+      disabled: true
+      description: Maximum number of records to return (page size).
+    - key: skip
+      value: "0"
+      disabled: true
+      description: Number of records to skip (page offset).
+    - key: orderby
+      value: Name|DESC
+      disabled: true
+      description: Sort clause in the form `Column|DIRECTION`, e.g. `Name|DESC`. The column and direction are separated by a pipe (`|`).
+    - key: filter
+      value: string
+      disabled: true
+      description: 'URL-encoded JSON array of filter clauses (see FilterDTO). Example (decoded): `[{"key":"Filter1","column":"Name","type":"string","condition":"CONTAINS","value":"Invoice"}]`.'
+response:
+  statusCode: 500
+  statusText: Internal Server Error
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": "GET_DATA_SOURCE_ERROR",
+        "message": "An unexpected error occurred.",
+        "eventId": "a1b2c3d4"
+      }
+order: 5000

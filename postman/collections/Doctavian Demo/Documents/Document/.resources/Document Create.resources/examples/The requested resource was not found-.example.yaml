@@ -1,0 +1,29 @@
+$kind: http-example
+name: The requested resource was not found.
+request:
+  url: "{{baseUrl}}/v1/documents/document/create"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "title": "Invoice INV-2026-000123",
+        "urn": "e3b0c442-98fc-4e1a-8a3d-2c1b5f6e9a70",
+        "url": "https://storage.example.com/documents/inv-2026-000123.pdf",
+        "path": "documents/inv-2026-000123.pdf",
+        "fileFormat": "pdf",
+        "deliveryMethod": "Email",
+        "succeededViewUserEmailList": "alice@example.com",
+        "succeededEditUserEmailList": "bob@example.com",
+        "failedViewUserEmailList": "ops@example.com",
+        "failedEditUserEmailList": "ops@example.com"
+      }
+response:
+  statusCode: 404
+  statusText: Not Found
+  body:
+    type: text
+    content: ""
+order: 4000

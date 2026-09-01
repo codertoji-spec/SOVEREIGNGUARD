@@ -1,0 +1,36 @@
+$kind: http-example
+name: The `type` query parameter was missing, empty, or did not match one of the two recognized literal values.
+request:
+  url: "{{baseUrl}}/v1/common/summary?type=dashboard"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    - key: type
+      value: dashboard
+      description: (Required) Matched case-insensitively against `dashboard`/`self-service`. A missing or unrecognized value returns `INVALID_SUMMARY_TYPE` (400). (This can only be one of dashboard,self-service)
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "error": {
+          "innerErrors": [
+            {
+              "code": "INVALID_SUMMARY_TYPE",
+              "message": "The provided summary type is not recognized.",
+              "userMessage": "Please provide a valid summary type."
+            }
+          ],
+          "message": "The provided summary type is not recognized.",
+          "statusCode": 400
+        },
+        "dateTime": "2026-01-01T12:00:00.0000000+00:00",
+        "operationId": "common-summary",
+        "origin": ""
+      }
+order: 2000

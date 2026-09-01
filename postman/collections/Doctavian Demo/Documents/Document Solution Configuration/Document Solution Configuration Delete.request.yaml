@@ -1,0 +1,12 @@
+$kind: http-request
+description: Soft-deletes a document solution configuration by its GUID.
+url: "{{baseUrl}}/v1/documents/configuration/:documentSolutionConfigurationGuid/delete"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: documentSolutionConfigurationGuid
+    value: a3bb189e-8bf9-3888-9912-ace4e6543002
+    description: (Required) GUID of the document solution configuration to delete.
+examples: ./.resources/Document Solution Configuration Delete.resources/examples
+order: 2000

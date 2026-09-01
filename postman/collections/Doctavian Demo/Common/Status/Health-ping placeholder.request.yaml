@@ -1,0 +1,8 @@
+$kind: http-request
+description: "The only fully anonymous, unauthenticated operation in this group (AuthorizationLevel.Anonymous; never calls the custom bearer/JWT validation used by every other operation here). It is a genuine placeholder: no dependencies, no logic, always returns HTTP 200 with an empty string body as long as the Function host itself is up. Do not confuse this with the unrelated GET /common/diagnostic/status endpoint (not in this group), which uses the StatusResult model and requires standard auth. The APIM-level subscription-key gate (X-Api-Key / x-api-key) may still legitimately apply at the gateway regardless of this operation's own Anonymous auth level — that is a distinct layer from the Function's own (absent, here) auth check."
+url: "{{baseUrl}}/v1/common/status"
+method: GET
+headers:
+  Accept: application/json
+examples: ./.resources/Health-ping placeholder.resources/examples
+order: 1000

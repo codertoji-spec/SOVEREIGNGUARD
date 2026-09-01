@@ -1,0 +1,45 @@
+$kind: http-request
+description: Same template and data uploaded in Steps 1c/1d, changing only document.locale and document.timezone to de / Europe/Berlin. Want to try a different market? Change these two values to any pair from the Locales and Languages reference before sending. A 201 response includes the generated document's URN, saved automatically as germanDocumentId.
+url: "{{baseUrl}}/v1/documents/document/generate"
+method: POST
+headers:
+  X-Api-Key: "{{doctavianApiKey}}"
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "externalContext": {
+        "id": "mission-3-generate-de"
+      },
+      "template": {
+        "name": "mission-1-agreement.docx",
+        "urn": "{{mission3.templateId}}",
+        "fileFormat": "docx",
+        "loadMethod": "Storage",
+        "options": {}
+      },
+      "data": {
+        "loadMethod": "Storage",
+        "urn": "{{mission3.dataId}}"
+      },
+      "document": {
+        "name": "World-Industries-Contract-DE",
+        "fileFormat": "pdf",
+        "deliveryMethod": "Storage",
+        "path": "root",
+        "locale": "de",
+        "timezone": "Europe/Berlin",
+        "options": {}
+      }
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const json = pm.response.json();
+      const documentUrn = json && json.result && json.result.data && json.result.data.document && json.result.data.document.urn;
+      if (documentUrn) {
+          pm.collectionVariables.set('mission3.germanDocumentId', documentUrn);
+      }
+    language: text/javascript
+order: 5000

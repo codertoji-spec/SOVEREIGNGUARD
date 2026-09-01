@@ -1,0 +1,11 @@
+$kind: collection
+scripts:
+  - type: http:beforeRequest
+    code: |-
+      const value = pm.variables.get('doctavianApiKey');
+      if (!value) {
+        console.error('Set the "doctavianApiKey" collection variable to your Doctavian api key.');
+      }
+      pm.request.headers.upsert({ key: 'X-Api-Key', value: value || '' });
+    language: text/javascript
+order: 2000

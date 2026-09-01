@@ -1,0 +1,35 @@
+$kind: http-example
+name: An error occurred. See SignatureErrorResponse for the response shape.
+request:
+  url: "{{baseUrl}}/v1/signatures/signature/:signatureId/get"
+  method: GET
+  headers:
+    Accept: application/json
+  pathVariables:
+    - key: signatureId
+      value: string
+      description: (Required) The ID of the signature which information should be retrieved.
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "error": {
+          "message": "Envelope not found.",
+          "statusCode": 400,
+          "innerErrors": [
+            {
+              "code": "ENVELOPE_ID_INVALID",
+              "message": "Envelope not found.",
+              "userMessage": "Envelope not found."
+            }
+          ]
+        },
+        "origin": "POST https://apim-mavenheadless-dev-westeu-1.azure-api.net/v1/signatures/envelope/create",
+        "dateTime": "2026-07-20T12:00:00.0000000+00:00"
+      }
+order: 2000

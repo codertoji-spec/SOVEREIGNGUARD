@@ -1,0 +1,34 @@
+$kind: http-example
+name: Envelope restored.
+request:
+  url: "{{baseUrl}}/v1/signatures/envelope/:envelopeId/restore"
+  method: GET
+  headers:
+    Accept: application/json
+  pathVariables:
+    - key: envelopeId
+      value: string
+      description: (Required) The ID of the envelope that should be restored.
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "statusCode": 200,
+          "message": "OK",
+          "data": {
+            "envelope": {
+              "id": "string",
+              "message": "string"
+            }
+          }
+        },
+        "origin": "string",
+        "dateTime": "string"
+      }
+order: 1000

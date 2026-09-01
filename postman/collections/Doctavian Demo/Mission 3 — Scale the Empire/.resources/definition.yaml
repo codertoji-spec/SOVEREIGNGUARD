@@ -1,0 +1,3 @@
+$kind: collection
+description: "End-to-end walkthrough: rebuild Mission 1's pipeline in this collection, generate a contract for a new locale, then turn the generated document into a reusable Envelope Template and instantiate it for multiple customers."
+order: 7000

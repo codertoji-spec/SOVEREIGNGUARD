@@ -1,0 +1,58 @@
+$kind: http-example
+name: The attachment exists but belongs to a different user (FILE_ACCESS_DENIED — this also covers the envelope-attachment cross-type check), or the anonymous-mode owner was resolved but their subscription is inactive/invalid (ENVELOPE_OWNER_INVALID_SUBSCRIPTIO
+request:
+  url: "{{baseUrl}}/v1/signatures/envelope/:envelopeId/attachment/:attachmentId/download"
+  method: GET
+  headers:
+    - key: X-Service-Authorization
+      value: ""
+      description: Service-to-service auth token, used as an alternative to `Authorization` in authenticated mode.
+    - key: X-Client-Authorization
+      value: ""
+      description: Client auth token, used as an alternative to `Authorization` in authenticated mode.
+    - key: X-OAuth-Flow
+      value: string
+      disabled: true
+      description: Indicates which OAuth flow variant issued the Authorization token, in authenticated mode.
+    - key: X-Storage-Type
+      value: envelope-attachment
+      description: (Required) Container-type key used to look up the blob. Expected value for this operation is `envelope-attachment`; `envelope-document`/`envelope-audit` are also recognized container types.
+    - key: Accept
+      value: application/json
+  queryParams:
+    - key: tid
+      value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+      disabled: true
+      description: Transaction token identifying a specific recipient+envelope pair. When present and Guid-parseable, selects anonymous mode and no Authorization header is required. When absent or not Guid-parseable, authenticated mode applies and Authorization is required instead.
+  pathVariables:
+    - key: envelopeId
+      value: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+      description: (Required) GUID of the envelope the attachment belongs to.
+    - key: attachmentId
+      value: 9c858901-8a57-4791-81fe-4c455b099bc9
+      description: (Required) GUID of the attachment to download.
+response:
+  statusCode: 403
+  statusText: Forbidden
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "error": {
+          "statusCode": 403,
+          "message": "The requested file does not belong to the authenticated user.",
+          "innerErrors": [
+            {
+              "code": "FILE_ACCESS_DENIED",
+              "message": "The requested file does not belong to the authenticated user.",
+              "userMessage": "You don't have access to this file."
+            }
+          ]
+        },
+        "origin": "https://app.mavenmule.com",
+        "dateTime": "2026-07-14T09:32:15.0000000+00:00",
+        "operationId": "3a4b5c6d7e8f90112233445566778899"
+      }
+order: 3000

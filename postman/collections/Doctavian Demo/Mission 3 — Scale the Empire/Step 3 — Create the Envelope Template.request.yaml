@@ -1,0 +1,71 @@
+$kind: http-request
+description: Creates a reusable Envelope Template referencing the document generated in Step 2 directly by its urn — no re-upload needed. The recipient carries a templateRole placeholder ('Customer') instead of a real name and email, exactly like the Create an envelope from a template how-to guide. The response's template.id is saved automatically as envelopeTemplateId.
+url: "{{baseUrl}}/v1/signatures/template/create"
+method: POST
+headers:
+  X-Api-Key: "{{doctavianApiKey}}"
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "template": {
+        "subject": "Please sign: World Industries Contract",
+        "message": "Please review and sign the attached contract.",
+        "isSignOrder": false,
+        "expireInDays": "7",
+        "alertDaysBeforeExpiry": "1",
+        "firstReminderDays": null,
+        "repeatingReminderDays": null,
+        "notifyWhenOpened": true,
+        "notifyWhenSigned": true,
+        "templateName": "World Industries Contract DE Template",
+        "templateDescription": "Reusable contract signing template, one customer at a time.",
+        "locale": "en",
+        "timezone": "Europe/Zagreb"
+      },
+      "documents": [
+        {
+          "referenceDocumentId": 0,
+          "name": "World-Industries-Contract-DE",
+          "loadMethod": "Storage",
+          "urn": "{{mission3.germanDocumentId}}"
+        }
+      ],
+      "recipients": [
+        {
+          "referenceSignerId": 1,
+          "role": "signer",
+          "signOrder": "1",
+          "mandatory": true,
+          "isMFAEnabled": false,
+          "templateRole": "Customer"
+        }
+      ],
+      "fields": [
+        {
+          "positionX": 90,
+          "positionY": 630,
+          "height": 60,
+          "width": 200,
+          "type": "signature",
+          "referenceFieldId": "1",
+          "name": "signature_customer",
+          "referenceDocumentId": 0,
+          "page": "1",
+          "isRequired": true,
+          "properties": null,
+          "referenceSignerId": "1"
+        }
+      ]
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const json = pm.response.json();
+      const templateId = json && json.result && json.result.data && json.result.data.template && json.result.data.template.id;
+      if (templateId) {
+          pm.collectionVariables.set('mission3.envelopeTemplateId', templateId);
+      }
+    language: text/javascript
+order: 6000

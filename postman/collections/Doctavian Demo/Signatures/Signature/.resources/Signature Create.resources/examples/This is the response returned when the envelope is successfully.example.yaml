@@ -1,0 +1,32 @@
+$kind: http-example
+name: This is the response returned when the envelope is successfully declined.
+request:
+  url: "{{baseUrl}}/v1/signatures/signature/create"
+  method: POST
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "signature": {
+          "value": "data:image/png;base64,iVBORw0KGgo...",
+          "isDefault": true
+        }
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "signature": {
+          "id": "123e4567-e89b-12d3-a456-426614174000",
+          "message": "Signature saved."
+        }
+      }
+order: 1000

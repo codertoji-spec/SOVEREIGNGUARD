@@ -1,0 +1,33 @@
+$kind: http-example
+name: Document deleted successfully.
+request:
+  url: "{{baseUrl}}/v1/documents/document/:documentGuid/delete"
+  method: DELETE
+  headers:
+    Accept: application/json
+  pathVariables:
+    - key: documentGuid
+      value: 16fd2706-8baf-433b-82eb-8c7fada847da
+      description: (Required) GUID of the document to delete.
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "data": {
+            "documentGuid": "16fd2706-8baf-433b-82eb-8c7fada847da",
+            "message": "Document deleted successfully."
+          },
+          "statusCode": 200,
+          "message": "OK"
+        },
+        "origin": "https://app.example.com",
+        "dateTime": "2026-07-14T09:30:00.0000000+00:00",
+        "operationId": "0HN7GK9M4T2R5"
+      }
+order: 1000

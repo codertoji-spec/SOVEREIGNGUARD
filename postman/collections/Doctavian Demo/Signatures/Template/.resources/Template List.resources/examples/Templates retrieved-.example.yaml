@@ -1,0 +1,77 @@
+$kind: http-example
+name: Templates retrieved.
+request:
+  url: "{{baseUrl}}/v1/signatures/template/list"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    - key: sort
+      value: Template Roles
+      disabled: true
+      description: Column to sort by the results. (This can only be one of Template Name,Template Roles,Documents,Creation Date)
+    - key: order
+      value: DESC
+      disabled: true
+      description: The direction of the sort. (This can only be one of ASC,DESC)
+    - key: top
+      value: "100"
+      disabled: true
+      description: Max rows to return.
+    - key: skip
+      value: "0"
+      disabled: true
+      description: Rows to skip. Defaults to 0 if omitted or not a valid integer.
+    - key: orderby
+      value: string
+      disabled: true
+      description: Single combined param, format "<column>|<ASC|DESC>" (literal pipe). Defaults to `UploadDate DESC` if omitted or not recognized.
+    - key: filter
+      value: string
+      disabled: true
+      description: URL-encoded JSON array of FilterInput objects. A folder-scoping filter (key="folder") can be used with the value "templates" to scope results to templates.
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "statusCode": 200,
+          "message": "OK",
+          "data": {
+            "templates": [
+              {
+                "id": "string",
+                "createdBy": {
+                  "id": "string",
+                  "name": "string",
+                  "email": "string"
+                },
+                "status": "string",
+                "uploadDate": "string",
+                "sendDate": "string",
+                "subject": "string",
+                "transactionTokenId": "string",
+                "documents": "string",
+                "recipients": "string",
+                "signGroups": "string",
+                "isSignOrder": true,
+                "expireInDays": 0,
+                "alertDaysBeforeExpiry": 0,
+                "templateName": "string",
+                "templateDescription": "string",
+                "folderId": "string",
+                "folderName": "string"
+              }
+            ],
+            "rowCount": 0
+          }
+        },
+        "origin": "string",
+        "dateTime": "string"
+      }
+order: 1000

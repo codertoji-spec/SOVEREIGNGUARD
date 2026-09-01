@@ -1,0 +1,34 @@
+$kind: http-example
+name: Returns the stored document as a binary stream. The Content-Disposition file name and Content-Type reflect the stored file.
+request:
+  url: "{{baseUrl}}/v1/signatures/document/:documentId/download"
+  method: GET
+  headers:
+    - key: X-Service-Authorization
+      value: ""
+      description: Service-to-service auth token, used as an alternative to `Authorization` for service-principal callers.
+    - key: X-Client-Authorization
+      value: ""
+      description: Client auth token, used as an alternative to `Authorization` for client-application callers.
+    - key: X-OAuth-Flow
+      value: string
+      disabled: true
+      description: Indicates which OAuth flow variant issued the Authorization token.
+    - key: X-Storage-Type
+      value: document-input
+      description: (Required) Container-type key used to look up the blob. Must match whichever container the file was originally uploaded to (commonly document-input for signature-flow documents). Not strictly enforced as a closed enum; an unrecognized value surfaces as a generic FILE_DOWNLOAD_FAILED.
+    - key: Accept
+      value: application/octet-stream
+  pathVariables:
+    - key: documentId
+      value: 312bb9a2-9a08-1229-d383-fc5a85ee4abe
+      description: (Required) Storage id (GUID) of the document to download, as returned by an upload or generation response.
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/octet-stream
+  body:
+    type: text
+    content: ""
+order: 1000

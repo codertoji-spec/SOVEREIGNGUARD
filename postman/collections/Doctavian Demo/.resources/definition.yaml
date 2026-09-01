@@ -1,0 +1,51 @@
+$kind: collection
+description: Generated from the Doctavian OpenAPI specifications.
+variables:
+  doctavianApiKey: edff22dbcc244bd0b709d7e632ce12e5
+  mission1.dataSourceId: ""
+  mission1.documentSolutionId: ""
+  mission1.templateId: ""
+  mission1.dataId: ""
+  mission1.generatedDocumentId: ""
+  mission2.uploadedDocument: ""
+  mission2.partyAName: ""
+  mission2.partyAEmail: ""
+  mission2.partyBName: ""
+  mission2.partyBEmail: ""
+  mission2.envelopeId: ""
+  mission3.dataSourceId: ""
+  mission3.documentSolutionId: ""
+  mission3.templateId: ""
+  mission3.dataId: ""
+  mission3.germanDocumentId: ""
+  mission3.envelopeTemplateId: ""
+  mission3.customerAName: ""
+  mission3.customerAEmail: ""
+  mission3.envelopeIdCustomerA: ""
+  baseUrl: https://demo.api.doctavian.com
+  authProvider: microsoft
+  authBaseUrl: "{{baseUrl}}/public/v1/auth"
+  authUrl: "{{authBaseUrl}}/{{authProvider}}/authorize"
+  accessTokenUrl: "{{authBaseUrl}}/{{authProvider}}/token"
+  clientId: 11e71170-3499-43f3-b878-7df343f43d37
+  scope: api://40728276-52a7-4932-bf32-76737f1fd01a/.default offline_access
+  redirectUri: https://oauth.pstmn.io/v1/callback
+auth:
+  type: oauth2
+  credentials:
+    clientId: "{{clientId}}"
+    accessTokenUrl: "{{accessTokenUrl}}"
+    authUrl: "{{authUrl}}"
+    tokenName: Doctavian access token
+    addTokenTo: header
+    scope: "{{scope}}"
+    client_authentication: header
+    redirect_uri: "{{redirectUri}}"
+    grant_type: authorization_code_with_pkce
+    tokenRequestParams:
+      - key: client_id
+        value: "{{clientId}}"
+        enabled: true
+        send_as: request_body
+    authRequestParams: []
+    useBrowser: true

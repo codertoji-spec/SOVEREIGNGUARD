@@ -1,0 +1,113 @@
+$kind: http-request
+description: Create the signing envelope with both parties and their signature fields. The envelope uses sequential signing — Party A signs first, Party B is notified only after Party A completes. The response's envelopeId is automatically saved as the envelopeId collection variable.
+url: "{{baseUrl}}/v1/signatures/envelope/create"
+method: POST
+headers:
+  X-Api-Key: "{{doctavianApiKey}}"
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "documents": [
+        {
+          "referenceDocumentId": 1,
+          "name": "Joint Venture Agreement",
+          "loadMethod": "Storage",
+          "urn": "{{mission2.uploadedDocument}}"
+        }
+      ],
+      "recipients": [
+        {
+          "referenceSignerId": 1,
+          "name": "{{mission2.partyAName}}",
+          "email": "{{mission2.partyAEmail}}",
+          "role": "signer",
+          "mandatory": true,
+          "signOrder": 1
+        },
+        {
+          "referenceSignerId": 2,
+          "name": "{{mission2.partyBName}}",
+          "email": "{{mission2.partyBEmail}}",
+          "role": "signer",
+          "mandatory": true,
+          "signOrder": 2
+        }
+      ],
+      "fields": [
+        {
+          "type": "signature",
+          "isRequired": true,
+          "referenceSignerId": 1,
+          "referenceDocumentId": 1,
+          "page": 1,
+          "positionX": 85,
+          "positionY": 690,
+          "width": 200,
+          "height": 60,
+          "name": "signature_party_a"
+        },
+        {
+            "type": "name",
+            "isRequired": true,
+            "referenceSignerId": 1,
+            "referenceDocumentId": 1,
+            "page": 1,
+            "positionX": 115,
+            "positionY": 650,
+            "width": 175,
+            "height": 35,
+            "name": "name_party_a"
+        },
+        {
+          "type": "signature",
+          "isRequired": true,
+          "referenceSignerId": 2,
+          "referenceDocumentId": 1,
+          "page": 1,
+          "positionX": 340,
+          "positionY": 690,
+          "width": 200,
+          "height": 60,
+          "name": "signature_party_b"
+        },
+        {
+            "type": "name",
+            "isRequired": true,
+            "referenceSignerId": 2,
+            "referenceDocumentId": 1,
+            "page": 1,
+            "positionX": 365,
+            "positionY": 650,
+            "width": 175,
+            "height": 35,
+            "name": "name_party_b"
+        }
+      ],
+      "envelope": {
+        "subject": "Joint Venture Agreement — Signature Required",
+        "message": "The terms have been agreed. Please review and sign the Joint Venture Agreement to finalise the partnership.",
+        "senderName": "World Industries",
+        "senderEmail": "{{mission2.partyAEmail}}",
+        "isSignOrder": true,
+        "expireInDays": 5,
+        "alertDaysBeforeExpiry": 2,
+        "firstReminderDays": 2,
+        "repeatingReminderDays": 1,
+        "notifyWhenOpened": true,
+        "notifyWhenSigned": true,
+        "locale": "en",
+        "timezone": "UTC"
+      }
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const json = pm.response.json();
+      const envelopeId = json && json.result && json.result.data && json.result.data.envelope && json.result.data.envelope.id;
+      if (envelopeId) {
+          pm.collectionVariables.set('mission2.envelopeId', envelopeId);
+      }
+    language: text/javascript
+order: 2000

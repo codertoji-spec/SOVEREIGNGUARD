@@ -1,0 +1,45 @@
+$kind: http-example
+name: Missing or invalid authentication token / subscription key.
+request:
+  url: "{{baseUrl}}/v1/documents/configuration/:documentSolutionConfigurationGuid/update"
+  method: PUT
+  headers:
+    Content-Type: application/json
+  pathVariables:
+    - key: documentSolutionConfigurationGuid
+      value: a3bb189e-8bf9-3888-9912-ace4e6543002
+      description: (Required) GUID of the document solution configuration to update.
+  body:
+    type: json
+    content: |-
+      {
+        "documentSolutionGuid": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+        "name": "Invoice - PDF via Email",
+        "description": "Renders invoices as PDF and e-mails them to the customer.",
+        "title": "Invoice",
+        "fileFormat": "pdf",
+        "processingType": "STANDARD",
+        "deliveryMethod": "Email",
+        "path": "output/invoices/",
+        "pdfConformanceLevel": "PdfA2B",
+        "pdfVersion": "2026-01-07",
+        "language": "en",
+        "locale": "en-US",
+        "timeZone": "America/New_York",
+        "embeddedData": "{\"companyName\":\"Contoso Ltd\"}",
+        "viewAnonymous": false,
+        "editAnonymous": false,
+        "viewOrganization": true,
+        "editOrganization": false,
+        "viewUser": true,
+        "editUser": false,
+        "viewUserEmailList": "alice@example.com,bob@example.com",
+        "editUserEmailList": "carol@example.com"
+      }
+response:
+  statusCode: 401
+  statusText: Unauthorized
+  body:
+    type: text
+    content: ""
+order: 3000

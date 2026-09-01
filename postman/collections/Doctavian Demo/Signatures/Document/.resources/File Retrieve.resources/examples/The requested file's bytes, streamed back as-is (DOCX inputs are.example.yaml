@@ -1,0 +1,20 @@
+$kind: http-example
+name: The requested file's bytes, streamed back as-is (DOCX inputs are converted to PDF server-side first; PDFs pass through unchanged).
+request:
+  url: "{{baseUrl}}/v1/signatures/file/retrieve?fileUrl=http://HyZBrribDCDvWrlIhogMkH.ltyoDg,djh"
+  method: GET
+  headers:
+    Accept: application/octet-stream
+  queryParams:
+    - key: fileUrl
+      value: http://HyZBrribDCDvWrlIhogMkH.ltyoDg,djh
+      description: (Required) URL of the file to retrieve and return to the caller.
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/octet-stream
+  body:
+    type: text
+    content: ""
+order: 1000

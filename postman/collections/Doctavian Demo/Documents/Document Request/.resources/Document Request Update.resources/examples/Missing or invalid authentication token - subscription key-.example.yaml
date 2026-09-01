@@ -1,0 +1,43 @@
+$kind: http-example
+name: Missing or invalid authentication token / subscription key.
+request:
+  url: "{{baseUrl}}/v1/documents/request/:documentRequestGuid/update"
+  method: PUT
+  headers:
+    Content-Type: application/json
+  pathVariables:
+    - key: documentRequestGuid
+      value: 6ba7b810-9dad-11d1-80b4-00c04fd430c8
+      description: (Required) GUID of the document request to update.
+  body:
+    type: json
+    content: |-
+      {
+        "documentTemplateGuid": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
+        "dataGuid": "3f2504e0-4f89-41d3-9a0c-0305e82c3301",
+        "documentSolutionConfigurationGuid": "a3bb189e-8bf9-3888-9912-ace4e6543002",
+        "recordId": "INV-2026-000123",
+        "name": "Invoice run - Contoso July",
+        "status": "Pending",
+        "embeddedData": "{\"invoiceNumber\":\"INV-2026-000123\"}",
+        "title": "Invoice INV-2026-000123",
+        "fileFormat": "pdf",
+        "processingType": "STANDARD",
+        "deliveryMethod": "Email",
+        "path": "output/invoices/",
+        "language": "en",
+        "locale": "en-US",
+        "timeZone": "America/New_York",
+        "viewAnonymous": false,
+        "viewOrganization": true,
+        "viewUser": true,
+        "viewUserEmailList": "alice@example.com,bob@example.com",
+        "editUserEmailList": "carol@example.com"
+      }
+response:
+  statusCode: 401
+  statusText: Unauthorized
+  body:
+    type: text
+    content: ""
+order: 3000

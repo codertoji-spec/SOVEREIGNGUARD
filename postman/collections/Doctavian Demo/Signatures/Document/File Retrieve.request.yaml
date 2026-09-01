@@ -1,0 +1,15 @@
+$kind: http-request
+description: |-
+  Downloads a document using its URL.<br />
+  * Use the documentURL parameter to specify the document link.
+  * The request returns the document as a binary stream (application/octet-stream). Response is NOT wrapped in the standard result envelope - raw binary is returned directly, always with Content-Type application/octet-stream even for PDFs.
+url: "{{baseUrl}}/v1/signatures/file/retrieve?fileUrl=http://HyZBrribDCDvWrlIhogMkH.ltyoDg,djh"
+method: GET
+headers:
+  Accept: application/octet-stream
+queryParams:
+  - key: fileUrl
+    value: http://HyZBrribDCDvWrlIhogMkH.ltyoDg,djh
+    description: (Required) URL of the file to retrieve and return to the caller.
+examples: ./.resources/File Retrieve.resources/examples
+order: 7000

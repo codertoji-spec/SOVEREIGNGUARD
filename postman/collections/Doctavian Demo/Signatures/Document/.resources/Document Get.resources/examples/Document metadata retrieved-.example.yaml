@@ -1,0 +1,40 @@
+$kind: http-example
+name: Document metadata retrieved.
+request:
+  url: "{{baseUrl}}/v1/signatures/document/:documentId/get"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    - key: tid
+      value: string
+      disabled: true
+      description: This is a unique identifier associated with a specific recipient and envelope within a given transaction. It is used to securely validate that the user has the appropriate authorization to perform actions related to that transaction.
+  pathVariables:
+    - key: documentId
+      value: string
+      description: (Required) The ID(URN) of the document that is included into an envelope.
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "statusCode": 200,
+          "message": "OK",
+          "data": {
+            "document": {
+              "id": "string",
+              "name": "string",
+              "externalContext": {}
+            }
+          }
+        },
+        "origin": "string",
+        "dateTime": "string"
+      }
+order: 1000

@@ -1,0 +1,32 @@
+$kind: http-example
+name: Unexpected server error.
+request:
+  url: "{{baseUrl}}/v1/common/user/get"
+  method: GET
+  headers:
+    Accept: application/json
+response:
+  statusCode: 500
+  statusText: Internal Server Error
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "error": {
+          "innerErrors": [
+            {
+              "code": "GET_USER_FAILED",
+              "message": "Failed to load the current user.",
+              "userMessage": "Something went wrong. Please contact support."
+            }
+          ],
+          "message": "Failed to load the current user.",
+          "statusCode": 500
+        },
+        "dateTime": "2026-01-01T12:00:00.0000000+00:00",
+        "operationId": "common-user-get",
+        "origin": ""
+      }
+order: 4000

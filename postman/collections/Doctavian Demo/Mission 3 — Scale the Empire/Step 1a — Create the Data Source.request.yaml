@@ -1,0 +1,25 @@
+$kind: http-request
+description: Same as Mission 1, Step 1 — see the full explanation there. The response's dataSourceGuid is saved automatically.
+url: "{{baseUrl}}/v1/documents/datasource/create"
+method: POST
+headers:
+  X-Api-Key: "{{doctavianApiKey}}"
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Mission 3 - Contract Data Source",
+      "variables": "[]",
+      "loadMethod": "Storage"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const json = pm.response.json();
+      const dataSourceGuid = json && json.result && json.result.data && json.result.data.dataSourceGuid;
+      if (dataSourceGuid) {
+          pm.collectionVariables.set('mission3.dataSourceId', dataSourceGuid);
+      }
+    language: text/javascript
+order: 1000

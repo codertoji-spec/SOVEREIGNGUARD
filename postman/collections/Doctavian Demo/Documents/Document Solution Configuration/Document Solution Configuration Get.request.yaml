@@ -1,0 +1,12 @@
+$kind: http-request
+description: Retrieves a single document solution configuration by its GUID.
+url: "{{baseUrl}}/v1/documents/configuration/:documentSolutionConfigurationGuid/get"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: documentSolutionConfigurationGuid
+    value: a3bb189e-8bf9-3888-9912-ace4e6543002
+    description: (Required) GUID of the document solution configuration.
+examples: ./.resources/Document Solution Configuration Get.resources/examples
+order: 3000

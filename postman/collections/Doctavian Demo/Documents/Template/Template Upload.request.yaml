@@ -1,0 +1,35 @@
+$kind: http-request
+description: "Uploads one or more template files to Storage so they can be referenced in later requests such as document generation. Form-data only. Accepted formats: DOCX, XLSX, DOC, XLS. When several files are sent, their form-data order is preserved in the response. Each template is assigned a storage id. Uploaded templates are automatically removed from Storage after the next document-generation request that consumes them, whether it succeeds or fails — re-upload if needed. Max size is enforced at the gateway (20MB Production, 10MB Staging)."
+url: "{{baseUrl}}/v1/documents/template/upload"
+method: POST
+headers:
+  - key: X-Service-Authorization
+    value: ""
+    description: Service-to-service auth token, used as an alternative to `Authorization` for service-principal callers.
+  - key: X-Client-Authorization
+    value: ""
+    description: Client auth token, used as an alternative to `Authorization` for client-application callers.
+  - key: X-OAuth-Flow
+    value: string
+    disabled: true
+    description: Indicates which OAuth flow variant issued the Authorization token.
+  - key: X-Origin
+    value: https://app.mavenmule.com
+    disabled: true
+    description: Free-form caller-supplied origin identifier. Not validated; echoed back verbatim into the response envelope's origin field. Optional.
+  - key: X-Storage-Type
+    value: document-template
+    description: (Required) Selects which storage container/validation branch handles the request. This operation expects the value document-template. Not strictly enforced as a closed enum server-side.
+  - key: Content-Type
+    value: multipart/form-data
+  - key: Accept
+    value: application/json
+body:
+  type: formdata
+  content:
+    - type: text
+      key: file
+      value: ""
+      description: "(Required) One or more template files to upload. Accepted extensions: .docx, .xlsx, .doc, .xls (validated by filename extension, case-sensitively). Order is preserved in the response."
+examples: ./.resources/Template Upload.resources/examples
+order: 1000

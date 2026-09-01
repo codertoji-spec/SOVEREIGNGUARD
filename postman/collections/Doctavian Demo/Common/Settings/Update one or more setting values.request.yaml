@@ -1,0 +1,23 @@
+$kind: http-request
+description: Applies a batch of setting writes. Each item is checked against the caller's role/scope permission and the per-setting validation rules before being persisted as a single batch.
+url: "{{baseUrl}}/v1/common/settings/update"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: json
+  content: |-
+    {
+      "settings": [
+        {
+          "settingDefinitionId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          "settingScopeId": "5a2e7b10-8c3e-4a1a-9e3a-1f2b3c4d5e6f",
+          "scope": "account",
+          "value": "5",
+          "entityId": "7c9e6679-7425-40de-944b-e07fc1f90ae7"
+        }
+      ]
+    }
+examples: ./.resources/Update one or more setting values.resources/examples
+order: 2000

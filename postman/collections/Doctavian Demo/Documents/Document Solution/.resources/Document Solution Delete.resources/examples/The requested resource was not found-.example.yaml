@@ -1,0 +1,16 @@
+$kind: http-example
+name: The requested resource was not found.
+request:
+  url: "{{baseUrl}}/v1/documents/solution/:documentSolutionGuid/delete"
+  method: DELETE
+  pathVariables:
+    - key: documentSolutionGuid
+      value: d290f1ee-6c54-4b01-90e6-d701748f0851
+      description: (Required) GUID of the document solution to delete.
+response:
+  statusCode: 404
+  statusText: Not Found
+  body:
+    type: text
+    content: ""
+order: 4000

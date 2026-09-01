@@ -1,0 +1,12 @@
+$kind: http-request
+description: Deletes a single option value by its GUID.
+url: "{{baseUrl}}/v1/documents/option/:optionValueGuid/delete"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: optionValueGuid
+    value: c9bf9e57-1685-4c89-bafb-ff5af830be8a
+    description: (Required) GUID of the option value to delete.
+examples: ./.resources/Option Value Delete.resources/examples
+order: 2000

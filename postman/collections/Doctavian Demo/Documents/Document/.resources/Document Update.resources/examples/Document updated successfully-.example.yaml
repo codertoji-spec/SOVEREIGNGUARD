@@ -1,0 +1,72 @@
+$kind: http-example
+name: Document updated successfully.
+request:
+  url: "{{baseUrl}}/v1/documents/document/:documentGuid/update"
+  method: PUT
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  pathVariables:
+    - key: documentGuid
+      value: 16fd2706-8baf-433b-82eb-8c7fada847da
+      description: (Required) GUID of the document to update.
+  body:
+    type: json
+    content: |-
+      {
+        "title": "Invoice INV-2026-000123",
+        "urn": "e3b0c442-98fc-4e1a-8a3d-2c1b5f6e9a70",
+        "url": "https://storage.example.com/documents/inv-2026-000123.pdf",
+        "path": "documents/inv-2026-000123.pdf",
+        "fileFormat": "pdf",
+        "deliveryMethod": "Email",
+        "succeededViewUserEmailList": "alice@example.com",
+        "succeededEditUserEmailList": "bob@example.com",
+        "failedViewUserEmailList": "ops@example.com",
+        "failedEditUserEmailList": "ops@example.com"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "result": {
+          "data": {
+            "document": {
+              "documentGuid": "16fd2706-8baf-433b-82eb-8c7fada847da",
+              "subscriptionGuid": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+              "ownerGuid": "1a2b3c4d-5e6f-4a1b-8c2d-3e4f5a6b7c8d",
+              "lastModifiedUserGuid": "1a2b3c4d-5e6f-4a1b-8c2d-3e4f5a6b7c8d",
+              "title": "Invoice INV-2026-000123",
+              "urn": "e3b0c442-98fc-4e1a-8a3d-2c1b5f6e9a70",
+              "url": "https://storage.example.com/documents/inv-2026-000123.pdf",
+              "path": "documents/inv-2026-000123.pdf",
+              "fileFormat": "pdf",
+              "deliveryMethod": "Email",
+              "viewAnonymousLink": "",
+              "editAnonymousLink": "",
+              "viewUserLink": "",
+              "editUserLink": "",
+              "viewOrganizationLink": "",
+              "editOrganizationLink": "",
+              "succeededViewUserEmailList": "alice@example.com",
+              "succeededEditUserEmailList": "bob@example.com",
+              "failedViewUserEmailList": "ops@example.com",
+              "failedEditUserEmailList": "ops@example.com",
+              "createdDate": "2026-07-14T09:30:00.0000000+00:00",
+              "lastModifiedDate": "2026-07-14T09:30:00.0000000+00:00",
+              "isDeleted": false
+            }
+          },
+          "statusCode": 200,
+          "message": "OK"
+        },
+        "origin": "https://app.example.com",
+        "dateTime": "2026-07-14T09:30:00.0000000+00:00",
+        "operationId": "0HN7GK9M4T2R5"
+      }
+order: 1000
