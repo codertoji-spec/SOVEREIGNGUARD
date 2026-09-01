@@ -37,23 +37,23 @@ export async function POST(req: Request) {
     }
 
     // If run is missing extracted facts, load default demo facts
-    const factsEmpty = !currentRun.extracted_facts || Object.keys(currentRun.extracted_facts).length === 0;
-    if (factsEmpty) {
-      currentRun = store.updateRun(runId, {
+    if (!currentRun.extracted_facts || Object.keys(currentRun.extracted_facts).length === 0) {
+      store.updateRun(runId, {
         extracted_facts: JSON.parse(JSON.stringify(DEMO_EXTRACTED_FACTS)),
         status: "EXTRACTED",
       });
     }
 
-    // If run is blocked/tampered or missing document hash, auto-restore approved baseline
+    // Always evaluate policy to guarantee valid state
+    store.evaluateRunPolicy(runId);
+    currentRun = store.getRun(runId)!;
+
+    // If run is blocked/tampered or missing document hash, compile fresh sealed document
     if (
       currentRun.status === "BLOCKED" ||
       currentRun.is_attack_simulated ||
-      !currentRun.document_integrity?.sha256_hash ||
-      !currentRun.policy_evaluation?.allowed ||
-      factsEmpty
+      !currentRun.document_integrity?.sha256_hash
     ) {
-      store.evaluateRunPolicy(runId);
       await store.generateAndSealDocument(runId);
     }
 

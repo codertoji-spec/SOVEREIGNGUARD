@@ -65,7 +65,7 @@ class SovereignGuardStore {
       agent_intent: JSON.parse(JSON.stringify(DEMO_AGENT_INTENT)),
       status: "INITIALIZED",
       is_attack_simulated: false,
-      extracted_facts: {},
+      extracted_facts: JSON.parse(JSON.stringify(DEMO_EXTRACTED_FACTS)),
       document_name: "Acme-Cloud-Enterprise-Proposal-2026.pdf",
       policy_id: defaultPolicy.id,
       document_versions: [],
@@ -94,7 +94,13 @@ class SovereignGuardStore {
 
   // --- Runs ---
   public getRun(id: string): AgentRun | undefined {
-    return this.runs.get(id);
+    let run = this.runs.get(id);
+    if (!run) {
+      if (id === "RUN-2026-08-31-001" || this.runs.size === 0) {
+        run = this.initDefaultState();
+      }
+    }
+    return run;
   }
 
   public getAllRuns(): AgentRun[] {
@@ -568,6 +574,46 @@ class SovereignGuardStore {
     const run = this.getRun(runId);
     if (!run) {
       throw new Error(`NOT_FOUND: Agent run '${runId}' does not exist.`);
+    }
+
+    // If a cryptographically valid approval token is provided, hydrate container state if needed
+    if (signatureToken) {
+      const tokenVerification = verifyApprovalToken(signatureToken);
+      if (tokenVerification.valid && tokenVerification.payload) {
+        const payload = tokenVerification.payload;
+        if (!run.human_approval) {
+          run.human_approval = {
+            approval_id: payload.approval_id,
+            approved: true,
+            reviewer_name: payload.approved_by.name,
+            reviewer_email: payload.approved_by.email,
+            reviewer_role: payload.approved_by.role,
+            reviewed_at: payload.approved_at,
+            expires_at: payload.expires_at,
+            comments: "Verified cryptographic approval token",
+            signature_token: signatureToken,
+            approved_document_hash: payload.document_hash,
+            approved_document_version: payload.contract_version,
+            approved_contract_id: payload.contract_id,
+            approved_policy_version: payload.policy_version,
+          };
+          run.status = "HUMAN_APPROVED";
+        }
+        if (!run.document_integrity) {
+          run.document_integrity = {
+            document_id: payload.contract_id,
+            version: payload.contract_version,
+            sha256_hash: payload.document_hash,
+            generated_at: payload.approved_at,
+            generator: "Doctavian Cloud API",
+            integration_mode: "LIVE",
+            is_tampered: false,
+          };
+        }
+        if (!run.policy_evaluation) {
+          this.evaluateRunPolicy(runId);
+        }
+      }
     }
 
     // INVARIANT CHECK 1: Must be in HUMAN_APPROVED state
