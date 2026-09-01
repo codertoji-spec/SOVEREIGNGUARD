@@ -36,25 +36,36 @@ export async function POST(req: Request) {
       currentRun = store.initializeDefaultRun();
     }
 
-    // If run is missing extracted facts, load default demo facts
-    if (!currentRun.extracted_facts || Object.keys(currentRun.extracted_facts).length === 0) {
+    // If run was tampered/attack-simulated, restore the approved baseline facts ($200k liability)
+    if (
+      currentRun.is_attack_simulated ||
+      currentRun.status === "BLOCKED" ||
+      currentRun.document_integrity?.is_tampered
+    ) {
       store.updateRun(runId, {
+        is_attack_simulated: false,
+        blocked_reason: undefined,
         extracted_facts: JSON.parse(JSON.stringify(DEMO_EXTRACTED_FACTS)),
         status: "EXTRACTED",
       });
-    }
-
-    // Always evaluate policy to guarantee valid state
-    store.evaluateRunPolicy(runId);
-    currentRun = store.getRun(runId)!;
-
-    // If run is blocked/tampered or missing document hash, compile fresh sealed document
-    if (
-      currentRun.status === "BLOCKED" ||
-      currentRun.is_attack_simulated ||
-      !currentRun.document_integrity?.sha256_hash
-    ) {
+      store.evaluateRunPolicy(runId);
       await store.generateAndSealDocument(runId);
+    } else {
+      // If run is missing extracted facts, load default demo facts
+      if (!currentRun.extracted_facts || Object.keys(currentRun.extracted_facts).length === 0) {
+        store.updateRun(runId, {
+          extracted_facts: JSON.parse(JSON.stringify(DEMO_EXTRACTED_FACTS)),
+          status: "EXTRACTED",
+        });
+      }
+
+      // Always evaluate policy to guarantee valid state
+      store.evaluateRunPolicy(runId);
+      currentRun = store.getRun(runId)!;
+
+      if (!currentRun.document_integrity?.sha256_hash) {
+        await store.generateAndSealDocument(runId);
+      }
     }
 
     // Approve with cryptographically signed HMAC token
