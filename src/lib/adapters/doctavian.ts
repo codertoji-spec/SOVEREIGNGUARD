@@ -31,6 +31,44 @@ export class DoctavianAdapter {
     );
   }
 
+  public async refreshAccessToken(): Promise<string | null> {
+    const refreshToken = process.env.DOCTAVIAN_REFRESH_TOKEN;
+    const clientId = process.env.DOCTAVIAN_CLIENT_ID || "11e71170-3499-43f3-b878-7df343f43d37";
+    const refreshUrl = "https://demo.api.doctavian.com/public/v1/auth/microsoft/token";
+
+    if (!refreshToken) return null;
+
+    try {
+      console.log("[DOCTAVIAN] Attempting automatic token refresh via Microsoft OAuth...");
+      const params = new URLSearchParams();
+      params.append("grant_type", "refresh_token");
+      params.append("client_id", clientId);
+      params.append("refresh_token", refreshToken);
+
+      const res = await fetch(refreshUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: params.toString(),
+        signal: AbortSignal.timeout(8000),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data.access_token) {
+          process.env.DOCTAVIAN_BEARER_TOKEN = data.access_token;
+          if (data.refresh_token) {
+            process.env.DOCTAVIAN_REFRESH_TOKEN = data.refresh_token;
+          }
+          console.log("[DOCTAVIAN] Token refreshed successfully!");
+          return data.access_token;
+        }
+      }
+    } catch (err: any) {
+      console.warn("[DOCTAVIAN] Automatic token refresh failed:", err.message);
+    }
+    return null;
+  }
+
   public isConfigured(): boolean {
     const key = this.getApiKey();
     const token = this.getBearerToken();
@@ -123,16 +161,44 @@ export class DoctavianAdapter {
           headers["x-api-key"] = apiKey;
         }
 
-        if (bearerToken) {
-          headers["Authorization"] = `Bearer ${bearerToken}`;
+        let tokenToUse = bearerToken;
+        if (tokenToUse) {
+          try {
+            const parts = tokenToUse.split(".");
+            if (parts.length === 3) {
+              const jwtPayload = JSON.parse(Buffer.from(parts[1], "base64").toString("utf8"));
+              if (jwtPayload.exp && Date.now() >= (jwtPayload.exp - 60) * 1000) {
+                const refreshed = await this.refreshAccessToken();
+                if (refreshed) tokenToUse = refreshed;
+              }
+            }
+          } catch (_) {}
         }
 
-        const response = await fetch(endpoint, {
+        if (tokenToUse) {
+          headers["Authorization"] = `Bearer ${tokenToUse}`;
+        }
+
+        let response = await fetch(endpoint, {
           method: "POST",
           headers,
           body: JSON.stringify(payload),
           signal: AbortSignal.timeout(8000), // 8s timeout
         });
+
+        // If 401 and refresh token is configured, auto-refresh token and retry once
+        if (response.status === 401 && process.env.DOCTAVIAN_REFRESH_TOKEN) {
+          const refreshed = await this.refreshAccessToken();
+          if (refreshed) {
+            headers["Authorization"] = `Bearer ${refreshed}`;
+            response = await fetch(endpoint, {
+              method: "POST",
+              headers,
+              body: JSON.stringify(payload),
+              signal: AbortSignal.timeout(8000),
+            });
+          }
+        }
 
         if (response.ok) {
           const liveData = await response.json().catch(() => ({}));
